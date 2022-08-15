@@ -2,6 +2,8 @@ import React from 'react'
 import { CartItemInterface } from './types'
 
 const initialState:initialStateType = {
+    category: 0,
+    sort: 0,
     cart: {
         totalItems: 0,
         totalCost: 0,
@@ -14,11 +16,14 @@ export type initialStateType = {
         totalItems: number,
         totalCost: number,
         items: CartItemInterface[]
-    }
+    },
+    category: number,
+    sort: number,
 }
 
 type Action =
  | { type: 'ADD' }
+ | { type: 'SET_CATEGORY',payload: number}
 
 const mainReducer = (state: initialStateType,action: Action) => {
     switch(action.type) {
@@ -29,6 +34,11 @@ const mainReducer = (state: initialStateType,action: Action) => {
                     ...state.cart,
                     totalItems: state.cart.totalItems + 1
                 }
+            }
+        case 'SET_CATEGORY':
+            return {
+                ...state,
+                category: action.payload
             }
         default:
             return state

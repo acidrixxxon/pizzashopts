@@ -1,0 +1,35 @@
+
+
+
+
+.categories {
+
+    .categories__list {
+        display: flex;
+
+        .categories__item {
+            margin-right: 10px;
+            padding: 13px 30px;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            transition: .2s all ease-in;
+
+            &.active {
+                background-color: #282828;
+                color: #fff;
+                font-weight: 700;
+            }
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        margin-bottom: 10px;
+    }
+
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
+}

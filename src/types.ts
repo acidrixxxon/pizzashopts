@@ -38,3 +38,9 @@ export interface CartItemInterface {
     qty: number,
     title: string
 }
+
+
+export interface CategoryInterface {
+    id: number,
+    title: string
+}
