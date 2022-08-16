@@ -44,3 +44,8 @@ export interface CategoryInterface {
     id: number,
     title: string
 }
+
+export type SortVariantsType = {
+    id: number,
+    title: string
+}

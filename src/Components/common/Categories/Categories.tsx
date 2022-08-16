@@ -8,20 +8,26 @@ const Categories = () => {
 
     const { state: { category },dispatch} = React.useContext(Context)
 
-    
-    return (
-        <div className='categories'>
-            <ul className="categories__list">
-                {categoriesList.map((item) => {
-                    return <li 
-                        onClick={() => dispatch({type: 'SET_CATEGORY',payload: item.id})}
-                        className={category === item.id ? 'categories__item active' : 'categories__item'}>
-                            {item.title}
-                    </li>
-                })}
-            </ul>
-        </div>
-    )
+    const changeCategoryHandler = (id: number):void => {
+        dispatch({type: 'SET_CATEGORY',payload: id})
+        dispatch({type: 'SET_SORT',payload: 0})
+    }
+
+
+        return (
+            <div className='categories'>
+                <ul className="categories__list">
+                    {categoriesList.map((item) => {
+                        return <li 
+                            key={item.id}
+                            onClick={() => changeCategoryHandler(item.id)}
+                            className={category === item.id ? 'categories__item active' : 'categories__item'}>
+                                {item.title}
+                        </li>
+                    })}
+                </ul>
+            </div>
+        )
 }
 
 export default Categories

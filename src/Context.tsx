@@ -24,6 +24,7 @@ export type initialStateType = {
 type Action =
  | { type: 'ADD' }
  | { type: 'SET_CATEGORY',payload: number}
+ | { type: 'SET_SORT',payload: number}
 
 const mainReducer = (state: initialStateType,action: Action) => {
     switch(action.type) {
@@ -40,6 +41,11 @@ const mainReducer = (state: initialStateType,action: Action) => {
                 ...state,
                 category: action.payload
             }
+        case 'SET_SORT':
+            return {
+                ...state,
+                sort: action.payload
+            }
         default:
             return state
     }
@@ -54,6 +60,13 @@ const Context = React.createContext<{state: initialStateType,dispatch: React.Dis
 const AppProvider: React.FC<ProviderType> = ({ children }) => {
     const [ state,dispatch ] = React.useReducer(mainReducer,initialState)
 
+    const setCategory = (id: number)  => {
+        return dispatch({
+            type: 'SET_CATEGORY',
+            payload: id
+        })
+    }
+    console.log(state)
     return (
         <Context.Provider value={{state,dispatch}}>
             {children}

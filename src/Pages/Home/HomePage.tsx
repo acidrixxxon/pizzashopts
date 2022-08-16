@@ -1,10 +1,13 @@
 import React from 'react'
 import Categories from '../../Components/common/Categories/Categories'
 import Container from '../../Components/common/Container/Container'
+import ProductList from '../../Components/common/Lists/ProductList/ProductList'
 import Sort from '../../Components/common/Sort/Sort'
 import './_HomePage.scss'
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
+
+  
   return (
     <div id='home'>
         <Container>
@@ -13,7 +16,10 @@ const HomePage = () => {
 
                 <Sort />
             </div>
-            HomePage
+            
+            <div className="home__content">
+              <ProductList />
+            </div>
         </Container>
     </div>
   )
