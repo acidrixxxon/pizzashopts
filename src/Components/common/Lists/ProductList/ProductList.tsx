@@ -11,6 +11,7 @@ const ProductList: React.FC = () => {
     React.useEffect(() => {
         const getData = async () => {
             const data = await ProductService.fetchProducts(category,sort)
+            setItems(data)
         }
 
         getData()

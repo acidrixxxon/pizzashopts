@@ -28,7 +28,7 @@ class ProductService {
 
                 return data
             } else if (sort === 2) {
-                const res = await fetch(`https://62c897d28c90491c2cb80379.mockapi.io/global?class=${category}&sortBy=defaultPriceg&order=asc`)
+                const res = await fetch(`https://62c897d28c90491c2cb80379.mockapi.io/global?class=${category}&sortBy=defaultPrice&order=asc`)
                 const data = await res.json()
 
                 return data

@@ -19,7 +19,8 @@ export interface SearchResultInterface {
     imageUrl: string,
     rating: number, 
     title: string,
-    variants: PizzaProductSizeInterface[]
+    variants: PizzaProductSizeInterface[],
+    ingridients: IIngridients[]
 }
 
 
@@ -39,6 +40,10 @@ export interface CartItemInterface {
     title: string
 }
 
+export interface IPizzaCategory {
+    id: number,
+    title: string
+}
 
 export interface CategoryInterface {
     id: number,
@@ -48,4 +53,26 @@ export interface CategoryInterface {
 export type SortVariantsType = {
     id: number,
     title: string
+}
+
+export interface IIngridientsFull {
+    id: number,
+    title: string,
+    category: number,
+    addPrice: number,
+    imageUrl: string
+}
+
+
+export interface IIngridients {
+    id: number,
+    qty: number
+}
+
+export interface IPizza {
+    id: number,
+    imageUrl: string,
+    title: string,
+    ingridients: IIngridients[],
+    variants: PizzaProductSizeInterface[],
 }
