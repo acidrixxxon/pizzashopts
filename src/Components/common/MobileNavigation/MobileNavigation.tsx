@@ -7,11 +7,24 @@ import PizzaIcon from '../Icons/PizzaIcon'
 import DrinkIcon from '../Icons/DrinkIcon'
 import SideIcon from '../Icons/SideIcon'
 import DesertIcon from '../Icons/DesertIcon'
+import { Context } from '../../../Context'
 
 const MobileNavigation = () => {
+    const menuItems = [{id: 0,title: 'Піци',icon: <PizzaIcon />},{id: 1,title: 'Сайди',icon: <SideIcon />},{id: 3,title: 'Напої',icon: <DrinkIcon />},{id: 4,title: 'Десерти',icon: <DesertIcon />}]
+
     const [ showMenu,setShowMenu ] = React.useState<boolean>(false)
 
     const closeMenu = () => setShowMenu(false)
+
+    const { dispatch,state: { category } } = React.useContext(Context)
+
+    const changeCategory = (id: number):void => {
+        if (category !== id) {
+            dispatch({type: 'SET_CATEGORY',payload: id})
+            dispatch({type: 'SET_SORT',payload: 0})
+            setShowMenu(false)
+        }
+    }
 
     return (
         <div id="mobilenav">
@@ -25,22 +38,14 @@ const MobileNavigation = () => {
                     </div>
 
                     <ul className="mobilenav__list">
-                        <li className="mobilenav__item">
-                            <PizzaIcon />
-                            Піци
-                        </li>
-                        <li className="mobilenav__item">
-                            <DrinkIcon />
-                            Сайди
-                        </li>
-                        <li className="mobilenav__item">
-                            <SideIcon />
-                            Напої
-                        </li>
-                        <li className="mobilenav__item">
-                            <DesertIcon />
-                            Десерти
-                        </li>
+                        {menuItems.map((item) => {
+                            return (
+                                <li className='mobilenav__item' onClick={() => changeCategory(item.id)}>
+                                    {item.icon}
+                                    {item.title}
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
         </div>

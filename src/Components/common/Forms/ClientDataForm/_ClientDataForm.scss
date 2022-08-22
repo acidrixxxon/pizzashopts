@@ -1,0 +1,33 @@
+
+
+#clientForm {
+
+    .clientForm__title {
+        font-weight: 600;
+        font-family: Open Sans,sans-serif;
+
+        margin-bottom: 15px;
+    }
+
+    .clientForm__inputGroup {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        
+        .clientForm__input {
+            width: 100%;
+
+            font-size: 16px;
+            color: #4f4f4f;
+
+            outline: none;
+
+            padding: 0 10px;
+            
+            height: 30px;
+
+            border-radius: 15px;
+            border: 1px solid rgba(79, 79, 79, 0.5);
+        }
+    }
+}

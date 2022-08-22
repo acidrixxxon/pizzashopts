@@ -1,25 +1,17 @@
 import React from 'react'
 import { Context } from '../../../../Context'
-import ProductService from '../../../../Services/ProductService'
-import { SearchResultInterface } from '../../../../types'
+import DrinkList from '../DrinkList/DrinkList'
 import PizzaList from '../PizzaList/PizzaList'
+import SideList from '../SideList/SideList'
 
 const ProductList: React.FC = () => {
-    const [ items,setItems ] = React.useState<SearchResultInterface[] | []>([])
-    const { state: { category,sort }} = React.useContext(Context)
-    
-    React.useEffect(() => {
-        const getData = async () => {
-            const data = await ProductService.fetchProducts(category,sort)
-            setItems(data)
-        }
-
-        getData()
-    },[sort,category])
+    const { state: { category }} = React.useContext(Context)
 
         return (
             <>
-                {category === 0 && <PizzaList items={items}/>}
+                {category === 0 && <PizzaList />}
+                {category === 1 && <SideList />}
+                {category === 2 && <DrinkList />}
             </>
         )
 }

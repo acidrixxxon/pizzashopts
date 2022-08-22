@@ -1,8 +1,9 @@
-import React, { MouseEventHandler } from 'react'
 import './scss/_base.scss';
+import { Route, Routes } from 'react-router-dom';
 import Header from './Components/Header/Header';
-import { Context } from './Context';
 import HomePage from './Pages/Home/HomePage';
+import CartPage from './Pages/Cart/CartPage';
+
 
 function App() {
   
@@ -10,9 +11,13 @@ function App() {
     <div className="App">
       <Header />
 
-      <HomePage />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
+      </Routes>
     </div>
   );
 }
+
 
 export default App;

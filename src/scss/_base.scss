@@ -15,9 +15,29 @@ li {
   background: #f8f4f8;
 }
 
+.list {
+  padding-bottom: 40px;
+}
 
 .product__list {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
+}
+
+.category {
+  margin-bottom: 40px;
+
+  .category__title {
+    font-size: 24px;
+    text-align: center;
+
+    padding: 20px;
+  }
+}
+
+button {
+  &:hover {
+    background-color: transparent;
+  }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CartItemInterface } from './types'
+import { CartItemInterface, IPizzaInCart } from './types'
 
 const initialState:initialStateType = {
     category: 0,
@@ -25,6 +25,7 @@ type Action =
  | { type: 'ADD' }
  | { type: 'SET_CATEGORY',payload: number}
  | { type: 'SET_SORT',payload: number}
+ | { type: 'ADD_TO_CART',payload: IPizzaInCart}
 
 const mainReducer = (state: initialStateType,action: Action) => {
     switch(action.type) {
@@ -45,6 +46,16 @@ const mainReducer = (state: initialStateType,action: Action) => {
             return {
                 ...state,
                 sort: action.payload
+            }
+        case 'ADD_TO_CART':
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    items: [...state.cart.items,action.payload],
+                    totalItems: state.cart.totalItems + action.payload.qty,
+                    totalCost: state.cart.totalCost + action.payload.price
+                }
             }
         default:
             return state

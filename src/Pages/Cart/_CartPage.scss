@@ -1,0 +1,18 @@
+
+
+#cart {
+    padding-top: 40px;
+
+    .container {
+        
+        .cart__wrapper {
+            display: grid;
+            grid-template-columns: minmax(300px, 762px) minmax(300px, 538px);
+            
+            @media screen and (max-width: 900px) {
+                grid-template-columns: minmax(300px,1fr);
+                grid-template-areas: "checkout-order" "checkout-form";
+            }
+        }
+    }
+}

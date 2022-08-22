@@ -1,3 +1,4 @@
+import { title } from "process"
 
 interface PizzaProductCrustInterface {
     fulltitle: string,
@@ -75,4 +76,57 @@ export interface IPizza {
     title: string,
     ingridients: IIngridients[],
     variants: PizzaProductSizeInterface[],
+    class: number,
+    category: number
+}
+
+export interface IPizzaInCart {
+    fulltitle: string,
+    id: number,
+    imageUrl: string,
+    inSell: boolean,
+    ingridients: IIngridients[],
+    price: number,
+    qty: number,
+    title: string
+}
+
+export  interface ISideCategory {
+    id: number,
+    title: string
+}
+
+export interface ISide {
+    class: number,
+    category: number,
+    id: number,
+    title: string,
+    imageUrl: string,
+    defaultPrice: number,
+    variants: SideVariants[] 
+}
+
+interface SideVariants {
+    size: string,
+    price: number
+}
+
+export interface IDrink {
+    class: number,
+    category: number,
+    id: number,
+    title: string,
+    imageUrl: string,
+    defaultPrice: number,
+    variants: DrinkVariants[] 
+}
+
+interface DrinkVariants {
+    size: string,
+    price: number
+}
+
+export interface IDrinkCategory {
+    id: number,
+    title: string
 }
