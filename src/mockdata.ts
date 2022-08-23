@@ -1,4 +1,4 @@
-import { IDrinkCategory, IIngridientsFull, IPizzaCategory, ISideCategory } from "./types";
+import { IDrinkCategory, IIngridientsFull, IPaymentVariants, IPizzaCategory, ISideCategory } from "./types";
 
 
 export const ingridientsList:IIngridientsFull[] = [
@@ -72,6 +72,17 @@ export const drinkCategory: IDrinkCategory[] = [
         title: 'Пиво'
     }
 ]
+
+export const paymentVariants: IPaymentVariants[] = [{
+    id: 0,
+    title: 'Готівка'
+},{
+    id: 1,
+    title: 'Картой курєру'
+},{
+    id: 2,
+    title: 'Картой онлайн'
+}]
 
 
 

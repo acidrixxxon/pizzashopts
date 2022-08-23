@@ -130,3 +130,8 @@ export interface IDrinkCategory {
     id: number,
     title: string
 }
+
+export interface IPaymentVariants {
+    id: number,
+    title: string
+}

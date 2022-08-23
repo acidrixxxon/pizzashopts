@@ -1,6 +1,7 @@
 
 
 #clientForm {
+    margin-bottom: 30px;
 
     .clientForm__title {
         font-weight: 600;
@@ -13,6 +14,11 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 10px;
+
+        @media screen and (max-width: 600px) {
+            display: flex;
+            flex-direction: column;
+        }
         
         .clientForm__input {
             width: 100%;

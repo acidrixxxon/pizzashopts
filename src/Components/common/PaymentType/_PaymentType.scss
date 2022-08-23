@@ -1,0 +1,61 @@
+#paymenttype {
+  
+  .paymenttype__title {
+    font-weight: 600;
+    font-family: Open Sans,sans-serif;
+
+    margin-bottom: 15px;
+  }
+
+  .paymenttype__dropdown {
+    border: 1px solid rgba(79, 79, 79, 0.5);
+
+    cursor: pointer;
+  
+    padding: 0 10px;
+  
+    height: 30px;
+  
+    border-radius: 15px;
+  
+    color: #4f4f4f;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    position: relative;
+
+    max-width: 220px;
+
+    svg {
+        transition: .2s all linear;
+      }
+    
+    &:hover {
+        border: 1px solid #4f4f4f;
+    }
+
+    .paymenttype__list {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+    
+        width: 100%;
+    
+        border: 1px solid #e0e0e0;
+        border-radius: 15px;
+    
+        li {
+          padding: 10px;
+          border-bottom: 1px solid #e0e0e0;
+    
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+    }
+}
+}
+
+  
