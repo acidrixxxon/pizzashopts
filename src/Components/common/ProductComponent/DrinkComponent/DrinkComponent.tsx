@@ -1,4 +1,5 @@
 import React from 'react'
+import { Context } from '../../../../Context'
 import { IDrink } from '../../../../types'
 import './_DrinkComponent.scss'
 
@@ -9,6 +10,20 @@ interface ComponentProps {
 const DrinkComponent:React.FC<ComponentProps> = ({ item }) => {
   const [ activeSize,setActiveSize ] = React.useState<number>(0)
 
+  const { dispatch } = React.useContext(Context)
+
+  const addToCartHandler = (item: IDrink):void => {
+      const productObj = {
+          ...item.variants[activeSize],
+          title: item.title,
+          id: item.id,
+          imageUrl: item.imageUrl,
+          qty: 1
+      }
+
+      dispatch({type: 'ADD_TO_CART',payload: productObj})
+      setActiveSize(0)
+  }
 
   return (
     <div id="drink">
@@ -37,7 +52,7 @@ const DrinkComponent:React.FC<ComponentProps> = ({ item }) => {
               <span className="drink__priceText">грн</span>
           </div>
 
-          <button className='drink__addToCart'>В кошик</button>    
+          <button className='drink__addToCart' onClick={() => addToCartHandler(item)}>В кошик</button>    
       </div>
     </div>
   )

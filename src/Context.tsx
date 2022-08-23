@@ -1,5 +1,6 @@
-import React from 'react'
-import { CartItemInterface, IPizzaInCart } from './types'
+import { stat } from 'fs'
+import React, { Dispatch } from 'react'
+import { CartItemInterface, IDrinkInCart, IPizzaInCart, ISideInCart } from './types'
 
 const initialState:initialStateType = {
     category: 0,
@@ -22,21 +23,16 @@ export type initialStateType = {
 }
 
 type Action =
- | { type: 'ADD' }
  | { type: 'SET_CATEGORY',payload: number}
  | { type: 'SET_SORT',payload: number}
  | { type: 'ADD_TO_CART',payload: IPizzaInCart}
+ | { type: 'CLEAR_CART'}
+ | { type: 'REMOVE_FROM_CART',payload: IPizzaInCart | IDrinkInCart | ISideInCart}
+ | { type: 'PLUS_QTY',payload:  number}
+ | { type: 'MINUS_QTY',payload: number}
 
-const mainReducer = (state: initialStateType,action: Action) => {
+const mainReducer = (state: initialStateType,action: Action): initialStateType => {
     switch(action.type) {
-        case 'ADD':
-            return {
-                ...state,
-                cart: {
-                    ...state.cart,
-                    totalItems: state.cart.totalItems + 1
-                }
-            }
         case 'SET_CATEGORY':
             return {
                 ...state,
@@ -48,13 +44,97 @@ const mainReducer = (state: initialStateType,action: Action) => {
                 sort: action.payload
             }
         case 'ADD_TO_CART':
+            const alreadyInCart:IPizzaInCart | ISideInCart | IDrinkInCart | undefined = state.cart.items.find(item => item.id === action.payload.id)
+
+            if (alreadyInCart) {
+                const index = state.cart.items.findIndex(item => item.id === action.payload.id)
+                let newItem = state.cart.items[index]
+                newItem.qty += 1
+
+                let newArray = state.cart.items
+                newArray[index] = newItem
+
+                return {
+                    ...state,
+                    cart: {
+                        ...state.cart,
+                        items: newArray,
+                        totalCost: state.cart.totalCost + newItem.price,
+                        totalItems: state.cart.totalItems + 1
+                    }
+                }
+            } else {
+                return {
+                    ...state,
+                    cart: {
+                        ...state.cart,
+                        items: [...state.cart.items,action.payload],
+                        totalItems: state.cart.totalItems + action.payload.qty,
+                        totalCost: state.cart.totalCost + action.payload.price
+                    }
+                }
+            }
+        case 'REMOVE_FROM_CART':
+            return {
+                ...state,
+                cart: {
+                    items: state.cart.items.filter(item => item.id !== action.payload.id),
+                    totalCost: state.cart.totalCost - (action.payload.qty * action.payload.price),
+                    totalItems: state.cart.totalItems - action.payload.qty    
+                }
+            }
+        case 'PLUS_QTY':
+            const itemIndex:number = state.cart.items.findIndex(item => item.id === action.payload)
+            let newItem = state.cart.items[itemIndex]
+            newItem.qty += 1
+
+            let newArray = state.cart.items
+            newArray[itemIndex] = newItem
+
             return {
                 ...state,
                 cart: {
                     ...state.cart,
-                    items: [...state.cart.items,action.payload],
-                    totalItems: state.cart.totalItems + action.payload.qty,
-                    totalCost: state.cart.totalCost + action.payload.price
+                    items: newArray,
+                    totalCost: state.cart.totalCost + newItem.price,
+                    totalItems: state.cart.totalItems + 1
+                }
+            }
+        case 'MINUS_QTY':
+            const index:number = state.cart.items.findIndex(item => item.id === action.payload)
+            let newObj = state.cart.items[index]
+
+            if (newObj.qty > 1) {
+                newObj.qty -= 1
+
+                let newArr = state.cart.items
+                newArr[index] = newObj
+                return {
+                    ...state,
+                    cart: {
+                        ...state.cart,
+                        items: newArr,
+                        totalCost: state.cart.totalCost - newObj.price,
+                        totalItems: state.cart.totalItems - 1
+                    }
+                }
+            } else {
+                return {
+                    ...state,
+                    cart: {
+                        items: state.cart.items.filter(item => item.id !== action.payload),
+                        totalItems: state.cart.totalItems - 1,
+                        totalCost: state.cart.totalCost - newObj.price
+                    }
+                }
+            }
+        case 'CLEAR_CART':
+            return {
+                ...state,
+                cart: {
+                    items: [],
+                    totalItems: 0,
+                    totalCost: 0
                 }
             }
         default:
@@ -77,7 +157,11 @@ const AppProvider: React.FC<ProviderType> = ({ children }) => {
             payload: id
         })
     }
-    console.log(state)
+    
+    const actions = {
+        setCategory
+    }
+
     return (
         <Context.Provider value={{state,dispatch}}>
             {children}

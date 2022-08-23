@@ -40,7 +40,7 @@ const MobileNavigation = () => {
                     <ul className="mobilenav__list">
                         {menuItems.map((item) => {
                             return (
-                                <li className='mobilenav__item' onClick={() => changeCategory(item.id)}>
+                                <li className='mobilenav__item' key={item.id} onClick={() => changeCategory(item.id)}>
                                     {item.icon}
                                     {item.title}
                                 </li>

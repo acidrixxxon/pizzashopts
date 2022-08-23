@@ -9,9 +9,10 @@ type PropsType = {
 const Skeleton:React.FC<PropsType> = (props) => {
   return (
     <div className="skeleton__list">
-       {[...new Array(8)].map((item) => {
+       {[...new Array(8)].map((item,index) => {
         return (
           <ContentLoader 
+            key={index}
             speed={2}
             width={305}
             height={501}

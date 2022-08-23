@@ -85,7 +85,6 @@ export const paymentVariants: IPaymentVariants[] = [{
 }]
 
 
-
 const data = [
     {
      "id": 1,

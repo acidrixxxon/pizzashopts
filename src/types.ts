@@ -91,6 +91,24 @@ export interface IPizzaInCart {
     title: string
 }
 
+export interface IDrinkInCart {
+    id: number,
+    imageUrl: string,
+    price: number,
+    qty: number,
+    size: string,
+    title: string,
+}
+
+export interface ISideInCart {
+    id: number,
+    imageUrl: string,
+    price: number,
+    qty: number,
+    size: string,
+    title: string,
+}
+
 export  interface ISideCategory {
     id: number,
     title: string

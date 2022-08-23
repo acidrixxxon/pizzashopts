@@ -1,0 +1,122 @@
+#cartitem {
+    display: flex;
+
+    padding: 10px;
+
+    border-bottom: 1px solid #e5e5e5;
+
+    @media screen and (max-width: 500px) {
+        padding: 10px 0 20px;
+    }
+    .cartitem__image {
+
+        .cartitem__img {
+            object-fit: contain;
+            border-radius: 15px;
+            height: 120px;
+            width: 193px;
+
+            @media screen and (max-width: 500px) {
+                width: 150px;
+                height: auto;
+            }
+        }
+    }
+
+    .cartitem__description {
+        width: 100%;
+
+        margin-left: 10px;
+
+        padding: 0 0 12px 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @media screen and (max-width: 500px) {
+            padding: 0;
+        }
+
+        .cartitem__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .cartitem__title {
+                font-size: 14px;
+                color: #222;
+                letter-spacing: .05em;
+            }
+
+            svg {
+                width: 20px;
+                height: 20px;
+
+                cursor: pointer;
+            }
+        }
+
+        .cartitem__body {
+            min-height:40px;
+            font-size: 11px;
+            color: #4f4f4f;
+            line-height: 146%;
+
+            padding-top: 10px;
+        }
+
+        .cartitem__footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            .cartitem__priceBlock {
+
+                .cartitem__price {
+                    font-size: 18px;
+                    letter-spacing: .03em;
+                    font-weight: 700;
+
+                    margin-right: 5px;
+                }
+
+                .cartitem__currency {
+                    font-weight: 700;
+                    font-size: 11px;
+                }
+            }
+
+            .cartitem__qtyBlock {
+                color: #fff;
+                background: #e31837;
+                
+                border-radius: 15px;
+
+                width: 90px;
+                height: 30px;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                padding: 0 10px;
+
+                font-family: Open Sans,sans-serif;
+                font-size: 15px;
+
+                .minus,.plus {
+                    font-weight: 700;
+                    letter-spacing: 1e-7rem;
+                    
+                    cursor: pointer;
+
+                    svg {
+                        width: 10px;
+                        fill: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

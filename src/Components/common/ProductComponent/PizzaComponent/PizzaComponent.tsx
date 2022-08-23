@@ -54,7 +54,7 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
                 {pizza.ingridients ? pizza.ingridients.map((item,index) => {
                     const prod = ingridientsList.find(prod => prod.id === item.id)
                     if (prod) {
-                    return <span>{prod.title}{item.qty > 1 && '(Подвійна порція)'}{pizza.ingridients.length === index + 1 ? null : ', '}</span>
+                    return <span key={index}>{prod.title}{item.qty > 1 && '(Подвійна порція)'}{pizza.ingridients.length === index + 1 ? null : ', '}</span>
                     }
                 }) : 'Гриби, Моцарела, Пепероні, Соус Альфредо'}
             </p> 

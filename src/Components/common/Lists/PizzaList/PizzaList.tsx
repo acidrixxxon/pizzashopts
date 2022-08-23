@@ -38,7 +38,7 @@ const PizzaList:React.FC = () => {
             const pizzaArray = items.filter(pizza => pizza.category === category.id)
 
             return pizzaArray.length > 0 &&
-              <div className='pizza__category'>
+              <div className='pizza__category' key={category.id}>
                 <h4 className='pizza__categoryTitle'>Піца: {category.title}</h4>
 
                 <ItemsList>
