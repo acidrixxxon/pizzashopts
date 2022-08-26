@@ -1,6 +1,5 @@
-import { stat } from 'fs'
 import React, { Dispatch } from 'react'
-import { CartItemInterface, IDrinkInCart, IPizzaInCart, ISideInCart } from './types'
+import { Action, CartItemInterface, IDrinkInCart, initialStateType, IPizzaInCart, ISideInCart } from './types'
 
 const initialState:initialStateType = {
     category: 0,
@@ -9,27 +8,22 @@ const initialState:initialStateType = {
         totalItems: 0,
         totalCost: 0,
         items: []
-    }
-}
-
-export type initialStateType = {
-    cart: {
-        totalItems: number,
-        totalCost: number,
-        items: CartItemInterface[]
     },
-    category: number,
-    sort: number,
+    customerData: {
+        name: '',
+        phone: '',
+        email: '',
+        street: '',
+        house: '',
+        room: '',
+        floor: '',
+        comment: '',
+        orderType: 0,
+        shop: 0
+    },
+    paymentType: null
 }
 
-type Action =
- | { type: 'SET_CATEGORY',payload: number}
- | { type: 'SET_SORT',payload: number}
- | { type: 'ADD_TO_CART',payload: IPizzaInCart}
- | { type: 'CLEAR_CART'}
- | { type: 'REMOVE_FROM_CART',payload: IPizzaInCart | IDrinkInCart | ISideInCart}
- | { type: 'PLUS_QTY',payload:  number}
- | { type: 'MINUS_QTY',payload: number}
 
 const mainReducer = (state: initialStateType,action: Action): initialStateType => {
     switch(action.type) {
@@ -137,18 +131,24 @@ const mainReducer = (state: initialStateType,action: Action): initialStateType =
                     totalCost: 0
                 }
             }
+        case 'SET_CUSTOMER_DATA':
+            return {
+                ...state,
+                customerData: {
+                    ...state.customerData,
+                    [action.payload.target.name]: action.payload.target.value
+                }
+            }
         default:
             return state
     }
 }
 
-type ProviderType = {
-    children: JSX.Element
-}
+
 
 const Context = React.createContext<{state: initialStateType,dispatch: React.Dispatch<any>}>({state: initialState,dispatch: () => null})
 
-const AppProvider: React.FC<ProviderType> = ({ children }) => {
+const AppProvider: React.FC<{children: JSX.Element}> = ({ children }) => {
     const [ state,dispatch ] = React.useReducer(mainReducer,initialState)
 
     const setCategory = (id: number)  => {

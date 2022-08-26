@@ -1,5 +1,6 @@
 import React from 'react'
 import { Context } from '../../../../Context'
+import { initialStateType, IOrderObj } from '../../../../types'
 import DeliveryIcon from '../../Icons/DeliveryIcon'
 import DineInIcon from '../../Icons/DineinIcon'
 import ClientDataForm from '../ClientDataForm/ClientDataForm'
@@ -10,7 +11,35 @@ import './_OrderForm.scss'
 const OrderForm:React.FC = () => {
   const [ orderType,setOrderType ] = React.useState<number>(0)
 
-  const { state: { cart }} = React.useContext(Context)
+  const { state: { cart,customerData }} = React.useContext(Context)
+
+  const createOrderHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault()
+
+    if (customerData.orderType === 0) {
+      const orderObj:IOrderObj= {
+        ...cart,
+        customerData: {
+          name: customerData.name,
+          phone: customerData.phone,
+          email: customerData.email,
+          orderType: customerData.orderType,
+          street: customerData.street,
+          house: customerData.house,
+          room: customerData.room,
+          floor: customerData.floor,
+          comment: customerData.comment
+        }
+      }
+      console.log(orderObj)
+    } else {
+        const orderObj = {
+
+        }
+      }
+    
+
+  }
 
     return (
       <div id="orderform">
@@ -47,7 +76,7 @@ const OrderForm:React.FC = () => {
               <span className="orderform__costText">грн</span>
             </div>
 
-            <button className='orderform__confirm'>Замовити</button>
+            <button className='orderform__confirm' onClick={(e) => createOrderHandler(e)}>Замовити</button>
           </div>
         </form>
       </div>

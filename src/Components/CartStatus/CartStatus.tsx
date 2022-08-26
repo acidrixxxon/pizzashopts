@@ -1,7 +1,7 @@
 import React from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link, useLocation } from 'react-router-dom'
-import { Context, initialStateType } from '../../Context'
+import { Context } from '../../Context'
 import './_CartStatus.scss'
 
 const CartStatus = () => {

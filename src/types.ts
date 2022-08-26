@@ -1,4 +1,36 @@
-import { title } from "process"
+export type initialStateType = {
+    cart: {
+        totalItems: number,
+        totalCost: number,
+        items: CartItemInterface[]
+    },
+    category: number,
+    sort: number,
+    customerData: {
+        name: string,
+        phone: string,
+        email: string,
+        street: string,
+        room: string,
+        floor: string,
+        comment: string,
+        orderType: number,
+        shop?: number,
+        house: string
+    },
+    paymentType: null | {id: number,title: string}
+}
+
+
+export type Action =
+ | { type: 'SET_CATEGORY',payload: number}
+ | { type: 'SET_SORT',payload: number}
+ | { type: 'ADD_TO_CART',payload: IPizzaInCart}
+ | { type: 'CLEAR_CART'}
+ | { type: 'REMOVE_FROM_CART',payload: IPizzaInCart | IDrinkInCart | ISideInCart}
+ | { type: 'PLUS_QTY',payload:  number}
+ | { type: 'MINUS_QTY',payload: number}
+ | { type: 'SET_CUSTOMER_DATA',payload: React.ChangeEvent<HTMLInputElement>}
 
 interface PizzaProductCrustInterface {
     fulltitle: string,
@@ -152,4 +184,21 @@ export interface IDrinkCategory {
 export interface IPaymentVariants {
     id: number,
     title: string
+}
+
+export interface IOrderObj {
+    items: CartItemInterface[],
+    totalItems: number,
+    totalCost: number,
+    customerData: {
+        name: string,
+        phone: string,
+        email: string,
+        orderType: number,
+        street: string,
+        house: string,
+        room: string,
+        floor: string,
+        comment: string
+    }
 }
