@@ -31,6 +31,7 @@ export type Action =
  | { type: 'PLUS_QTY',payload:  number}
  | { type: 'MINUS_QTY',payload: number}
  | { type: 'SET_CUSTOMER_DATA',payload: React.ChangeEvent<HTMLInputElement>}
+ | { type: 'SET_PAYMENT_TYPE',payload: IPaymentVariants}
 
 interface PizzaProductCrustInterface {
     fulltitle: string,

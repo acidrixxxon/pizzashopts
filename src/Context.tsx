@@ -139,6 +139,11 @@ const mainReducer = (state: initialStateType,action: Action): initialStateType =
                     [action.payload.target.name]: action.payload.target.value
                 }
             }
+        case 'SET_PAYMENT_TYPE':
+            return {
+                ...state,
+                paymentType: action.payload
+            }
         default:
             return state
     }

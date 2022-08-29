@@ -84,6 +84,13 @@ export const paymentVariants: IPaymentVariants[] = [{
     title: 'Картой онлайн'
 }]
 
+// export const orderType:<{id: number,title: string}> = [{
+//     id: 0,
+//     title: 'Доставка'
+// },{
+//     id: 1,
+//     title: 'Самовиніс'
+// }]
 
 const data = [
     {

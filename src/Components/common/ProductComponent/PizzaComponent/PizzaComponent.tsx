@@ -40,62 +40,62 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
 
     return (
         <div className='pizza-wrapper'>
-        <Link to={`/pizza/${pizza.id}`} className='pizza-image'>
-            <img src={pizza.imageUrl} alt="pizza-image1" />
-        </Link>
-
-        <div className="pizza-description">
-
-            <Link className="pizza-title" to={`/pizza/${pizza.id}`}>
-                {pizza.title}
+            <Link to={`/product/${pizza.id}`} className='pizza-image'>
+                <img src={pizza.imageUrl} alt="pizza-image1" />
             </Link>
 
-            <p className="pizza-toppings">
-                {pizza.ingridients ? pizza.ingridients.map((item,index) => {
-                    const prod = ingridientsList.find(prod => prod.id === item.id)
-                    if (prod) {
-                    return <span key={index}>{prod.title}{item.qty > 1 && '(Подвійна порція)'}{pizza.ingridients.length === index + 1 ? null : ', '}</span>
-                    }
-                }) : 'Гриби, Моцарела, Пепероні, Соус Альфредо'}
-            </p> 
-        </div>
+            <div className="pizza-description">
 
-        <div className="pizza-variants">
-            <div className="pizza-variantsList pizza-sizes">
-                {pizza.variants.map((item,index) => {
-                    return (
-                        <button 
-                            key={index}
-                            onClick={() => changePizzaSize(index)}
-                            className={activeSize === index ? 'pizza-variantsButton active' : 'pizza-variantsButton'}>
-                            {item.title}
-                        </button>
-                    )
-                })}
+                <Link className="pizza-title" to={`/product/${pizza.id}`}>
+                    {pizza.title}
+                </Link>
+
+                <p className="pizza-toppings">
+                    {pizza.ingridients ? pizza.ingridients.map((item,index) => {
+                        const prod = ingridientsList.find(prod => prod.id === item.id)
+                        if (prod) {
+                        return <span key={index}>{prod.title}{item.qty > 1 && '(Подвійна порція)'}{pizza.ingridients.length === index + 1 ? null : ', '}</span>
+                        }
+                    }) : 'Гриби, Моцарела, Пепероні, Соус Альфредо'}
+                </p> 
             </div>
 
-            <div className="pizza-variantsList">
-                {pizza.variants[activeSize].variants.map((item,index) => {
-                    return (
-                        <button 
-                            key={index}
-                            disabled={!item.inSell}
-                            onClick={() => setActiveType(index)}
-                            className={activeType === index ? 'pizza-variantsButton active' : 'pizza-variantsButton'}>
+            <div className="pizza-variants">
+                <div className="pizza-variantsList pizza-sizes">
+                    {pizza.variants.map((item,index) => {
+                        return (
+                            <button 
+                                key={index}
+                                onClick={() => changePizzaSize(index)}
+                                className={activeSize === index ? 'pizza-variantsButton active' : 'pizza-variantsButton'}>
                                 {item.title}
-                        </button>
-                    )
-                })}
-            </div>
-        </div>
+                            </button>
+                        )
+                    })}
+                </div>
 
-        <div className="pizza-footer">
-            <div className="pizza-price">
-                <span className='pizza-priceNumber'>{pizza.variants[activeSize].variants[activeType].price}</span>
-                <span className='pizza-priceText'>грн</span> 
+                <div className="pizza-variantsList">
+                    {pizza.variants[activeSize].variants.map((item,index) => {
+                        return (
+                            <button 
+                                key={index}
+                                disabled={!item.inSell}
+                                onClick={() => setActiveType(index)}
+                                className={activeType === index ? 'pizza-variantsButton active' : 'pizza-variantsButton'}>
+                                    {item.title}
+                            </button>
+                        )
+                    })}
+                </div>
             </div>
-            <button className="pizza-addToCart" onClick={() => addToCart(pizza)}>В кошик</button>
-        </div>
+
+            <div className="pizza-footer">
+                <div className="pizza-price">
+                    <span className='pizza-priceNumber'>{pizza.variants[activeSize].variants[activeType].price}</span>
+                    <span className='pizza-priceText'>грн</span> 
+                </div>
+                <button className="pizza-addToCart" onClick={() => addToCart(pizza)}>В кошик</button>
+            </div>
     </div>
     )
 }

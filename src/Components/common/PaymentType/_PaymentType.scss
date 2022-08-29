@@ -38,8 +38,11 @@
 
     .paymenttype__list {
         position: absolute;
+        z-index: 10;
         top: calc(100% + 2px);
         left: 0;
+
+        background-color: #fff;
     
         width: 100%;
     

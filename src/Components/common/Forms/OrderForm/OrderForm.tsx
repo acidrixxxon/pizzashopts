@@ -9,9 +9,17 @@ import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
-  const [ orderType,setOrderType ] = React.useState<number>(0)
+  const { state: { cart,customerData },dispatch} = React.useContext(Context)
 
-  const { state: { cart,customerData }} = React.useContext(Context)
+  const setOrderTypeHandler = (type: number): void =>  {
+    dispatch({ type: 'SET_PAYMENT_TYPE', payload: null})
+    dispatch({type: 'SET_CUSTOMER_DATA',payload: {
+      target: {
+        name: 'orderType',
+        value: type
+      }
+    }})
+  }
 
   const createOrderHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
@@ -47,14 +55,14 @@ const OrderForm:React.FC = () => {
 
         <div className="orderform__ordertype">
           <button 
-            onClick={() => setOrderType(0)}
-            className={orderType === 0 ? 'orderform__ordertypeBtn active' : 'orderform__ordertypeBtn'}>
+            onClick={() => setOrderTypeHandler(0)}
+            className={customerData.orderType === 0 ? 'orderform__ordertypeBtn active' : 'orderform__ordertypeBtn'}>
               <DeliveryIcon />
               Доставка
           </button>
           <button 
-            onClick={() => setOrderType(1)}
-            className={orderType === 1 ? 'orderform__ordertypeBtn active' : 'orderform__ordertypeBtn'}>
+            onClick={() => setOrderTypeHandler(1)}
+            className={customerData.orderType === 1 ? 'orderform__ordertypeBtn active' : 'orderform__ordertypeBtn'}>
               <DineInIcon />
                собою
           </button>
@@ -63,8 +71,8 @@ const OrderForm:React.FC = () => {
         <form className="orderform__form">
           <ClientDataForm />
 
-          {orderType === 0 && <DeliveryOrderForm />}
-          {orderType === 1 && <DineinOrderForm />}
+          {customerData.orderType === 0 && <DeliveryOrderForm />}
+          {customerData.orderType === 1 && <DineinOrderForm />}
 
           <div className="orderform__totals">
             <h4 className="orderform__totalsTitle">

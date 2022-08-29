@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Context } from '../../../../Context'
 import { ISide } from '../../../../types'
 import './_SideComponent.scss'
@@ -27,11 +28,13 @@ const SideComponent:React.FC<ComponentProps> = ({ item }) => {
 
   return (
     <div id="side">
-        <div className="side__image">
+        <Link to={`/product/${item.id}`} className="side__image">
             <img src={item.imageUrl} alt={item.title} />
-        </div>
+        </Link>
 
-        <h4 className="side__title">{item.title}</h4>
+        <Link to={`/product/${item.id}`} className="side__title">
+            <h4>{item.title}</h4>
+        </Link>
 
         <div className="side__variants">
             {item.variants.map((variant,index) => {

@@ -24,6 +24,7 @@
     }
 
     .side__image {
+        display: block;
 
         img {
             width: 100%;
@@ -40,15 +41,19 @@
     .side__title {
         min-height: 68px;
 
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: .05em;
-
         text-decoration: none;
 
-        color: #222;
-
         padding: 10px 10px 20px;
+
+        display: block;
+
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #222;
+
+            letter-spacing: .05em;
+        }
     }
 
     .side__variants {
