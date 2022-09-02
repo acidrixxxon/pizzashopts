@@ -6,11 +6,11 @@ import './_Categories.scss'
 const Categories = () => {
     const categoriesList: CategoryInterface[] = [{id: 0,title: 'Піца'},{id: 1,title: 'Сайди'},{id: 2,title: 'Напої'},{id: 3,title: 'Десерти'}]
 
-    const { state: { category },dispatch} = React.useContext(Context)
+    const { state: { category },dispatch,actions: { setCategory,setSortType }} = React.useContext(Context)
 
     const changeCategoryHandler = (id: number):void => {
-        dispatch({type: 'SET_CATEGORY',payload: id})
-        dispatch({type: 'SET_SORT',payload: 0})
+        setCategory(id)
+        setSortType(0)
     }
 
 

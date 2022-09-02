@@ -7,6 +7,26 @@
   font-family: 'Open Sans',sans-serif;
 }
 
+body {
+  height: 100vh;
+
+  #root {
+    height: 100%;
+
+    .App {
+      height: 100%;
+
+      .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150px !important;
+        transform: translate(-50%,-50%);
+      }
+    }
+  }
+}
+
 li {
   list-style: none;
 }
@@ -44,4 +64,53 @@ button {
 
 .rotated {
   transform: rotate(180deg);
+}
+
+#qty {
+  display: flex;
+  align-items: center;
+
+  opacity: 0;
+
+  transition: .3s all ease-in;
+
+  position: absolute;
+  top: 35%;
+  right: 30%;
+
+  .qty {
+      background-color: red;
+
+      color: #fff !important;
+
+      margin-left: -.25em;
+      margin-right: -.25em;
+
+      width: 33px !important;
+      height: 33px !important;
+
+      z-index: 5;
+  }
+
+  .minus,.plus {
+      background-color: #fff;
+      position: relative;
+      width: 22px;
+      height: 22px;
+  }
+
+  .minus,.plus,.qty {
+      width: 27px;
+      height: 27px;
+
+      display: block;
+
+      border-radius: 50%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 18px;
+  }
 }

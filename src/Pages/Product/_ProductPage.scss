@@ -1,13 +1,15 @@
 
 
 #product {
-    padding: 20px 0 40px;
+    padding: 40px 0 40px;
     background-color: #fff;
+
+    height: calc(100% - 70px);
 
     .container {
         display: grid;
         grid-template-columns: minmax(250px,520px) 1fr;
-        grid-gap: 20px;
+        grid-gap: 40px;
 
         @media screen and (max-width: 750px) {
             display: flex;

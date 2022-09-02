@@ -3,8 +3,8 @@ import './_ProductImage.scss'
 
 const ProductImage:React.FC<{src: string }> = ({ src }) => {
   return (
-    <div id="product-image">
-        <img src={src} alt="product-image" />
+    <div id="productImage">
+        <img src={src} alt="product-image" className='productImage__img'/>
     </div>
   )
 }

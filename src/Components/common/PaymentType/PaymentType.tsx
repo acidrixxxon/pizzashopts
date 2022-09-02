@@ -1,20 +1,24 @@
 import React from 'react'
 import { Context } from '../../../Context'
+import useOutsideClick from '../../../hooks/useOutsideClick'
 import { paymentVariants } from '../../../mockdata'
 import { IPaymentVariants } from '../../../types'
 import './_PaymentType.scss'
 
 const PaymentType = () => {
     const [ showPaymentVariants,setShowPaymentVariants ] = React.useState<boolean>(false)
+    const paymentEl = React.useRef<HTMLDivElement>(null)
 
-    const { dispatch,state: { paymentType,customerData } } = React.useContext(Context)
+    const { dispatch,state: { paymentType,customerData },actions: { setPaymentType } } = React.useContext(Context)
 
-    const setPaymentTypeHandler = (type: IPaymentVariants) => {
-        dispatch({type: 'SET_PAYMENT_TYPE',payload: type})
+    useOutsideClick(paymentEl,() => setShowPaymentVariants(false))
+
+    const setPaymentTypeHandler = (type: IPaymentVariants): void => {
+        setPaymentType(type)
     }
 
         return (
-            <div id="paymenttype">
+            <div id="paymenttype" ref={paymentEl}>
                 <h4 className="paymenttype__title">
                     Оплата
                 </h4>

@@ -18,10 +18,17 @@ export type initialStateType = {
         shop?: number,
         house: string
     },
-    paymentType: null | {id: number,title: string}
+    paymentType: null | {id: number,title: string},
+    productDetails: IPizza 
 }
 
-
+export interface IActions {
+    setCategory: (id:number) => void,
+    changeIngridientQty: (type: string,ingridient: IIngridientsFull) => void,
+    setSortType: (id: number) => void,
+    addIngridient: (ingridient: IIngridients) => void,
+    setPaymentType: (payment: IPaymentVariants) => void
+}
 export type Action =
  | { type: 'SET_CATEGORY',payload: number}
  | { type: 'SET_SORT',payload: number}
@@ -32,8 +39,11 @@ export type Action =
  | { type: 'MINUS_QTY',payload: number}
  | { type: 'SET_CUSTOMER_DATA',payload: React.ChangeEvent<HTMLInputElement>}
  | { type: 'SET_PAYMENT_TYPE',payload: IPaymentVariants}
+ | { type: 'SET_PRODUCT_DETAILS',payload: IPizza}
+ | { type: 'SET_INGRIDIENT_QTY',payload: IPizza }
+ | { type: 'ADD_INGRIDIENT_TO_PIZZA',payload: {ingridients:  IIngridients[],variants: PizzaProductSizeInterface[]}}
 
-interface PizzaProductCrustInterface {
+export interface PizzaProductCrustInterface {
     fulltitle: string,
     inSell: boolean,
     price: number,
@@ -41,7 +51,7 @@ interface PizzaProductCrustInterface {
     id: number
 }
 
-interface PizzaProductSizeInterface {
+export interface PizzaProductSizeInterface {
     title: string,
     variants: PizzaProductCrustInterface[]
 }
@@ -157,7 +167,7 @@ export interface ISide {
     variants: SideVariants[] 
 }
 
-interface SideVariants {
+export interface SideVariants {
     size: string,
     price: number
 }
@@ -172,7 +182,7 @@ export interface IDrink {
     variants: DrinkVariants[] 
 }
 
-interface DrinkVariants {
+export interface DrinkVariants {
     size: string,
     price: number
 }
@@ -202,4 +212,15 @@ export interface IOrderObj {
         floor: string,
         comment: string
     }
+}
+
+
+export interface IActionSetCategory {
+    type: string,
+    payload: number
+}
+
+export interface IActionChangeIngridientQty {
+    type: string,
+    payload: IPizza
 }
