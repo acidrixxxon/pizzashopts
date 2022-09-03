@@ -80,7 +80,7 @@ const OrderForm:React.FC = () => {
             </h4>
 
             <div className="orderform__cost">
-              <span className="orderform__costNumber">{cart.totalCost}.00</span>
+              <span className="orderform__costNumber">{cart.totalCost < 300 && cart.totalItems > 0 ? cart.totalCost + 40 : cart.totalCost}.00</span>
               <span className="orderform__costText">грн</span>
             </div>
 

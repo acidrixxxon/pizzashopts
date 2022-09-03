@@ -1,0 +1,77 @@
+
+
+            .cartStatus__item {
+                margin-bottom: 20px;
+                .cartStatus__body,
+                .cartStatus__header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .cartStatus__header {
+                    margin-bottom: 20px;
+
+                    .cartStatus__title {
+                        font-size: 14px;
+                        
+                        max-width: 200px;
+                    }
+
+                    .cartStatus__addSmth {
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+
+                        .added {
+                            fill: red;
+                        }
+                        svg {
+                            width: 25px;
+                            height: 25px;
+
+                            fill: gray;
+
+                            margin-right: 3px;
+                        }
+                    }
+                }
+
+                .cartStatus__body {
+                    .cartStatus__qty {
+                        color: #fff;
+                        background: #e31837;
+                        
+                        border-radius: 15px;
+        
+                        width: 90px;
+                        height: 30px;
+        
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+        
+                        padding: 0 10px;
+        
+                        font-family: Open Sans,sans-serif;
+                        font-size: 15px;
+        
+                        .minus,.plus {
+                            font-weight: 700;
+                            letter-spacing: 1e-7rem;
+                            
+                            cursor: pointer;
+        
+                            svg {
+                                width: 10px;
+                                fill: #fff;
+                            }
+                        }
+                    }
+
+                    .cartStatus__price {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }

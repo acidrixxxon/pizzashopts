@@ -6,7 +6,7 @@ import { ingridientsList } from '../../../../mockdata'
 import { Context } from '../../../../Context'
 
 interface ComponentProps {
-    item: IPizzaInCart
+    item: IPizzaInCart,
 }
 
 const CartItemComponent:React.FC<ComponentProps> = ({ item }) => {
@@ -24,7 +24,6 @@ const CartItemComponent:React.FC<ComponentProps> = ({ item }) => {
         }
     }
 
-    console.log(item)
     return (
         <li id='cartitem'>
             <div className="cartitem__image">
