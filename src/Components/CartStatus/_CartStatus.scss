@@ -97,11 +97,13 @@
         border-radius: 15px;
 
         opacity: 0;
+        visibility: hidden;
 
         transition: .2s all linear;
         
         &.visible {
             opacity: 1;
+            visibility: visible;
 
             .cartStatus__empty {
                 .cartStatus__promo {

@@ -2,21 +2,26 @@ import React from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Link, useLocation } from 'react-router-dom'
 import { Context } from '../../Context'
+import { useLocationChanges } from '../../hooks/useLocationChanges'
+import useOutsideClick from '../../hooks/useOutsideClick'
 import { useWindowSize } from '../../hooks/useWindowResize'
 import CartStatusItem from './CartStatusItem/CartStatusItem'
 import './_CartStatus.scss'
 
 const CartStatus = () => {
     const [ visibleList,setVisibleList ] = React.useState(false)
-    const { state: { cart }} = React.useContext(Context)
+    const { state: { cart } } = React.useContext(Context)
+
+    useLocationChanges(() => setVisibleList(false))
 
     const params = useLocation()
-
-    const listEl = React.useRef<HTMLUListElement>(null)
     
+    const refEl = React.useRef<HTMLDivElement>(null)
+
+    useOutsideClick(refEl,() => setVisibleList(false))
         return (
                 <>
-                    <div className='cartstatus' onClick={params.pathname !== '/cart' ?() => setVisibleList(state => !state) : undefined}>
+                    <div className='cartstatus' onClick={params.pathname !== '/cart' ?() => setVisibleList(state => !state) : undefined} ref={refEl}>
                         <span className='cartstatus__count'>
                             {cart === null ? '00' : cart.totalItems === 0 ? '00' : cart?.totalItems < 10 ? `0${cart?.totalItems}` : cart?.totalItems}
                             <AiOutlineShoppingCart />
