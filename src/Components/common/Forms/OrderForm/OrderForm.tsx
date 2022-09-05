@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Context } from '../../../../Context'
 import { initialStateType, IOrderObj } from '../../../../types'
 import DeliveryIcon from '../../Icons/DeliveryIcon'
@@ -10,6 +11,8 @@ import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
   const { state: { cart,customerData },dispatch} = React.useContext(Context)
+
+  const navigate = useNavigate()
 
   const setOrderTypeHandler = (type: number): void =>  {
     dispatch({ type: 'SET_PAYMENT_TYPE', payload: null})
@@ -40,6 +43,8 @@ const OrderForm:React.FC = () => {
         }
       }
       console.log(orderObj)
+
+      navigate('/order-status/sf3sf3')
     } else {
         const orderObj = {
 

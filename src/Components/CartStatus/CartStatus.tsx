@@ -4,9 +4,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { Context } from '../../Context'
 import { useLocationChanges } from '../../hooks/useLocationChanges'
 import useOutsideClick from '../../hooks/useOutsideClick'
-import { useWindowSize } from '../../hooks/useWindowResize'
 import CartStatusItem from './CartStatusItem/CartStatusItem'
 import './_CartStatus.scss'
+import { MdKeyboardArrowDown } from 'react-icons/md'
+
 
 const CartStatus = () => {
     const [ visibleList,setVisibleList ] = React.useState(false)
@@ -21,7 +22,7 @@ const CartStatus = () => {
     useOutsideClick(refEl,() => setVisibleList(false))
         return (
                 <>
-                    <div className='cartstatus' onClick={params.pathname !== '/cart' ?() => setVisibleList(state => !state) : undefined} ref={refEl}>
+                    <div className={visibleList ? 'cartstatus active' : 'cartstatus'} onClick={params.pathname !== '/cart' ?() => setVisibleList(state => !state) : undefined} ref={refEl}>
                         <span className='cartstatus__count'>
                             {cart === null ? '00' : cart.totalItems === 0 ? '00' : cart?.totalItems < 10 ? `0${cart?.totalItems}` : cart?.totalItems}
                             <AiOutlineShoppingCart />
@@ -32,7 +33,7 @@ const CartStatus = () => {
                         </span>
 
                         <span className="cartstatus__orderBtn">
-                            Замовити
+                            {visibleList ? <MdKeyboardArrowDown /> : 'Замовити'}
                         </span>
 
                         <ul className={visibleList ? "cartStatus__list visible" : "cartStatus__list"} onClick={(e) => e.stopPropagation()}>

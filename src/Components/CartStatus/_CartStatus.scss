@@ -15,14 +15,37 @@
 
     position: relative;
 
+    &.active {
+        background-color: #BF142E;
+
+        &:hover {
+            .cartstatus__price {
+                color: #fff;
+            }
+        }
+
+        .cartstatus__count {
+            border-color: #333;
+        }
+        
+        .cartstatus__price {
+            color: #fff;
+        }
+
+        .cartstatus__orderBtn {
+            background-color: #fff;
+            color: #333;
+        }
+    }
+
     &:hover {
         cursor: pointer;
 
-        .cartStatus__count {
+        .cartstatus__count {
             background-color: #222;
         }
 
-        .cartStatus__price {
+        .cartstatus__price {
             color: #222;
         }
     }
@@ -100,6 +123,8 @@
         visibility: hidden;
 
         transition: .2s all linear;
+
+        box-shadow: rgba(80, 80, 97, 0.3) 0px 3px 12px;
         
         &.visible {
             opacity: 1;
@@ -206,14 +231,9 @@
             }
         }
 
-        .cartStatus_itemList {
-            padding: 10px 16px;
-        }
-
         .cartStatus__footer {
             padding: 16px;
-            
-            border-top: 1px solid rgb(214, 216, 220);
+             
 
             .cartStatus__createBtn {
                 cursor: pointer;

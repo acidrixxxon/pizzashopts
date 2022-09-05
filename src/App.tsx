@@ -5,6 +5,7 @@ import Header from './Components/Header/Header';
 import HomePage from './Pages/Home/HomePage';
 import CartPage from './Pages/Cart/CartPage';
 import ProductPage from './Pages/Product/ProductPage';
+import OrderStatus from './Pages/OrderDetails/OrderStatus';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/order-status/:id" element={<OrderStatus />} />
       </Routes>
     </div>
   );

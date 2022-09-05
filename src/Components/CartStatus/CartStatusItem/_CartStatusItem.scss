@@ -1,7 +1,10 @@
 
 
             .cartStatus__item {
-                margin-bottom: 20px;
+
+                border-bottom: 1px solid rgb(214, 216, 220);
+
+                padding: 15px 16px 10px;
                 .cartStatus__body,
                 .cartStatus__header {
                     display: flex;
