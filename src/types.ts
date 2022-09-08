@@ -1,23 +1,8 @@
 export type initialStateType = {
-    cart: {
-        totalItems: number,
-        totalCost: number,
-        items: CartItemInterface[]
-    },
+    cart: ICart,
     category: number,
     sort: number,
-    customerData: {
-        name: string,
-        phone: string,
-        email: string,
-        street: string,
-        room: string,
-        floor: string,
-        comment: string,
-        orderType: number,
-        shop?: number,
-        house: string
-    },
+    customerData: ICustomerData,
     paymentType: null | {id: number,title: string},
     productDetails: IPizza 
 }
@@ -27,7 +12,9 @@ export interface IActions {
     changeIngridientQty: (type: string,ingridient: IIngridientsFull) => void,
     setSortType: (id: number) => void,
     addIngridient: (ingridient: IIngridients) => void,
-    setPaymentType: (payment: IPaymentVariants) => void
+    setPaymentType: (payment: IPaymentVariants) => void, 
+    clearCart: () => void
+
 }
 export type Action =
  | { type: 'SET_CATEGORY',payload: number}
@@ -42,6 +29,7 @@ export type Action =
  | { type: 'SET_PRODUCT_DETAILS',payload: IPizza}
  | { type: 'SET_INGRIDIENT_QTY',payload: IPizza }
  | { type: 'ADD_INGRIDIENT_TO_PIZZA',payload: {ingridients:  IIngridients[],variants: PizzaProductSizeInterface[]}}
+ | { type: 'CLEAR_CART'}
 
 export interface PizzaProductCrustInterface {
     fulltitle: string,
@@ -49,6 +37,24 @@ export interface PizzaProductCrustInterface {
     price: number,
     title: string,
     id: number
+}
+
+export interface ICart {
+    totalItems: number,
+    totalCost: number,
+    items: CartItemInterface[]
+}
+export interface ICustomerData {
+    name: string,
+    phone: string,
+    email: string,
+    street: string,
+    room: string,
+    floor: string,
+    comment: string,
+    orderType: number,
+    shop?: number,
+    house: string
 }
 
 export interface PizzaProductSizeInterface {

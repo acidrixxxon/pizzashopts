@@ -1,0 +1,90 @@
+
+
+                .order__info {
+                    .order__infoGroup {
+                        border-bottom: 0.125em solid rgb(240, 240, 247);
+
+                        padding: 15px 0;
+
+                        &:last-child {
+                            border-bottom: 0;
+
+                            @media screen and (max-width: 450px) {
+                                padding-bottom: 0;
+                            }
+                        }
+
+                        &.payment {
+                            font-weight: 400;
+
+                            .order__infoGroupRow {
+                                display: block;
+                                
+                                color: rgb(106, 106, 119);
+                            }
+                        }
+
+                        &.comment {
+                            .order__infoGroupRow {
+                                display: block;
+
+                                span {
+                                    width: 100%;
+                                    display: block;
+                                }
+                            }
+                        }
+                        
+                        .order__infoGroupTitle {
+                            font-size: 24px;
+                            font-weight: 600;
+                            color: rgb(62, 73, 89);
+                            margin-bottom: 15px;
+
+                            @media screen and (max-width: 650px) {
+                                font-size: 21px;
+                            }
+
+                            @media screen and (max-width: 500px) {
+                                font-size: 19px;
+                            }
+                        }
+
+                        .order__infoGroupRow {
+                            display: grid;
+
+                            grid-template-columns: .33fr .66fr;
+
+                            margin-bottom: 10px;
+
+                            @media screen and (max-width: 650px) {
+                                grid-template-columns: .5fr .5fr;
+                            }
+
+                            @media screen and (max-width: 450px) {
+                                display: flex;
+                                justify-content: space-between;
+
+                                .order__infoGroupData {
+                                    text-align: right;
+                                    max-width: 200px;
+                                    display: block;
+                                }
+                            }
+
+                            .order__infoGroupField,.order__infoGroupData {
+                                color: rgb(106, 106, 119);
+                                font-size: 18.4px;
+                                font-weight: 400;
+
+                                @media screen and (max-width: 650px) {
+                                    font-size: 16px;
+                                }
+
+                                @media screen and (max-width: 500px) {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+                }

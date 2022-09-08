@@ -1,0 +1,17 @@
+
+
+
+                .order__status {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        max-width: 350px;
+                        width: 100%;
+
+                        @media screen and (max-width: 450px) {
+                            max-width: 250px;
+                        }
+                    }
+                }

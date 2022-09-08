@@ -1,8 +1,30 @@
 @import './../../scss//variables';
 
 #order {
+    background: #f8f4f8;
+    padding-bottom: 40px;
 
     .container {
+
+        @media screen and (max-width: 450px) {
+            padding: 0 10px;
+
+            .order__title {
+                margin: 20px 0 !important;
+            }
+
+            .order__content,.order__footer {
+                padding: 15px !important;
+            }
+
+            .order__footer {
+
+                .order__title {
+                    font-size: 18px !important;
+                    margin: 10px 0 !important;
+                }
+            }
+        }
 
         .order__title {
             font-size: 25px;
@@ -19,6 +41,8 @@
             background-color: $white-color;
             padding: 30px;
 
+            margin-bottom: 40px;
+
             .order__heading {
                 border-bottom: 0.125em solid rgb(240, 240, 247);
 
@@ -34,44 +58,143 @@
                 grid-template-columns: repeat(2,(1fr));
                 grid-gap: 20px;
 
-                .order__status {
+                @media screen and (max-width: 900px) {
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    flex-direction: column;
+                }
+            }
+        }
+
+        .order__footer {
+            padding: 20px 30px 30px;
+
+            background-color: #fff;
+
+            border-radius: 15px;
+
+            .order__title {
+                font-size: 20px;
+
+                margin: 10px 0;
+            }
+
+            .order__itemsList {
+
+                .order__item {
+                    border-bottom: 0.125em solid rgb(240, 240, 247);
+                    padding: 20px 0;
+
+                    display: flex;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
 
                     img {
-                        max-width: 350px;
+                        max-width: 250px;
+                        height: 100px;
+
+                        margin-right: 10px;
+
+                        border-radius: 15px;
+
+                        @media screen and (max-width: 550px) {
+                            max-width: 100px;
+                            height: 55px;
+                        }
                     }
-                }
 
-                .order__info {
-                    .order__infoGroup {
-                        border-bottom: 0.125em solid rgb(240, 240, 247);
+                    .order__data {
+                        padding: 8px 0;
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        flex-direction: column;
 
-                        padding: 15px 0;
-                        
-                        .order__infoGroupTitle {
-                            font-size: 24px;
-                            font-weight: 600;
-                            color: rgb(62, 73, 89);
-                            margin-bottom: 15px;
+                        @media screen and (max-width: 750px) {
+                            .order__itemFooter {
+                                font-size: 14px;
+                                max-width: 250px;
+                            }
                         }
 
-                        .order__infoGroupRow {
-                            display: grid;
+                        @media screen and (max-width: 550px) {
+                            padding: 0;
 
-                            grid-template-columns: .33fr .66fr;
+                            .order__itemFooter {
+                                font-size: 12px;
+                                max-width: 250px;
+                            }
+                        }
 
-                            margin-bottom: 10px;
+                        .order__itemHeader {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
 
-                            span {
-                                color: rgb(106, 106, 119);
-                                font-size: 18.4px;
-                                font-weight: 600;
+                            @media screen and (max-width: 550px) {
+                                align-items: flex-start;
+
+                                .order__itemPrice {
+                                        margin-top: 5px;
+                                }
+                            }
+    
+                            div {
+                                display: flex;
+                                flex-direction: column;
+
+                                @media screen and (max-width: 750px) {
+                                    width: 80%;
+
+                                    .order__itemTitle {
+                                        font-size: 17px !important;
+                                    }
+
+                                    .order__itemSize {
+                                        font-size: 14px !important;
+                                        margin-bottom: 10px;
+                                    }
+                                }
+
+                                @media screen and (max-width: 550px) {
+                                    .order__itemTitle {
+                                        font-size: 15px !important;
+                                    }
+
+                                    .order__itemSize {
+                                        font-size: 12px !important;
+                                        margin-bottom: 10px;
+                                    }
+                                }
+
+                                @media screen and (max-width: 450px) {
+                                    width: 60%;
+                                }
+
+                                .order__itemTitle {
+                                    margin-bottom: 5px;
+                                    font-size: 19px;
+                                }
+
+                                .order__itemSize {
+                                    font-size: 16px;
+                                }
                             }
                         }
                     }
                 }
+            }
+            
+            .order__totals {
+                margin-top: 40px;
+
+                display: flex;
+                justify-content: flex-end;
+
+                font-size: 20px;
+                font-weight: 800;
+                color: gray;
             }
         }
     }

@@ -227,6 +227,10 @@ const AppProvider: React.FC<{children: JSX.Element}> = ({ children }) => {
         dispatch({type: 'SET_PAYMENT_TYPE',payload: type})
     }
 
+    const clearCart = ():void => {
+        dispatch({type: 'CLEAR_CART'})
+    }
+
     const addIngridient = (ingridient: IIngridients):void => {
         const prod: IIngridientsFull | undefined = ingridientsList.find(item => item.id === ingridient.id)
         let productDetailsObj:IPizza = state.productDetails
@@ -317,7 +321,8 @@ const AppProvider: React.FC<{children: JSX.Element}> = ({ children }) => {
         changeIngridientQty,
         setSortType,
         addIngridient,
-        setPaymentType
+        setPaymentType,
+        clearCart
     }
 
     return (

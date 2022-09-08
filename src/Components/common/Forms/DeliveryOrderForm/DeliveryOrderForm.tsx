@@ -5,7 +5,6 @@ import './_DeliveryOrderForm.scss'
 
 const DeliveryOrderForm = () => {
     const { dispatch,state } = React.useContext(Context)
-    console.log(state)
     
     const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         dispatch({type: 'SET_CUSTOMER_DATA',payload: e})

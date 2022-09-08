@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../../../../Context'
+import { customerDataDto, newOrderDto } from '../../../../Dto/CustomerDataDto'
 import { initialStateType, IOrderObj } from '../../../../types'
 import DeliveryIcon from '../../Icons/DeliveryIcon'
 import DineInIcon from '../../Icons/DineinIcon'
@@ -10,7 +11,7 @@ import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
-  const { state: { cart,customerData },dispatch} = React.useContext(Context)
+  const { state: { cart,customerData },dispatch,actions: { clearCart }} = React.useContext(Context)
 
   const navigate = useNavigate()
 
@@ -26,32 +27,11 @@ const OrderForm:React.FC = () => {
 
   const createOrderHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
+    const newOrder = newOrderDto(cart,customerData)
+    console.log(newOrder)
 
-    if (customerData.orderType === 0) {
-      const orderObj:IOrderObj= {
-        ...cart,
-        customerData: {
-          name: customerData.name,
-          phone: customerData.phone,
-          email: customerData.email,
-          orderType: customerData.orderType,
-          street: customerData.street,
-          house: customerData.house,
-          room: customerData.room,
-          floor: customerData.floor,
-          comment: customerData.comment
-        }
-      }
-      console.log(orderObj)
-
-      navigate('/order-status/sf3sf3')
-    } else {
-        const orderObj = {
-
-        }
-      }
-    
-
+    clearCart()
+    navigate('/order-status/sf3sf3')
   }
 
     return (
