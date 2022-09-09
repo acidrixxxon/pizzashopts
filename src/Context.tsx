@@ -1,38 +1,16 @@
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 import { ingridientsList } from './mockdata'
-import { Action, IActions, IDrinkInCart, IIngridients, IIngridientsFull, initialStateType, IPaymentVariants, IPizza, IPizzaInCart, ISideInCart } from './types'
+import { Action, IActions, IDrinkInCart, IErrors, IIngridients, IIngridientsFull, initialStateType, IPaymentVariants, IPizza, IPizzaInCart, ISideInCart } from './types'
+import { initialCartState, initialCustomerData, initialCustomerDataErrors, initialProductDetails } from './Utils/initialStore'
 
 const initialState:initialStateType = {
     category: 0,
     sort: 0,
-    cart: {
-        totalItems: 0,
-        totalCost: 0,
-        items: []
-    },
-    customerData: {
-        name: '',
-        phone: '',
-        email: '',
-        street: '',
-        house: '',
-        room: '',
-        floor: '',
-        comment: '',
-        orderType: 0,
-        shop: 0
-    },
+    cart: initialCartState,
+    customerData: initialCustomerData,
     paymentType: null,
-    productDetails: {
-        category: 0,
-        id: 0,
-        imageUrl: '',
-        ingridients: [],
-        title: '',
-        class: 0,
-        variants: [],
-    }
+    productDetails: initialProductDetails
 }
 
 
@@ -196,7 +174,14 @@ const mainReducer = (state: initialStateType,action: Action): initialStateType =
                 ...state,
                 productDetails: action.payload
             }
-            
+        case 'SET_FIELD_ERROR':
+            return {
+                ...state,
+                customerData: {
+                    ...state.customerData,
+                    errors: action.payload
+                }
+            } 
         default:
             return state
     }
@@ -315,6 +300,10 @@ const AppProvider: React.FC<{children: JSX.Element}> = ({ children }) => {
             } 
         }
     }
+
+    const setFieldError = (errors: IErrors):void => {
+        dispatch({type: 'SET_FIELD_ERROR',payload: errors})
+    }
     
     const actions:IActions = {
         setCategory,
@@ -322,7 +311,8 @@ const AppProvider: React.FC<{children: JSX.Element}> = ({ children }) => {
         setSortType,
         addIngridient,
         setPaymentType,
-        clearCart
+        clearCart,
+        setFieldError
     }
 
     return (

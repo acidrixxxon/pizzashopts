@@ -6,6 +6,10 @@
     @media screen and (max-width: 900px) {
         grid-area: checkout-order;
     }
+
+    @media screen and (max-width: 700px) {
+        padding: 0;
+    }
     
     .cartitems__title {
         font-weight: 600;

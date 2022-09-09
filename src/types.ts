@@ -13,7 +13,8 @@ export interface IActions {
     setSortType: (id: number) => void,
     addIngridient: (ingridient: IIngridients) => void,
     setPaymentType: (payment: IPaymentVariants) => void, 
-    clearCart: () => void
+    clearCart: () => void,
+    setFieldError: (errors: IErrors) => void
 
 }
 export type Action =
@@ -30,6 +31,7 @@ export type Action =
  | { type: 'SET_INGRIDIENT_QTY',payload: IPizza }
  | { type: 'ADD_INGRIDIENT_TO_PIZZA',payload: {ingridients:  IIngridients[],variants: PizzaProductSizeInterface[]}}
  | { type: 'CLEAR_CART'}
+ | { type : 'SET_FIELD_ERROR',payload: IErrors}
 
 export interface PizzaProductCrustInterface {
     fulltitle: string,
@@ -54,7 +56,19 @@ export interface ICustomerData {
     comment: string,
     orderType: number,
     shop?: number,
-    house: string
+    house: string,
+    errors: IErrors
+}
+
+export interface IErrors {
+    name: string[] | null ,
+    phone: string[] | null ,
+    email: string[] | null,
+    street: string[] | null,
+    room?: string[] | null,
+    floor?: string[] | null,
+    comment?: string[] | null,
+    house: string[] | null,
 }
 
 export interface PizzaProductSizeInterface {

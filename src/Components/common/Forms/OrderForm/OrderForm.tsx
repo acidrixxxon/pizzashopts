@@ -1,8 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../../../../Context'
-import { customerDataDto, newOrderDto } from '../../../../Dto/CustomerDataDto'
-import { initialStateType, IOrderObj } from '../../../../types'
+import { NewOrderDto } from '../../../../Dto/CartDto'
+import { validateFields } from '../../../../Utils/Validation'
 import DeliveryIcon from '../../Icons/DeliveryIcon'
 import DineInIcon from '../../Icons/DineinIcon'
 import ClientDataForm from '../ClientDataForm/ClientDataForm'
@@ -11,7 +11,7 @@ import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
-  const { state: { cart,customerData },dispatch,actions: { clearCart }} = React.useContext(Context)
+  const { state: { cart,customerData },dispatch,actions: { clearCart,setFieldError }} = React.useContext(Context)
 
   const navigate = useNavigate()
 
@@ -27,11 +27,16 @@ const OrderForm:React.FC = () => {
 
   const createOrderHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    const newOrder = newOrderDto(cart,customerData)
-    console.log(newOrder)
+    const { errors,result } = validateFields(customerData)
 
-    clearCart()
-    navigate('/order-status/sf3sf3')
+    if (result) {
+      // const newOrder = new NewOrderDto(cart,customerData)
+
+      clearCart()
+      navigate('/order-status/sf3sf3')
+    } else {
+      setFieldError(errors)
+    }
   }
 
     return (

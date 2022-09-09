@@ -7,6 +7,7 @@ import useOutsideClick from '../../hooks/useOutsideClick'
 import CartStatusItem from './CartStatusItem/CartStatusItem'
 import './_CartStatus.scss'
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { AnimatePresence, motion } from 'framer-motion'
 
 
 const CartStatus = () => {
@@ -20,6 +21,8 @@ const CartStatus = () => {
     const refEl = React.useRef<HTMLDivElement>(null)
 
     useOutsideClick(refEl,() => setVisibleList(false))
+
+    
         return (
                 <>
                     <div className={visibleList ? 'cartstatus active' : 'cartstatus'} onClick={params.pathname !== '/cart' ?() => setVisibleList(state => !state) : undefined} ref={refEl}>
@@ -33,7 +36,17 @@ const CartStatus = () => {
                         </span>
 
                         <span className="cartstatus__orderBtn">
-                            {visibleList ? <MdKeyboardArrowDown /> : 'Замовити'}
+                           <AnimatePresence>
+                            {visibleList && 
+                                <motion.span 
+                                    initial={{transform: 'translateY(20px)'}} 
+                                    animate={{ transform: 'translateY(0px)' }} 
+                                    exit={{opacity: 0,transform: 'translateX(-10px)',display: 'none'}}>
+                                        <MdKeyboardArrowDown className='cartstatus__arrowdown'/>
+                                </motion.span>}
+                           </AnimatePresence>
+
+                           {!visibleList && 'Замовити'}
                         </span>
 
                         <ul className={visibleList ? "cartStatus__list visible" : "cartStatus__list"} onClick={(e) => e.stopPropagation()}>

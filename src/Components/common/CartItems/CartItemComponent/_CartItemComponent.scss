@@ -6,7 +6,7 @@
     border-bottom: 1px solid #e5e5e5;
 
     @media screen and (max-width: 500px) {
-        padding: 10px 0 20px;
+        padding: 10px;
     }
     .cartitem__image {
 
@@ -19,6 +19,7 @@
             @media screen and (max-width: 500px) {
                 width: 150px;
                 height: auto;
+                max-height: 100px;
             }
         }
     }

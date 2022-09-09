@@ -5,7 +5,6 @@ const useOutsideClick = <T extends HTMLElement = HTMLElement>(ref: RefObject<T>,
     const listener = (event: Event) => {
         if (ref.current !== null) {
             if (ref.current.contains(event?.target as Node)) {
-                console.log('da')
                 return;
               }
       

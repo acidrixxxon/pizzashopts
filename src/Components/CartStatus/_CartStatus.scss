@@ -94,6 +94,12 @@
 
         text-decoration: none;
 
+        .cartstatus__arrowdown {
+            width: 25px;
+            height: 25px;
+            transition: .2s all linear;
+        }
+
         @media screen and (max-width: 900px) {
             display: none;
         }
@@ -121,6 +127,7 @@
 
         opacity: 0;
         visibility: hidden;
+        transform: translateY(30px);
 
         transition: .2s all linear;
 
@@ -129,6 +136,7 @@
         &.visible {
             opacity: 1;
             visibility: visible;
+            transform: translateY(0);
 
             .cartStatus__empty {
                 .cartStatus__promo {

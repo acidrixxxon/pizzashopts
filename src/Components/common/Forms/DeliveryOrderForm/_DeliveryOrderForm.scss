@@ -10,25 +10,20 @@
         margin-bottom: 15px;
     }
 
-    .deliveryform__input {
-        font-size: 16px;
-        color: #4f4f4f;
+    .deliveryform__inputField {
 
-        outline: none;
+        .deliveryform__input {
 
-        padding: 0 10px;
-
-        height: 30px;
-
-        border-radius: 15px;
-        border: 1px solid rgba(79, 79, 79, 0.5);
-
-        width: 100%;
-
-        margin-bottom: 20px;
-
-        @media screen and (max-width: 600px) {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+    
+            @media screen and (max-width: 600px) {
+                margin-bottom: 15px;
+            }
+        }
+        
+        .deliveryform__inputError {
+            bottom: 0 !important;
+            top: auto;
         }
     }
 
@@ -42,10 +37,12 @@
             grid-gap: 5px;
         }
 
-        .deliveryform__input {
+        .deliveryform__inputField {
+            .deliveryform__input {
 
-            @media screen and (max-width: 600px){
-                margin-bottom: 10px;
+                @media screen and (max-width: 600px){
+                    margin-bottom: 10px;
+                }
             }
         }
     }
