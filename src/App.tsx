@@ -6,10 +6,14 @@ import HomePage from './Pages/Home/HomePage';
 import CartPage from './Pages/Cart/CartPage';
 import ProductPage from './Pages/Product/ProductPage';
 import OrderStatus from './Pages/OrderDetails/OrderStatus';
+import { Context } from './Context';
+import LocalStorageService from './Services/LocalStorageService';
 
 
 function App() {
   const appEl = React.useRef<HTMLDivElement | null>(null)
+
+  const { state:  { cart }} = React.useContext(Context)
 
   React.useEffect(() => {
     const onScroll = (e: any) => {
@@ -26,6 +30,10 @@ function App() {
     }
 
   },[])
+
+  React.useEffect(() => {
+    LocalStorageService.saveCartUpdate(cart)
+  },[cart])
   
   return (
     <div className="App" ref={appEl}>

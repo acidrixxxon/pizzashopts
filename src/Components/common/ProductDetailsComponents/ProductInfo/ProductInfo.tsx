@@ -6,6 +6,7 @@ import  { AiOutlineClose,AiOutlinePlus } from 'react-icons/ai'
 import ReactPortal from '../../ReactPortal/ReactPortal'
 import SetIngridients from '../../Modals/SetIngridients/SetIngridients'
 import { Context } from '../../../../Context'
+import { v4 as uuidv4 } from 'uuid';
 
 interface IProductInfo {
     data:  {
@@ -34,7 +35,8 @@ const ProductInfo:React.FC<IProductInfo> = ({ data }) => {
             imageUrl: productDetails.imageUrl,
             qty: 1,
             title: productDetails.title,
-            ingridients: productDetails.ingridients
+            ingridients: productDetails.ingridients,
+            uniqueId: uuidv4()
         }
 
         dispatch({type: 'ADD_TO_CART',payload: productObj})

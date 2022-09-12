@@ -1,6 +1,8 @@
+import { set } from 'lodash'
 import React from 'react'
 import { AiFillCheckCircle, AiOutlinePlusCircle } from 'react-icons/ai'
 import { Context } from '../../../Context'
+import LocalStorageService from '../../../Services/LocalStorageService'
 import { IPizzaInCart } from '../../../types'
 import './_CartStatusItem.scss'
 
@@ -12,14 +14,16 @@ interface ComponentProps {
 const CartStatusItem:React.FC<ComponentProps> = ({ item }) => {
     const [ addCheese,setAddCheese ] = React.useState<boolean>(false)
 
-    const { dispatch } = React.useContext(Context)
+    const { dispatch,actions: { addDoubleMocarella,removeDoubleMocarella },state: { cart } } = React.useContext(Context)
 
     const addCheeseHandler = () => {
         setAddCheese(true)
+        addDoubleMocarella(item.uniqueId)
     }
 
     const removeCheeseHandler = () => {
         setAddCheese(false)
+        removeDoubleMocarella(item.uniqueId)
     }
 
     const changeQtyHandler = (type: string,id: number):void => {
@@ -29,6 +33,19 @@ const CartStatusItem:React.FC<ComponentProps> = ({ item }) => {
             dispatch({type: 'MINUS_QTY',payload: id})
         }
     }
+
+    React.useEffect(() => {
+        const cheese = item.ingridients.find(item => item.id === 15)
+        if (cheese !== undefined) {
+            if(cheese.qty > 1) {
+                setAddCheese(true)
+            } else {
+                setAddCheese(false)
+            }
+        }
+
+        LocalStorageService.saveCartUpdate(cart)
+    },[item])
 
     return (
         <li className='cartStatus__item'>

@@ -37,6 +37,8 @@
             
             background-color: transparent;
 
+            transition: .2s background-color ease-in;
+
             @media screen and (max-width: 450px) {
                 width: 100%;
                 margin-bottom: 10px;
@@ -104,6 +106,12 @@
                 height: 50px;
                 width: 214px;
                 cursor: pointer;
+
+                &.disabled {
+                    background-color: lightgray;
+
+                    cursor: default;
+                }
             }
         }
     }

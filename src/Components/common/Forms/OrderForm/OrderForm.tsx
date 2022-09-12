@@ -1,7 +1,9 @@
+import { AnimatePresence,motion } from 'framer-motion'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../../../../Context'
-import { NewOrderDto } from '../../../../Dto/CartDto'
+import LocalStorageService from '../../../../Services/LocalStorageService'
+import { initialCustomerDataErrors } from '../../../../Utils/initialStore'
 import { validateFields } from '../../../../Utils/Validation'
 import DeliveryIcon from '../../Icons/DeliveryIcon'
 import DineInIcon from '../../Icons/DineinIcon'
@@ -11,11 +13,12 @@ import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
-  const { state: { cart,customerData },dispatch,actions: { clearCart,setFieldError }} = React.useContext(Context)
+  const { state: { cart,customerData,paymentType },dispatch,actions: { clearCart,setFieldError }} = React.useContext(Context)
 
   const navigate = useNavigate()
 
   const setOrderTypeHandler = (type: number): void =>  {
+    setFieldError(initialCustomerDataErrors)
     dispatch({ type: 'SET_PAYMENT_TYPE', payload: null})
     dispatch({type: 'SET_CUSTOMER_DATA',payload: {
       target: {
@@ -27,11 +30,12 @@ const OrderForm:React.FC = () => {
 
   const createOrderHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    const { errors,result } = validateFields(customerData)
+    const { errors,result } = validateFields(customerData,paymentType)
 
     if (result) {
       // const newOrder = new NewOrderDto(cart,customerData)
 
+      LocalStorageService.saveCustomerData(customerData,paymentType)
       clearCart()
       navigate('/order-status/sf3sf3')
     } else {
@@ -54,15 +58,34 @@ const OrderForm:React.FC = () => {
             onClick={() => setOrderTypeHandler(1)}
             className={customerData.orderType === 1 ? 'orderform__ordertypeBtn active' : 'orderform__ordertypeBtn'}>
               <DineInIcon />
-               собою
+               З собою
           </button>
         </div>
 
         <form className="orderform__form">
           <ClientDataForm />
 
-          {customerData.orderType === 0 && <DeliveryOrderForm />}
-          {customerData.orderType === 1 && <DineinOrderForm />}
+          {customerData.orderType === 0 && 
+            <AnimatePresence>
+              <motion.form                 
+                initial={{opacity: 0,height: '0'}}
+                animate={{opacity: 1,height: 'auto'}}
+                exit={{opacity: 0,height: '0'}}>
+                <DeliveryOrderForm />
+              </motion.form>
+            </AnimatePresence>
+          }
+
+          {customerData.orderType === 1 && 
+            <AnimatePresence>
+              <motion.form                 
+                initial={{opacity: 0, height: '0'}}
+                animate={{opacity: 1,height: 'auto'}}
+                exit={{opacity: 0,height: '0'}}>
+                <DineinOrderForm />
+              </motion.form>
+            </AnimatePresence>
+          }
 
           <div className="orderform__totals">
             <h4 className="orderform__totalsTitle">
@@ -74,7 +97,7 @@ const OrderForm:React.FC = () => {
               <span className="orderform__costText">грн</span>
             </div>
 
-            <button className='orderform__confirm' onClick={(e) => createOrderHandler(e)}>Замовити</button>
+            <button className={cart.items.length === 0 ? 'orderform__confirm disabled' : 'orderform__confirm'} onClick={(e) => createOrderHandler(e)}>Замовити</button>
           </div>
         </form>
       </div>

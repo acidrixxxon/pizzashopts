@@ -1,6 +1,3 @@
-import { IDrink, IPizza, ISide, SearchResultInterface } from '../types'
-
-
 class ProductService {
 
     async search(query: string) {

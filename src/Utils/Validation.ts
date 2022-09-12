@@ -1,12 +1,13 @@
-import { ICustomerData, IErrors } from "../types"
+import { ICustomerData, IErrors, IPaymentVariants } from "../types"
 
-export const validateFields = (data: ICustomerData): {errors: IErrors,result: boolean} => {
+export const validateFields = (data: ICustomerData,paymentType: {id: number,title: string} | null): {errors: IErrors,result: boolean} => {
         const errors:IErrors = {
           name: null,
           phone: null,
           email: null,
           street: null,
           house: null,
+          paymentType: null
         }
         const { name,phone,email,street,house } = data
 
@@ -15,6 +16,7 @@ export const validateFields = (data: ICustomerData): {errors: IErrors,result: bo
         errors.email = []
         errors.street = []
         errors.house = []
+        errors.paymentType = []
 
         if(name.trim().length < 1) {
           errors.name.push(`Введіть ім'я`)
@@ -32,7 +34,7 @@ export const validateFields = (data: ICustomerData): {errors: IErrors,result: bo
           errors.phone = null
         }
 
-        if(phone.trim().length === 0) {
+        if(email.trim().length === 0) {
           errors.email.push('Введіть email')
         } else {
           errors.email = null
@@ -48,6 +50,12 @@ export const validateFields = (data: ICustomerData): {errors: IErrors,result: bo
           errors.house.push('Введіть номер будинку')
         } else {
           errors.house = null
+        }
+
+        if(paymentType === null) {
+          errors.paymentType.push('Виберіть тип оплати')
+        } else {
+          errors.paymentType = null
         }
 
         let result = true;

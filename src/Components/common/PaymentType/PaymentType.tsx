@@ -9,11 +9,12 @@ const PaymentType = () => {
     const [ showPaymentVariants,setShowPaymentVariants ] = React.useState<boolean>(false)
     const paymentEl = React.useRef<HTMLDivElement>(null)
 
-    const { dispatch,state: { paymentType,customerData },actions: { setPaymentType } } = React.useContext(Context)
+    const { state: { paymentType,customerData },actions: { setPaymentType,setFieldError } } = React.useContext(Context)
 
     useOutsideClick(paymentEl,() => setShowPaymentVariants(false))
 
     const setPaymentTypeHandler = (type: IPaymentVariants): void => {
+        setFieldError({...customerData.errors,paymentType: null})
         setPaymentType(type)
     }
 
@@ -43,6 +44,10 @@ const PaymentType = () => {
                     )}
                     
                 </div>
+
+                {customerData.errors.paymentType !== null &&
+                    <span className='input__error'>{customerData.errors.paymentType[0]}</span>
+                }
             </div>
         )
 }

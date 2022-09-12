@@ -69,6 +69,14 @@ const CartStatus = () => {
                                         </div>
                                         <ul className='cartStatus_itemList'>
                                             {cart.items.map((item) => <CartStatusItem item={item} />)}
+                                            
+                                            {cart.totalCost < 300 && (
+                                                <li className='cartStatus__itemDelivery'>
+                                                    <h4 className="cartStatus__title">Доставка</h4>
+
+                                                    <span className="cartStatus__price">40грн</span>
+                                                </li>
+                                            )}
                                         </ul>
                                         <div className="cartStatus__footer">
                                             <Link to="/cart" onClick={() => setVisibleList(false)} className='cartStatus__createBtn'>

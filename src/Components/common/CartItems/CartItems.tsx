@@ -28,9 +28,9 @@ const CartItems = () => {
             {cart.items.length > 0 && <button onClick={clearCartHandler} className='cartitems__clearCartBtn'>Очистити корзину</button>}
 
             <h4 className="cartitems__totalCost">
-                    <span className="cartitems__totalCostNumber">{cart.totalCost < 300 && cart.totalItems > 0 ? cart.totalCost + 40 : cart.totalCost}.00 </span>
-                    <span className="cartitems__totalCostText">грн</span>
-                  </h4>
+              <span className="cartitems__totalCostNumber">{cart.totalCost < 300 && cart.totalItems > 0 ? cart.totalCost + 40 : cart.totalCost}.00 </span>
+              <span className="cartitems__totalCostText">грн</span>
+            </h4>
           </div>
         </div>  
       </div>

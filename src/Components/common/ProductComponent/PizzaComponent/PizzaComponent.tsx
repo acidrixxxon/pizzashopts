@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../../../../Context'
 import { ingridientsList } from '../../../../mockdata'
-import { IIngridientsFull, IPizza } from '../../../../types'
+import { IPizza } from '../../../../types'
 import './_PizzaComponent.scss'
+import { v4 as uuidv4 } from 'uuid';
 
 interface ComponentProps {
   pizza: IPizza
@@ -31,7 +32,8 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
         imageUrl: item.imageUrl,
         qty: 1,
         title: item.title,
-        ingridients: pizza.ingridients
+        ingridients: pizza.ingridients,
+        uniqueId: uuidv4()
     }
 
     dispatch({type: 'ADD_TO_CART',payload: productObj})
@@ -55,6 +57,8 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
                         const prod = ingridientsList.find(prod => prod.id === item.id)
                         if (prod) {
                         return <span key={index}>{prod.title}{item.qty > 1 && '(Подвійна порція)'}{pizza.ingridients.length === index + 1 ? null : ', '}</span>
+                        } else {
+                            return null
                         }
                     }) : 'Гриби, Моцарела, Пепероні, Соус Альфредо'}
                 </p> 

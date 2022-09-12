@@ -132,6 +132,15 @@
         transition: .2s all linear;
 
         box-shadow: rgba(80, 80, 97, 0.3) 0px 3px 12px;
+
+        .cartStatus__itemDelivery {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid #d6d8dc;
+            padding: 15px 16px 10px;
+        }
         
         &.visible {
             opacity: 1;

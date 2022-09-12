@@ -1,13 +1,15 @@
 import React from 'react'
 import { Context } from '../../../../Context'
+import Error from '../../Error/Error'
 import './_ClientDataForm.scss'
 
 
 const ClientDataForm = () => {
-  const { dispatch,state: { customerData: { errors }} } = React.useContext(Context) 
-
+  const { state: { customerData: { errors }},actions: { setFieldError,setCustomerData },state: { customerData } } = React.useContext(Context) 
+  
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    dispatch({type: 'SET_CUSTOMER_DATA',payload: e})
+    setFieldError({...errors,[e.target.name]: null})
+    setCustomerData(e)
   }
 
     return (
@@ -16,18 +18,18 @@ const ClientDataForm = () => {
 
         <div className="clientForm__inputGroup">
           <div className="clientForm__inputField form__field">
-            <input type="text" placeholder='Імя' className={errors.name !== null ? 'clientForm__input not__valid form__input' : 'clientForm__input form__input'} onChange={(e) => inputChangeHandler(e)} name="name" />
-            {errors.name !== null && <span className='clientForm__inputError input__error'>{errors.name[0]}</span>}
+            <input type="text" placeholder='Імя' value={customerData.name} className={errors.name !== null ? 'clientForm__input not__valid form__input' : 'clientForm__input form__input'} onChange={(e) => inputChangeHandler(e)} name="name" />
+            <Error className='clientForm__inputError' value={errors.name} />
           </div>
 
           <div className="clientForm__inputField form__field">
-            <input type="text" placeholder='Телефон' className={errors.phone !== null ? 'clientForm__input not__valid form__input' : 'clientForm__input form__input'} onChange={(e) => inputChangeHandler(e)} name="phone" />
-            {errors.phone !== null && <span className='clientForm__inputError input__error'>{errors.phone[0]}</span>}
+            <input type="text" placeholder='Телефон' value={customerData.phone} className={errors.phone !== null ? 'clientForm__input not__valid form__input' : 'clientForm__input form__input'} onChange={(e) => inputChangeHandler(e)} name="phone" />
+            <Error className='clientForm__inputError' value={errors.phone}/>
           </div>
 
           <div className="clientForm__inputField form__field">
-            <input type="text" placeholder='Email' className={errors.email !== null ? 'clientForm__input not__valid form__input' : 'clientForm__input form__input'} onChange={(e) => inputChangeHandler(e)} name="email" />
-            {errors.email !== null && <span className='clientForm__inputError input__error'>{errors.email[0]}</span>}
+            <input type="text" placeholder='Email' value={customerData.email} className={errors.email !== null ? 'clientForm__input not__valid form__input' : 'clientForm__input form__input'} onChange={(e) => inputChangeHandler(e)} name="email" />
+            <Error className='clientForm__inputError' value={errors.email} />
           </div>
         </div>
       </div>

@@ -14,7 +14,10 @@ export interface IActions {
     addIngridient: (ingridient: IIngridients) => void,
     setPaymentType: (payment: IPaymentVariants) => void, 
     clearCart: () => void,
-    setFieldError: (errors: IErrors) => void
+    setFieldError: (errors: IErrors) => void,
+    setCustomerData: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    addDoubleMocarella: (id: string) => void,
+    removeDoubleMocarella: (id: string) => void
 
 }
 export type Action =
@@ -32,6 +35,8 @@ export type Action =
  | { type: 'ADD_INGRIDIENT_TO_PIZZA',payload: {ingridients:  IIngridients[],variants: PizzaProductSizeInterface[]}}
  | { type: 'CLEAR_CART'}
  | { type : 'SET_FIELD_ERROR',payload: IErrors}
+ | { type: 'ADD_DOUBLE_MOCARELLA',payload: {items: CartItemInterface[],totalCost:number}}
+ | { type: 'REMOVE_DOUBLE_MOCARELLA',payload: {items: CartItemInterface[],totalCost: number}}
 
 export interface PizzaProductCrustInterface {
     fulltitle: string,
@@ -69,6 +74,7 @@ export interface IErrors {
     floor?: string[] | null,
     comment?: string[] | null,
     house: string[] | null,
+    paymentType: string[] | null,
 }
 
 export interface PizzaProductSizeInterface {
@@ -101,7 +107,8 @@ export interface CartItemInterface {
     ingridients: PizzaIngridientInterface[],
     price: number,
     qty: number,
-    title: string
+    title: string,
+    uniqueId?: string
 }
 
 export interface IPizzaCategory {
@@ -151,7 +158,8 @@ export interface IPizzaInCart {
     ingridients: IIngridients[],
     price: number,
     qty: number,
-    title: string
+    title: string,
+    uniqueId?: string
 }
 
 export interface IDrinkInCart {
@@ -243,4 +251,17 @@ export interface IActionSetCategory {
 export interface IActionChangeIngridientQty {
     type: string,
     payload: IPizza
+}
+
+export interface ISortReducer {
+    category: number,
+    sort: number
+}
+
+export interface ICartReducer {
+    cart: ICart,
+    paymentType: {
+        id: number,
+        title: string
+    }
 }

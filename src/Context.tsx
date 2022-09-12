@@ -1,14 +1,13 @@
-import React from 'react'
-import { act } from 'react-dom/test-utils'
+import React, { ReducerWithoutAction } from 'react'
 import { ingridientsList } from './mockdata'
-import { Action, IActions, IDrinkInCart, IErrors, IIngridients, IIngridientsFull, initialStateType, IPaymentVariants, IPizza, IPizzaInCart, ISideInCart } from './types'
-import { initialCartState, initialCustomerData, initialCustomerDataErrors, initialProductDetails } from './Utils/initialStore'
+import { Action, IActions, IDrinkInCart, IErrors, IIngridients, IIngridientsFull, initialStateType, IPaymentVariants, IPizza, IPizzaInCart, ISideInCart, ICart, ISortReducer, ICartReducer } from './types'
+import { initialCartState, initialCustomerData, initialProductDetails } from './Utils/initialStore'
 
 const initialState:initialStateType = {
     category: 0,
     sort: 0,
-    cart: initialCartState,
-    customerData: initialCustomerData,
+    cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') || '{}') : initialCartState,
+    customerData: localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer') || '{}') : initialCustomerData,
     paymentType: null,
     productDetails: initialProductDetails
 }
@@ -39,7 +38,6 @@ const mainReducer = (state: initialStateType,action: Action): initialStateType =
                     }
                     return false
                   })
-                  console.log(sameIngridients)
                 if (sameIngridients !== undefined) {
                     const index = state.cart.items.findIndex(item => item.id === action.payload.id)
                     let newItem = state.cart.items[index]
@@ -181,11 +179,48 @@ const mainReducer = (state: initialStateType,action: Action): initialStateType =
                     ...state.customerData,
                     errors: action.payload
                 }
-            } 
+            }
+        case 'ADD_DOUBLE_MOCARELLA':
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    totalCost: action.payload.totalCost,
+                    items: action.payload.items
+                }
+            }
+        case 'REMOVE_DOUBLE_MOCARELLA':
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    totalCost: action.payload.totalCost,
+                    items: action.payload.items
+                }
+            }
         default:
             return state
     }
 }
+
+
+// const sortReducer = (state: ISortReducer,action: Action): ISortReducer => {
+//     switch(action.type) {
+//         default:
+//             return state
+//     }
+// }
+
+// const cartReducer = (state: ICartReducer,action: Action): ICartReducer => {
+//     switch(action.type) {
+//         default:
+//             return state
+//     }
+// }
+// const rootReducer = ({cart,sort,category,paymentType}:{cart: ICart,sort: number,category: number,paymentType: {id: number,title: string}},action: Action): any => ({
+//     sort: sortReducer({sort,category},action),
+//     cart: cartReducer({cart,paymentType} ,action)
+// })
 
 
 
@@ -304,6 +339,50 @@ const AppProvider: React.FC<{children: JSX.Element}> = ({ children }) => {
     const setFieldError = (errors: IErrors):void => {
         dispatch({type: 'SET_FIELD_ERROR',payload: errors})
     }
+
+    const setCustomerData = (e: React.ChangeEvent<HTMLInputElement>):void => {
+        dispatch({type: 'SET_CUSTOMER_DATA',payload: e})
+    }
+
+    const addDoubleMocarella = (id: string):void => {
+        let obj = state.cart.items.find(item => item.uniqueId === id)
+        const objIndex = state.cart.items.findIndex(item => item.uniqueId === id)
+        const mocarela = ingridientsList.find(item => item.id === 15)
+
+        let itemsArr = state.cart.items
+        if (obj !== undefined && objIndex  !== undefined) {
+            const ingridientIndex = obj.ingridients.findIndex(item => item.id === 15)
+            
+            obj.ingridients[ingridientIndex].qty += 1
+           
+            if (mocarela) {
+                obj.price += mocarela.addPrice
+                console.log(obj)
+                itemsArr[objIndex] = obj
+                dispatch({ type: 'ADD_DOUBLE_MOCARELLA',payload: {items: itemsArr,totalCost: state.cart.totalCost + (mocarela?.addPrice * obj.qty)}})
+            }
+        }
+    }
+
+    const removeDoubleMocarella = (id: string):void => {
+        let obj = state.cart.items.find(item => item.uniqueId === id)
+        const objIndex = state.cart.items.findIndex(item => item.uniqueId === id)
+        const mocarela = ingridientsList.find(item => item.id === 15)
+
+        let itemsArr = state.cart.items
+        if (obj !== undefined && objIndex  !== undefined) {
+            const ingridientIndex = obj.ingridients.findIndex(item => item.id === 15)
+            
+            obj.ingridients[ingridientIndex].qty -= 1
+           
+            if (mocarela) {
+                obj.price -= mocarela.addPrice
+                itemsArr[objIndex] = obj
+                dispatch({ type: 'REMOVE_DOUBLE_MOCARELLA',payload: {items: itemsArr,totalCost: state.cart.totalCost - (mocarela?.addPrice * obj.qty)}})
+                console.log(state)
+            }
+        }
+    }
     
     const actions:IActions = {
         setCategory,
@@ -312,7 +391,10 @@ const AppProvider: React.FC<{children: JSX.Element}> = ({ children }) => {
         addIngridient,
         setPaymentType,
         clearCart,
-        setFieldError
+        setFieldError,
+        setCustomerData,
+        addDoubleMocarella,
+        removeDoubleMocarella
     }
 
     return (

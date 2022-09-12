@@ -6,7 +6,8 @@ export const initialCustomerDataErrors: IErrors = {
     phone: null,
     email: null,
     street: null,
-    house: null
+    house: null,
+    paymentType: null
 }
 
 export const initialCustomerData: ICustomerData = {

@@ -1,7 +1,7 @@
 
 
 #deliveryform {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     .deliveryform__title {
         font-weight: 600;
@@ -11,14 +11,10 @@
     }
 
     .deliveryform__inputField {
-
-        .deliveryform__input {
-
-            margin-bottom: 20px;
+        margin-bottom: 20px;
     
-            @media screen and (max-width: 600px) {
-                margin-bottom: 15px;
-            }
+        @media screen and (max-width: 600px) {
+            margin-bottom: 15px;
         }
         
         .deliveryform__inputError {
