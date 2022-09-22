@@ -19,11 +19,12 @@ const IngridientsCategory:React.FC<IComponentProps> = ({ category,items }) => {
 
   const categoryRef = React.useRef<HTMLDivElement>(null)
 
-  useOutsideClick(categoryRef,() => setListVisibility(false))
+  // useOutsideClick(categoryRef,() => setListVisibility(false))
 
   React.useEffect(() => {
     const handleClickOutside = (e: any) => {
         const path = e.path || (e.composedPath && e.composedPath());
+        console.log(path)
         if (!path.includes(categoryRef.current)) {
             setListVisibility(false)
         }
@@ -39,7 +40,6 @@ const IngridientsCategory:React.FC<IComponentProps> = ({ category,items }) => {
 
   return (
     <div id="ingridientsCategory" ref={categoryRef}>
-
       <div className="ingridientsCategory__header" onClick={toggleVisibility}>
         <span className="ingridientsCategory__title">{category.title}</span>
 

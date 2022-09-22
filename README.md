@@ -10,3 +10,6 @@ Frontend:
 
 backend:
 -mockapi
+
+deploy link:
+dominospizza-clone.netlify.app

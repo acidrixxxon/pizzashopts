@@ -1,8 +1,9 @@
 import { isEqual } from 'lodash'
 import React from 'react'
 import { ingridientsList } from '../mockdata'
+import LocalStorageService from '../Services/LocalStorageService'
 import { IDrinkInCart, IErrors, IIngridients, IIngridientsFull, IPizza, IPizzaInCart, ISideInCart } from '../types'
-import { initialCustomerData, initialProductDetails } from '../Utils/initialStore'
+import { initialCartState, initialCustomerData, initialProductDetails } from '../Utils/initialStore'
 import { ADD_INGRIDIENT_TO_PIZZA, ADD_TO_CART, CHANGE_INGRIDIENT_QTY, CHANGE_ITEM_QTY, CLEAR_CART, REMOVE_FROM_CART, SET_CATEGORY, SET_FIELD_ERROR, SET_PRODUCT_DETAILS, SET_SORT, TOGGLE_EXTRA_MOCARELLA, UPDATE_CART } from './constans'
 import { IActionsList, ICartItem, IInitialState, IProvider } from './context_types'
 import { rootReducer } from './reducers/rootReducer'
@@ -12,12 +13,8 @@ const initialState:IInitialState = {
         sort: 0,
         category: 0
     },
-    cart: {
-        items: [],
-        totalCost: 0,
-        totalItems: 0
-    },
-    customerData: initialCustomerData,
+    cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') || '{}') : initialCartState,
+    customerData: localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer') || '{}') : initialCustomerData,
     productDetails: initialProductDetails
 }
 

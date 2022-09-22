@@ -9,12 +9,11 @@ import DeliveryIcon from '../../Icons/DeliveryIcon'
 import DineInIcon from '../../Icons/DineinIcon'
 import ClientDataForm from '../ClientDataForm/ClientDataForm'
 import DeliveryOrderForm from '../DeliveryOrderForm/DeliveryOrderForm'
-import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
   const { actions: { setCustomerData },state: { customerData,cart },actions: { clearCart,setFieldError }} = React.useContext(Context1)
-  console.log(customerData)
+ 
   const navigate = useNavigate()
 
   const setOrderTypeHandler = (type: number): void =>  {

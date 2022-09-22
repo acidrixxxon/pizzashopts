@@ -6,7 +6,6 @@ import './_MobileNavigation.scss'
 import PizzaIcon from '../Icons/PizzaIcon'
 import DrinkIcon from '../Icons/DrinkIcon'
 import SideIcon from '../Icons/SideIcon'
-import DesertIcon from '../Icons/DesertIcon'
 import { Context1 } from '../../../Context/Context'
 
 const MobileNavigation = () => {
