@@ -12,4 +12,4 @@ backend:
 -mockapi
 
 deploy link:
-dominospizza-clone.netlify.app
+[Deploy link](https://dominospizza-clone.netlify.app)
