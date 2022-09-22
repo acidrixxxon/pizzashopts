@@ -7,22 +7,22 @@ import PizzaIcon from '../Icons/PizzaIcon'
 import DrinkIcon from '../Icons/DrinkIcon'
 import SideIcon from '../Icons/SideIcon'
 import DesertIcon from '../Icons/DesertIcon'
-import { Context } from '../../../Context'
+import { Context1 } from '../../../Context/Context'
 
 const MobileNavigation = () => {
-    const menuItems = [{id: 0,title: 'Піци',icon: <PizzaIcon />},{id: 1,title: 'Сайди',icon: <SideIcon />},{id: 3,title: 'Напої',icon: <DrinkIcon />},{id: 4,title: 'Десерти',icon: <DesertIcon />}]
+    const menuItems = [{id: 0,title: 'Піци',icon: <PizzaIcon />},{id: 1,title: 'Сайди',icon: <SideIcon />},{id: 2,title: 'Напої',icon: <DrinkIcon />}]
 
     const [ showMenu,setShowMenu ] = React.useState<boolean>(false)
 
     const closeMenu = () => setShowMenu(false)
 
-    const { dispatch,state: { category } } = React.useContext(Context)
+    const { actions: { setCategory,setSort }, state: { sort: { category } }} = React.useContext(Context1)
 
     const changeCategory = (id: number):void => {
         if (category !== id) {
-            dispatch({type: 'SET_CATEGORY',payload: id})
-            dispatch({type: 'SET_SORT',payload: 0})
-            setShowMenu(false)
+            setCategory(id)
+            setSort(0)
+            closeMenu()
         }
     }
 

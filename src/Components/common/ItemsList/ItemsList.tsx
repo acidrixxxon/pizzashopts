@@ -1,5 +1,4 @@
 import React from 'react'
-import { IPizza } from '../../../types'
 import './_ItemsList.scss'
 
 

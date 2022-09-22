@@ -3,18 +3,17 @@ import './_PizzaList.scss'
 import { pizzaCategory } from '../../../../mockdata'
 import { IPizza } from '../../../../types'
 import PizzaComponent from '../../ProductComponent/PizzaComponent/PizzaComponent'
-import { Context } from '../../../../Context'
 import ItemsList from '../../ItemsList/ItemsList'
 import ProductService from '../../../../Services/ProductService'
 import Skeleton from '../../Skeleton/Skeleton'
+import { Context1 } from '../../../../Context/Context'
 
 
 const PizzaList:React.FC = () => {
-  const { state: { sort }} = React.useContext(Context)
   const [ items,setItems ] = React.useState<IPizza[]>([])
   const [ loading,setLoading ] = React.useState<boolean>(true)
 
-  const { state: { category } } = React.useContext(Context)
+  const { state: { sort: { category,sort } } } = React.useContext(Context1)
 
   React.useEffect(() => {
     const getData = async () => {

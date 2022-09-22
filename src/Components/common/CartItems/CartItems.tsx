@@ -1,16 +1,11 @@
 import React from 'react'
-import { Context } from '../../../Context'
+import { Context1 } from '../../../Context/Context'
 import CartItemComponent from './CartItemComponent/CartItemComponent'
 import DeliveryItem from './DeliveryItem/DeliveryItem'
 import './_CartItems.scss'
 
 const CartItems = () => {
-  const { state: { cart },dispatch } = React.useContext(Context)
-
-
-  const clearCartHandler = () => {
-      dispatch({ type: 'CLEAR_CART'})
-  }
+  const { state: { cart },actions: { clearCart }} = React.useContext(Context1)
 
     return (
       <div id="cartitems">
@@ -25,10 +20,10 @@ const CartItems = () => {
           )}
           
           <div className="cartitems__listFooter">
-            {cart.items.length > 0 && <button onClick={clearCartHandler} className='cartitems__clearCartBtn'>Очистити корзину</button>}
+            {cart.items.length > 0 && <button onClick={() => clearCart()} className='cartitems__clearCartBtn'>Очистити корзину</button>}
 
             <h4 className="cartitems__totalCost">
-              <span className="cartitems__totalCostNumber">{cart.totalCost < 300 && cart.totalItems > 0 ? cart.totalCost + 40 : cart.totalCost}.00 </span>
+              <span className="cartitems__totalCostNumber">{cart.totalCost < 300 && cart.totalItems > 0 && cart.items.length > 0 ? cart.totalCost + 40 : cart.totalCost}.00 </span>
               <span className="cartitems__totalCostText">грн</span>
             </h4>
           </div>

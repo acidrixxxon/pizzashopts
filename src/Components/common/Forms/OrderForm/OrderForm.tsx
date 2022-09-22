@@ -1,7 +1,7 @@
 import { AnimatePresence,motion } from 'framer-motion'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Context } from '../../../../Context'
+import { Context1 } from '../../../../Context/Context'
 import LocalStorageService from '../../../../Services/LocalStorageService'
 import { initialCustomerDataErrors } from '../../../../Utils/initialStore'
 import { validateFields } from '../../../../Utils/Validation'
@@ -13,33 +13,30 @@ import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
-  const { state: { cart,customerData,paymentType },dispatch,actions: { clearCart,setFieldError }} = React.useContext(Context)
-
+  const { actions: { setCustomerData },state: { customerData,cart },actions: { clearCart,setFieldError }} = React.useContext(Context1)
+  console.log(customerData)
   const navigate = useNavigate()
 
   const setOrderTypeHandler = (type: number): void =>  {
+    setCustomerData({target: { name: 'orderType',value: type}})
+    setCustomerData({ target: { name: 'paymentType',value: null}})
     setFieldError(initialCustomerDataErrors)
-    dispatch({ type: 'SET_PAYMENT_TYPE', payload: null})
-    dispatch({type: 'SET_CUSTOMER_DATA',payload: {
-      target: {
-        name: 'orderType',
-        value: type
-      }
-    }})
   }
 
   const createOrderHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    const { errors,result } = validateFields(customerData,paymentType)
+    if(customerData.paymentType !== undefined) {
+      const { errors,result } = validateFields(customerData,customerData.paymentType)
 
-    if (result) {
-      // const newOrder = new NewOrderDto(cart,customerData)
-
-      LocalStorageService.saveCustomerData(customerData,paymentType)
-      clearCart()
-      navigate('/order-status/sf3sf3')
-    } else {
-      setFieldError(errors)
+      if (result) {
+        // const newOrder = new NewOrderDto(cart,customerData)
+  
+        LocalStorageService.saveCustomerData(customerData,customerData.paymentType)
+        clearCart()
+        navigate('/order-status/sf3sf3')
+      } else {
+        setFieldError(errors)
+      }
     }
   }
 
@@ -76,7 +73,7 @@ const OrderForm:React.FC = () => {
             </AnimatePresence>
           }
 
-          {customerData.orderType === 1 && 
+          {/* {customerData.orderType === 1 && 
             <AnimatePresence>
               <motion.form                 
                 initial={{opacity: 0, height: '0'}}
@@ -85,7 +82,7 @@ const OrderForm:React.FC = () => {
                 <DineinOrderForm />
               </motion.form>
             </AnimatePresence>
-          }
+          } */}
 
           <div className="orderform__totals">
             <h4 className="orderform__totalsTitle">
@@ -93,11 +90,11 @@ const OrderForm:React.FC = () => {
             </h4>
 
             <div className="orderform__cost">
-              <span className="orderform__costNumber">{cart.totalCost < 300 && cart.totalItems > 0 ? cart.totalCost + 40 : cart.totalCost}.00</span>
+              <span className="orderform__costNumber">{cart.totalCost < 300 && cart.totalItems > 0 && cart.items.length > 0? cart.totalCost + 40 : cart.totalCost}.00</span>
               <span className="orderform__costText">грн</span>
             </div>
 
-            <button className={cart.items.length === 0 ? 'orderform__confirm disabled' : 'orderform__confirm'} onClick={(e) => createOrderHandler(e)}>Замовити</button>
+            <button className={cart.items.length === 0 ? 'orderform__confirm disabled' : 'orderform__confirm'} onClick={(e) => createOrderHandler(e)} disabled={cart.items.length === 0}>Замовити</button>
           </div>
         </form>
       </div>

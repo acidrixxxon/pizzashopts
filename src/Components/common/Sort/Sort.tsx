@@ -1,14 +1,13 @@
 import React from 'react'
-import { Context } from '../../../Context'
+import { Context1 } from '../../../Context/Context'
 import useOutsideClick from '../../../hooks/useOutsideClick'
 import { sortVariants } from '../../../mockdata'
-import { SortVariantsType } from '../../../types'
 import './_Sort.scss'
 
 const Sort = () => {
   const [ visibleSortMenu,setVisibleSortMenu ] = React.useState<boolean>(false)
 
-  const { state: { sort,category },dispatch,actions: { setSortType } } = React.useContext(Context)
+  const { state: { sort: { sort,category }},actions: { setSort } } = React.useContext(Context1)
   const sortEl = React.useRef<HTMLDivElement>(null)
 
   useOutsideClick(sortEl,() => setVisibleSortMenu(false))
@@ -16,12 +15,12 @@ const Sort = () => {
   const toggleSortMenu = ():void => setVisibleSortMenu(state => !state)
   
   const onSortChange = (id: number):void => {
-    setSortType(id)
-
+    setSort(id)
     setVisibleSortMenu(false)
   }
+
     React.useEffect(() => {
-      setSortType(0)
+      setSort(0)
     },[category])
 
     return (

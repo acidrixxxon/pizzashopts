@@ -21,7 +21,8 @@ export const initialCustomerData: ICustomerData = {
     comment: '',
     orderType: 0,
     shop: 0,
-    errors: initialCustomerDataErrors
+    errors: initialCustomerDataErrors,
+    paymentType: null
 }
 
 export const initialCartState: ICart = {
@@ -38,4 +39,13 @@ export const initialProductDetails: IPizza = {
     title: '',
     class: 0,
     variants: [],
+    defaultObj: {
+        category: 0,
+        id: 0,
+        imageUrl: '',
+        ingridients: [],
+        title: '',
+        class: 0,
+        variants: [],
+    }
 }

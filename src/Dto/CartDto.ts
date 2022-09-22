@@ -1,5 +1,5 @@
-import { CartItemInterface, ICart, ICustomerData } from "../types";
-
+import { CartItemInterface, ICart, ICustomerData, IIngridients } from "../types";
+import { v4 as uuidv4 } from 'uuid';
 
 
 export class CustomerDataDto {
@@ -53,14 +53,30 @@ export function newOrderDto(cart: ICart,customerData: ICustomerData) {
 }
 
 
+export class CartProductDTO {
+    productClass: number | undefined;
+    imageUrl: string | undefined;
+    qty: number | undefined;
+    title: string | undefined;
+    ingridients: IIngridients[] | undefined;
+    uniqueId: string | undefined;
+    fulltitle: string | undefined;
+    price: number | undefined;
+    id:  number | undefined;
+    inSell: boolean | undefined;
+    size: string | undefined;
 
-
-// name: customerData.name,
-// phone: customerData.phone,
-// email: customerData.email,
-// orderType: customerData.orderType,
-// street: customerData.street,
-// house: customerData.house,
-// room: customerData.room,
-// floor: customerData.floor,
-// comment: customerData.comment
+    constructor(productClass: number,imageUrl: string,fulltitle: string,title: string,price: number,ingridients: IIngridients[] | undefined,id: number,inSell: boolean,size: string | undefined) {
+        this.productClass = productClass;
+        this.uniqueId = uuidv4();
+        this.imageUrl = imageUrl;
+        this.qty = 1;
+        this.title = title;
+        this.fulltitle = fulltitle;
+        this.price = price;
+        this.id = id;
+        this.inSell = inSell;
+        this.ingridients = ingridients;
+        this.size = size;
+    }
+}

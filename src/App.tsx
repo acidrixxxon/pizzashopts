@@ -6,7 +6,6 @@ import HomePage from './Pages/Home/HomePage';
 import CartPage from './Pages/Cart/CartPage';
 import ProductPage from './Pages/Product/ProductPage';
 import OrderStatus from './Pages/OrderDetails/OrderStatus';
-import { Context } from './Context';
 import LocalStorageService from './Services/LocalStorageService';
 import { Context1 } from './Context/Context';
 
@@ -14,9 +13,9 @@ import { Context1 } from './Context/Context';
 function App() {
   const appEl = React.useRef<HTMLDivElement | null>(null)
 
-  // const { state: { cart }} = React.useContext(Context)
-  const { state: { sort,cart }} = React.useContext(Context1)
-  console.log(sort,cart)
+  const { state: { cart }} = React.useContext(Context1)
+
+  console.log(cart)
 
   React.useEffect(() => {
     const onScroll = (e: any) => {
@@ -34,20 +33,20 @@ function App() {
 
   },[])
 
-  // React.useEffect(() => {
-  //   LocalStorageService.saveCartUpdate(cart)
-  // },[cart])
+  React.useEffect(() => {
+    LocalStorageService.saveCartUpdate(cart)
+  },[cart])
   
   return (
     <div className="App" ref={appEl}>
-      {/* <Header />
+      <Header />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/order-status/:id" element={<OrderStatus />} />
-      </Routes> */}
+      </Routes>
     </div>
   );
 }

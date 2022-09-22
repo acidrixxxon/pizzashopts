@@ -1,16 +1,17 @@
 import React from 'react'
-import { Context } from '../../../Context'
+import { Context1 } from '../../../Context/Context'
 import { CategoryInterface } from '../../../types'
 import './_Categories.scss'
 
 const Categories = () => {
-    const categoriesList: CategoryInterface[] = [{id: 0,title: 'Піца'},{id: 1,title: 'Сайди'},{id: 2,title: 'Напої'},{id: 3,title: 'Десерти'}]
+    const categoriesList: CategoryInterface[] = [{id: 0,title: 'Піца'},{id: 1,title: 'Сайди'},{id: 2,title: 'Напої'}]
 
-    const { state: { category },dispatch,actions: { setCategory,setSortType }} = React.useContext(Context)
+    // const { state: { category },dispatch,actions: { setCategory,setSortType }} = React.useContext(Context)
+    const { state: { sort: { category }}, actions: { setSort,setCategory }} = React.useContext(Context1)
 
     const changeCategoryHandler = (id: number):void => {
         setCategory(id)
-        setSortType(0)
+        setSort(0)
     }
 
 

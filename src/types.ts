@@ -62,7 +62,8 @@ export interface ICustomerData {
     orderType: number,
     shop?: number,
     house: string,
-    errors: IErrors
+    errors: IErrors,
+    paymentType?: {id: number,title: string} | null
 }
 
 export interface IErrors {
@@ -147,7 +148,8 @@ export interface IPizza {
     ingridients: IIngridients[],
     variants: PizzaProductSizeInterface[],
     class: number,
-    category: number
+    category: number,
+    defaultObj?: IPizza
 }
 
 export interface IPizzaInCart {
@@ -168,6 +170,7 @@ export interface IDrinkInCart {
     price: number,
     qty: number,
     size: string,
+    uniqueId?: string
     title: string,
 }
 
@@ -178,6 +181,7 @@ export interface ISideInCart {
     qty: number,
     size: string,
     title: string,
+    uniqueId?: string
 }
 
 export  interface ISideCategory {

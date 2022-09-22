@@ -1,11 +1,11 @@
 import React from 'react'
-import { Context } from '../../../../Context'
+import { Context1 } from '../../../../Context/Context'
 import Error from '../../Error/Error'
 import PaymentType from '../../PaymentType/PaymentType'
 import './_DeliveryOrderForm.scss'
 
 const DeliveryOrderForm = () => {
-    const { state: { customerData: { errors }},actions: { setCustomerData },state: { customerData } } = React.useContext(Context)
+    const { state: { customerData },actions: { setCustomerData }} = React.useContext(Context1)
     
     const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         setCustomerData(e)
@@ -16,14 +16,14 @@ const DeliveryOrderForm = () => {
             <h4 className="deliveryform__title">Адреса</h4>
 
             <div className="deliveryform__inputField form__field">
-                <input type="text" value={customerData.street} className={errors.street !== null ? "deliveryform__input form__input not__valid" : "deliveryform__input form__input"} placeholder='Вулиця' name="street" onChange={(e) => inputChangeHandler(e)}/>
-                <Error className='deliveryform__inputError' value={errors.street}/>
+                <input type="text" value={customerData.street} className={customerData.errors.street !== null ? "deliveryform__input form__input not__valid" : "deliveryform__input form__input"} placeholder='Вулиця' name="street" onChange={(e) => inputChangeHandler(e)}/>
+                <Error className='deliveryform__inputError' value={customerData.errors.street}/>
             </div>
 
             <div className="deliveryform__inputGroup">
                 <div className="deliveryform__inputField form__field">
-                    <input type="text" value={customerData.house} className={errors.house !== null ? "deliveryform__input form__input not__valid" : "deliveryform__input form__input"} placeholder='Будинок' name="house" onChange={(e) => inputChangeHandler(e)} />
-                    <Error className='deliveryform__inputError' value={errors.house}/>
+                    <input type="text" value={customerData.house} className={customerData.errors.house !== null ? "deliveryform__input form__input not__valid" : "deliveryform__input form__input"} placeholder='Будинок' name="house" onChange={(e) => inputChangeHandler(e)} />
+                    <Error className='deliveryform__inputError' value={customerData.errors.house}/>
                 </div>
 
                 <div className="deliveryform__inputField form__field">

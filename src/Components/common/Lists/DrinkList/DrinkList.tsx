@@ -1,5 +1,5 @@
 import React from 'react'
-import { Context } from '../../../../Context'
+import { Context1 } from '../../../../Context/Context'
 import { drinkCategory } from '../../../../mockdata'
 import ProductService from '../../../../Services/ProductService'
 import { IDrink } from '../../../../types'
@@ -11,7 +11,7 @@ const DrinkList = () => {
     const [ loading,setLoading ] = React.useState<boolean>(true)
     const [ items,setItems ] = React.useState<IDrink[]>([])
 
-    const { state: { category,sort }} = React.useContext(Context)
+    const { state: { sort: { category,sort }}} = React.useContext(Context1)
 
     React.useEffect(() => {
         const getData = async () => {
@@ -24,8 +24,6 @@ const DrinkList = () => {
     
         getData()
     },[sort,category])
-
-    console.log(items)
 
     return (
         <>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Context } from '../../../../Context'
+import { Context1 } from '../../../../Context/Context'
+import { CartProductDTO } from '../../../../Dto/CartDto'
 import { ISide } from '../../../../types'
 import './_SideComponent.scss'
 
@@ -10,19 +11,20 @@ interface ComponentProps {
 
 const SideComponent:React.FC<ComponentProps> = ({ item }) => {
     const [ activeSize,setActiveSize ] = React.useState<number>(0)
-
-    const { dispatch } = React.useContext(Context)
+    
+    const { actions: { addToCart }} = React.useContext(Context1)
 
     const addToCartHandler = (item: ISide):void => {
-        const productObj = {
-            ...item.variants[activeSize],
-            title: item.title,
-            id: item.id,
-            imageUrl: item.imageUrl,
-            qty: 1
-        }
+        const productObj = new CartProductDTO(item.class,item.imageUrl,
+            item.title,
+            item.title,
+            item.variants[activeSize].price,
+            undefined,
+            item.id,
+            true,
+            item.variants[activeSize].size)
 
-        dispatch({type: 'ADD_TO_CART',payload: productObj})
+        addToCart(productObj)
         setActiveSize(0)
     }
 

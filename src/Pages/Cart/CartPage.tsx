@@ -2,13 +2,13 @@ import React from 'react'
 import CartItems from '../../Components/common/CartItems/CartItems'
 import Container from '../../Components/common/Container/Container'
 import OrderForm from '../../Components/common/Forms/OrderForm/OrderForm'
-import { Context } from '../../Context'
+import { Context1 } from '../../Context/Context'
 import { useLocationChanges } from '../../hooks/useLocationChanges'
 import { initialCustomerDataErrors } from '../../Utils/initialStore'
 import './_CartPage.scss'
 
 const CartPage:React.FC = () => {
-  const { actions: { setFieldError } } = React.useContext(Context)
+  const { actions: { setFieldError } } = React.useContext(Context1)
 
   useLocationChanges(() => setFieldError(initialCustomerDataErrors))
 

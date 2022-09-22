@@ -1,5 +1,5 @@
 import React from 'react'
-import { Context } from '../../../../Context'
+import { Context1 } from '../../../../Context/Context'
 import { sidesCategory } from '../../../../mockdata'
 import ProductService from '../../../../Services/ProductService'
 import { ISide } from '../../../../types'
@@ -11,7 +11,7 @@ const SideList:React.FC = () => {
     const [ loading,setLoading ] = React.useState<boolean>(true)
     const [ items,setItems ] = React.useState<ISide[]>([])
 
-    const { state: { category,sort }} = React.useContext(Context)
+    const { state: { sort: { category,sort }}} = React.useContext(Context1)
 
     React.useEffect(() => {
         const getData = async () => {

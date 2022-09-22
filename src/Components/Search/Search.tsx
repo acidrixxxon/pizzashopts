@@ -11,8 +11,6 @@ const Search = () => {
     const [ searchResults,setSearchResults ] = React.useState<null | SearchResultInterface[]>(null)
     const [ loading,setLoading ] = React.useState(false)
 
-    console.log('Результати поиска',searchResults)
-
     const onInputChange = (value: string):void => {
         setSearchQuery(value)
         debounceFetchFunction(value)

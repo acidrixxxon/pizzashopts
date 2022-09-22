@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Context } from '../../../../Context'
 import { ingridientsList } from '../../../../mockdata'
 import { IPizza } from '../../../../types'
 import './_PizzaComponent.scss'
-import { v4 as uuidv4 } from 'uuid';
+import { Context1 } from '../../../../Context/Context'
+import { CartProductDTO } from '../../../../Dto/CartDto'
 
 interface ComponentProps {
   pizza: IPizza
@@ -24,19 +24,17 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
     setActiveType(0)
   }
 
-  const { dispatch } = React.useContext(Context)
+  const { actions: { addToCart } } = React.useContext(Context1)
+  
+  const addToCartHandler = (item: IPizza):void => {
+    const productObj = new CartProductDTO(pizza.class,item.imageUrl,
+            item.variants[activeSize].variants[activeType].fulltitle,
+            item.title,item.variants[activeSize].variants[activeType].price,
+            item.ingridients,
+            item.variants[activeSize].variants[activeType].id,
+            item.variants[activeSize].variants[activeType].inSell,undefined)
 
-  const addToCart = (item: IPizza):void => {
-    const productObj = {
-        ...item.variants[activeSize].variants[activeType],
-        imageUrl: item.imageUrl,
-        qty: 1,
-        title: item.title,
-        ingridients: pizza.ingridients,
-        uniqueId: uuidv4()
-    }
-
-    dispatch({type: 'ADD_TO_CART',payload: productObj})
+    addToCart(productObj)
     resetAllButtons()
   }
 
@@ -98,7 +96,7 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
                     <span className='pizza-priceNumber'>{pizza.variants[activeSize].variants[activeType].price}</span>
                     <span className='pizza-priceText'>грн</span> 
                 </div>
-                <button className="pizza-addToCart" onClick={() => addToCart(pizza)}>В кошик</button>
+                <button className="pizza-addToCart" onClick={() => addToCartHandler(pizza)}>В кошик</button>
             </div>
     </div>
     )

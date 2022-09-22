@@ -4,25 +4,23 @@ import { SpinnerCircular } from 'spinners-react'
 import Container from '../../Components/common/Container/Container'
 import ProductImage from '../../Components/common/ProductDetailsComponents/ProductImage/ProductImage'
 import ProductInfo from '../../Components/common/ProductDetailsComponents/ProductInfo/ProductInfo'
-import { Context } from '../../Context'
+import { Context1 } from '../../Context/Context'
 import ProductService from '../../Services/ProductService'
 import './_ProductPage.scss'
 
 
 const ProductPage:React.FC = () => {
     const [ loading,setLoading ] = React.useState<boolean>(true)
-    const { dispatch,state: { productDetails } } = React.useContext(Context)
+    const {state: { productDetails },actions: { setProductDetails } } = React.useContext(Context1)
 
     const { id } = useParams()
-
-    console.log(productDetails)
 
     React.useEffect(() => {
         const getData = async () => {
             setLoading(true)
             const data = await ProductService.getProductById(id)
     
-            dispatch({type: 'SET_PRODUCT_DETAILS',payload: data})
+            setProductDetails(data)
             setLoading(false)
         }
     
@@ -35,7 +33,7 @@ const ProductPage:React.FC = () => {
         <div id="product">
             <Container>
                 <ProductImage src={productDetails.imageUrl} />
-                <ProductInfo  data={productDetails} />
+                <ProductInfo />
             </Container>
         </div>
     )

@@ -1,8 +1,7 @@
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { Context } from '../../../../../../Context'
-import useOutsideClick from '../../../../../../hooks/useOutsideClick'
-import { IIngridientsFull } from '../../../../../../types'
+import { Context1 } from '../../../../../../Context/Context'
+import { IIngridientsFull, IPizza } from '../../../../../../types'
 import './_IngridientsCategoryItem.scss'
 
 
@@ -11,11 +10,10 @@ interface IComponentProps {
 }
 
 const IngridientsCategoryItem:React.FC<IComponentProps> = ({ item }) => {
-    const { state: { productDetails },actions: { addIngridient,changeIngridientQty }} = React.useContext(Context)
-    
+    const { state: { productDetails },actions: { addIngridientToPizza,changeIngridientQty }} = React.useContext(Context1)
+
     const alreadyInPizza = productDetails.ingridients.find(ingridient => ingridient.id === item.id)
-
-
+    
     return (
         <div id="ingridientCategoryItem" >
             <img src={item.imageUrl} alt="ingrti" className="ingridientItem__image" />
@@ -29,7 +27,7 @@ const IngridientsCategoryItem:React.FC<IComponentProps> = ({ item }) => {
                     <span className="plus" onClick={() => changeIngridientQty('plus',item)}>+</span>
                 </div>
             ) :    
-                <span className="ingridientItem__add" onClick={() => addIngridient({id: item.id,qty: 1})}>
+                <span className="ingridientItem__add" onClick={() => addIngridientToPizza({id: item.id,qty: 1})}>
                     <AiOutlinePlus />
                 </span>}
         </div>

@@ -1,15 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Context } from '../../../../Context'
+import { Context1 } from '../../../../Context/Context'
 import './_Logotype.scss'
 
 const Logotype = () => {
-  const { dispatch } = React.useContext(Context)
-
+  const { actions: { setCategory,setSort }} = React.useContext(Context1)
 
   const logotypeClickHandler = () => {
-    dispatch({type: 'SET_CATEGORY',payload: 0})
-    dispatch({type: 'SET_SORT',payload: 0})
+    setSort(0)
+    setCategory(0)
   }
 
   return (

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Context } from '../../../../Context'
+import { Context1 } from '../../../../Context/Context'
 import DrinkList from '../DrinkList/DrinkList'
 import PizzaList from '../PizzaList/PizzaList'
 import SideList from '../SideList/SideList'
 
 const ProductList: React.FC = () => {
-    const { state: { category }} = React.useContext(Context)
+    const { state: { sort: { category }}} = React.useContext(Context1)
 
         return (
             <>
