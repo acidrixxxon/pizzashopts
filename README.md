@@ -11,5 +11,4 @@ Frontend:
 backend:
 -mockapi
 
-deploy link:
-[Deploy link](https://dominospizza-clone.netlify.app)
+[Preview:](https://dominospizza-clone.netlify.app)

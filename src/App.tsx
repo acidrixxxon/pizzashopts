@@ -11,10 +11,14 @@ import { Context1 } from './Context/Context';
 
 
 function App() {
+  const [ pos,setPos ] = React.useState<any>(null)
+  console.log(pos)
   const appEl = React.useRef<HTMLDivElement | null>(null)
 
   const { state: { cart }} = React.useContext(Context1)
-
+  
+  navigator.geolocation.getCurrentPosition((pos) => setPos(pos))
+  
   console.log(cart)
 
   React.useEffect(() => {

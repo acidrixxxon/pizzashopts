@@ -1,5 +1,7 @@
 import { IDrinkCategory, IIngridientsFull, IPaymentVariants, IPizzaCategory, ISideCategory, SortVariantsType } from "./types";
 
+export const STATUS_IMAGE_URL = `https://dominospizza-clone.netlify.app/img/`
+
 export const ingridientsCategories:{id:number,title: string}[] = [{id: 1,title: "Соуси"},{id: 2,title: "Мясо"},{id: 3,title: "Овочі"},{id: 4,title: "Сири"}]
 
 export const ingridientsList:IIngridientsFull[] = [

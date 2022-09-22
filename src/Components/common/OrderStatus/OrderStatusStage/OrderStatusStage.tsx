@@ -1,4 +1,5 @@
 import React from 'react'
+import { STATUS_IMAGE_URL } from '../../../../mockdata'
 import './_OrderStatusStage.scss'
 
 interface IComponentProps {
@@ -8,7 +9,7 @@ interface IComponentProps {
 const OrderStatusStage:React.FC<IComponentProps> = ({ status }) => {
   return (
     <div className="order__status">
-        <img src={`https://dominospizza.ru/images/gif/ru/delivery/${status}.gif`} alt="order-staus" />
+        <img src={`${STATUS_IMAGE_URL}${status}.gif`} alt="order-staus" />
     </div>
   )
 }
