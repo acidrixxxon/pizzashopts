@@ -8,8 +8,8 @@
         font-size: 2vw;
         margin-bottom: 1.75vw;
 
-        @media screen and (max-width: 750px) {
-            margin-bottom: 40px;
+        @media screen and (max-width: 650px) {
+            margin-bottom: 20px;
 
             font-size: 25px;
 
@@ -39,13 +39,8 @@
                         grid-template-columns: repeat(2,minmax(130px,1fr));
                     }
 
-                    @media screen and (max-width: 750px) {
+                    @media screen and (max-width: 650px) {
                         grid-gap: 10px;
-                        grid-template-columns: repeat(3, minmax(130px, 1fr));
-                    }
-
-                    @media screen and (max-width: 750px) {
-                        grid-gap: 20px;
                         grid-template-columns: repeat(2, minmax(130px, 1fr));
                     }
             
@@ -56,8 +51,8 @@
                     opacity: 0;
                 }
 
-                @media screen and (max-width: 750px) {
-                    margin-bottom: 20px;
+                @media screen and (max-width: 650px) {
+                    margin-bottom: 10px;
                 }
 
                 position: relative;
@@ -106,7 +101,7 @@
                     border-radius: .3em;
 
 
-                    @media screen and (max-width: 750px) {
+                    @media screen and (max-width: 650px) {
                         height: 180px;
                     }
 

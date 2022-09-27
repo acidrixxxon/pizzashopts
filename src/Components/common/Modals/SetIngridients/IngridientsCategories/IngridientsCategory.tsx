@@ -51,9 +51,9 @@ const IngridientsCategory:React.FC<IComponentProps> = ({ category,items }) => {
       <AnimatePresence>
           {listVisibility && (
             <motion.ul 
-              initial={{height: 0,opacity: 0}}
+              initial={{height: '0px',opacity: 0}}
               animate={{height: 'auto',opacity: 1}}
-              exit={{height: 0,opacity: 0}}
+              exit={{height: '0px',opacity: 0}}
               transition={{ duration: .2 }}
               className='ingridientsCategory__list'>
               {items.map((ingridient) => <IngridientsCategoryItem item={ingridient}/>)}

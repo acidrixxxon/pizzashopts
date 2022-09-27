@@ -105,7 +105,7 @@ const CartStatus = () => {
                     </div>
 
                     <Link className='cartstatus mobile' to="/cart">
-                        <span className='cartstatus__count'>
+                        <span className={countShaking ? 'cartstatus__count shake__animation' : 'cartstatus__count'}>
                             {cart === null ? '00' : cart.totalItems === 0 ? '00' : cart?.totalItems < 10 ? `0${cart?.totalItems}` : cart?.totalItems}
                             <AiOutlineShoppingCart />
                         </span>

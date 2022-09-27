@@ -3,6 +3,7 @@ import Categories from '../../Components/common/Categories/Categories'
 import Container from '../../Components/common/Container/Container'
 import ProductList from '../../Components/common/Lists/ProductList/ProductList'
 import Sort from '../../Components/common/Sort/Sort'
+import Slider from '../../Components/Slider/Slider'
 import './_HomePage.scss'
 
 const HomePage: React.FC = () => {
@@ -11,15 +12,16 @@ const HomePage: React.FC = () => {
   return (
     <div id='home'>
         <Container>
-            <div className="home__headline">
-                <Categories />
+          <Slider />
+          <div className="home__headline">
+            <Categories />
 
-                <Sort />
-            </div>
+            <Sort />
+          </div>
             
-            <div className="home__content">
-              <ProductList />
-            </div>
+          <div className="home__content">
+            <ProductList />
+          </div>
         </Container>
     </div>
   )

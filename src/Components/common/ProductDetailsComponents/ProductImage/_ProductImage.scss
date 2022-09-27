@@ -2,6 +2,10 @@
 
 #productImage {
     border-radius: 15px;
+
+    @media screen and (max-width: 650px) {
+        width: 100%;
+    }
             
     .productImage__img {
         border-radius: 15px;
@@ -10,5 +14,10 @@
 
         width: 100%;
         height: auto;
+
+        @media screen and (max-width: 650px) {
+            margin-top: 0;
+            max-height: 270px;
+        }
     }
 }

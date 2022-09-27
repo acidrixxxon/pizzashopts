@@ -6,6 +6,11 @@
 
     cursor: pointer;
 
+    
+    @media screen and (max-width: 850px) {
+        padding: 10px 5px;
+    }
+
     .ingridientsCategory__header {
         display: flex;
         align-items: center;
