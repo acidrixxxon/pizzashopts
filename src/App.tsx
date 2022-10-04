@@ -18,8 +18,6 @@ function App() {
   const { state: { cart }} = React.useContext(Context1)
   
   // navigator.geolocation.getCurrentPosition((pos) => setPos(pos))
-  
-  console.log(cart)
 
   React.useEffect(() => {
     const onScroll = (e: any) => {

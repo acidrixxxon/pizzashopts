@@ -60,7 +60,14 @@ export interface ICustomerData {
     floor: string,
     comment: string,
     orderType: number,
-    shop?: number,
+    restaurant?: {
+        id: number,
+        address: string
+    } | null,
+    city?: {
+        id: number,
+        name: string
+    } | null,
     house: string,
     errors: IErrors,
     paymentType?: {id: number,title: string} | null
@@ -76,6 +83,8 @@ export interface IErrors {
     comment?: string[] | null,
     house: string[] | null,
     paymentType: string[] | null,
+    city: string[] | null,
+    restaurant: string[] | null 
 }
 
 export interface PizzaProductSizeInterface {
@@ -268,4 +277,15 @@ export interface ICartReducer {
         id: number,
         title: string
     }
+}
+
+export interface IRestaurant {
+    id: number,
+    address: string
+}
+
+export interface ICity {
+    id: number,
+    name: string,
+    restaurants: IRestaurant[]
 }

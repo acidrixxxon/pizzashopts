@@ -7,9 +7,11 @@ export const validateFields = (data: ICustomerData,paymentType: {id: number,titl
           email: null,
           street: null,
           house: null,
-          paymentType: null
+          paymentType: null,
+          city: null,
+          restaurant: null
         }
-        const { name,phone,email,street,house } = data
+        const { name,phone,email,street,house,city,restaurant } = data
 
         errors.name = []
         errors.phone = []
@@ -17,6 +19,8 @@ export const validateFields = (data: ICustomerData,paymentType: {id: number,titl
         errors.street = []
         errors.house = []
         errors.paymentType = []
+        errors.city = []
+        errors.restaurant = []
 
         if(name.trim().length < 1) {
           errors.name.push(`Введіть ім'я`)
@@ -56,6 +60,18 @@ export const validateFields = (data: ICustomerData,paymentType: {id: number,titl
           errors.paymentType.push('Виберіть тип оплати')
         } else {
           errors.paymentType = null
+        }
+
+        if(city === null) {
+          errors.city.push('Ви не обрали місто')
+        } else {
+          errors.city = null
+        }
+
+        if(restaurant === null) {
+          errors.restaurant.push('Ви не обрали рестаран')
+        } else {
+          errors.restaurant = null
         }
 
         let result = true;

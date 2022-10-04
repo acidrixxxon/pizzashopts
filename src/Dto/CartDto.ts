@@ -45,10 +45,33 @@ export function newOrderDto(cart: ICart,customerData: ICustomerData) {
     if (customerData.orderType === 0) {
         return {
             ...cart,
-            customerData: new CustomerDataDto(customerData)
+            items: cart.totalCost < 300 ? [...cart.items,{title: 'Доставка',price: 40,id: 999}] : [...cart.items],
+            totalItems: cart.totalCost < 300 ? cart.totalItems + 1 : cart.totalItems,
+            totalCost: cart.totalCost < 300 ? cart.totalCost + 40 : cart.totalCost,
+            customerData: {
+                email: customerData.email,
+                phone: customerData.phone,
+                name: customerData.name,
+                street: customerData.street,
+                house: customerData.house,
+                floor: customerData.floor,
+                room: customerData.room,
+                comment: customerData.comment
+            },
+            paymentType: customerData.paymentType
         }
     } else {
-        return {}
+        return {
+            ...cart,
+            customerData: {
+                email: customerData.email,
+                phone: customerData.phone,
+                name: customerData.name,
+                city: customerData.city,
+                restaurant: customerData.restaurant
+            },
+            paymentType: customerData.paymentType
+        }
     }
 }
 

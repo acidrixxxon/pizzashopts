@@ -24,7 +24,7 @@ const IngridientsCategory:React.FC<IComponentProps> = ({ category,items }) => {
   React.useEffect(() => {
     const handleClickOutside = (e: any) => {
         const path = e.path || (e.composedPath && e.composedPath());
-        console.log(path)
+        
         if (!path.includes(categoryRef.current)) {
             setListVisibility(false)
         }

@@ -11,7 +11,7 @@ class ProductService {
         }
     }
 
-    async fetchProducts(category: number,sort: number) {
+    async fetchProducts(category:number,sort:number) {
         try {
             let res;
             if (sort === 0) {
@@ -41,6 +41,17 @@ class ProductService {
         const data = await res.json()
 
         return data[0]
+    }
+
+    async getRestaurants() {
+        try {
+            const res = await fetch(`https://62c897d28c90491c2cb80379.mockapi.io/restaurants`)
+            const data = await res.json()
+
+            return data
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

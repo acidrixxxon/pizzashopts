@@ -7,7 +7,9 @@ export const initialCustomerDataErrors: IErrors = {
     email: null,
     street: null,
     house: null,
-    paymentType: null
+    paymentType: null,
+    restaurant: null,
+    city: null
 }
 
 export const initialCustomerData: ICustomerData = {
@@ -20,7 +22,8 @@ export const initialCustomerData: ICustomerData = {
     floor: '',
     comment: '',
     orderType: 0,
-    shop: 0,
+    restaurant : null,
+    city: null, 
     errors: initialCustomerDataErrors,
     paymentType: null
 }

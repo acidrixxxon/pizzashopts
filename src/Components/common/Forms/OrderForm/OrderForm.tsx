@@ -2,6 +2,7 @@ import { AnimatePresence,motion } from 'framer-motion'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Context1 } from '../../../../Context/Context'
+import { newOrderDto } from '../../../../Dto/CartDto'
 import LocalStorageService from '../../../../Services/LocalStorageService'
 import { initialCustomerDataErrors } from '../../../../Utils/initialStore'
 import { validateFields } from '../../../../Utils/Validation'
@@ -9,6 +10,7 @@ import DeliveryIcon from '../../Icons/DeliveryIcon'
 import DineInIcon from '../../Icons/DineinIcon'
 import ClientDataForm from '../ClientDataForm/ClientDataForm'
 import DeliveryOrderForm from '../DeliveryOrderForm/DeliveryOrderForm'
+import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
@@ -28,11 +30,13 @@ const OrderForm:React.FC = () => {
       const { errors,result } = validateFields(customerData,customerData.paymentType)
 
       if (result) {
-        // const newOrder = new NewOrderDto(cart,customerData)
+        const newOrder = newOrderDto(cart,customerData)
+
+        console.log(newOrder)
   
-        LocalStorageService.saveCustomerData(customerData,customerData.paymentType)
-        clearCart()
-        navigate('/order-status/sf3sf3')
+        // LocalStorageService.saveCustomerData(customerData,customerData.paymentType)
+        // clearCart()
+        // navigate('/order-status/sf3sf3')
       } else {
         setFieldError(errors)
       }
@@ -72,7 +76,7 @@ const OrderForm:React.FC = () => {
             </AnimatePresence>
           }
 
-          {/* {customerData.orderType === 1 && 
+          {customerData.orderType === 1 && 
             <AnimatePresence>
               <motion.form                 
                 initial={{opacity: 0, height: '0'}}
@@ -81,7 +85,7 @@ const OrderForm:React.FC = () => {
                 <DineinOrderForm />
               </motion.form>
             </AnimatePresence>
-          } */}
+          }
 
           <div className="orderform__totals">
             <h4 className="orderform__totalsTitle">

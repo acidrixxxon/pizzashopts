@@ -1,9 +1,9 @@
 import React from 'react'
 import './_Spinner.scss'
 
-const Spinner = () => {
+const Spinner = ({ className = '' }) => {
   return (
-    <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div className={`lds-ring ${className}`}><div></div><div></div><div></div><div></div></div>
   )
 }
 

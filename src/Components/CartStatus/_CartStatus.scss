@@ -15,6 +15,8 @@
 
     position: relative;
 
+    cursor: pointer;
+
     &.active {
         background-color: #BF142E;
 
@@ -35,18 +37,6 @@
         .cartstatus__orderBtn {
             background-color: #fff;
             color: #333;
-        }
-    }
-
-    &:hover {
-        cursor: pointer;
-
-        .cartstatus__count {
-            background-color: #222;
-        }
-
-        .cartstatus__price {
-            color: #222;
         }
     }
 

@@ -1,6 +1,80 @@
 
 
 #dineinform {
+
+    .dineinform__group {
+        margin-bottom: 20px;
+        
+        .dineinform____title {
+            font-weight: 600;
+            font-family: Open Sans,sans-serif;
+    
+            margin-bottom: 15px;
+        }
+
+        .dineinform__list {
+            color: rgb(167, 167, 167);
+    
+            width: 66%;
+    
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+    
+            min-height: 30px;
+    
+            padding: 0 10px;
+    
+            border: 1px solid rgba(79, 79, 79, 0.5);
+            border-radius: 15px;
+    
+            cursor: pointer;
+    
+            position: relative;
+
+            .active {
+                path {
+                    fill: #4f4f4f;
+                }
+            }
+
+            svg {
+                transition: .2s all linear;
+                path {
+                    fill: rgb(167, 167, 167);
+                }
+            }
+
+            .dineinform__itemList {
+                position: absolute;
+                top: 105%;
+                left: 0;
+                z-index: 99999;
+    
+                background-color: #F8F4F8;
+    
+                width: 100%;
+    
+                border-radius: 15px;
+
+                .dineinform__item {
+                    padding: 15px 0;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+    
+                    color: #333;
+                }
+            }
+
+            &-placeholder {
+                &.active {
+                    color: #4f4f4f;
+                }
+            }
+        }
+    }
     .dineinform__title {
         font-weight: 600;
         font-family: Open Sans,sans-serif;

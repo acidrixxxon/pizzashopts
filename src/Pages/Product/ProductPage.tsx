@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { SpinnerCircular } from 'spinners-react'
 import Container from '../../Components/common/Container/Container'
+import HorisontalPizzaCarousel from '../../Components/HorisontalPizzaCarousel/HorisontalPizzaCarousel'
 import ProductImage from '../../Components/common/ProductDetailsComponents/ProductImage/ProductImage'
 import ProductInfo from '../../Components/common/ProductDetailsComponents/ProductInfo/ProductInfo'
 import { Context1 } from '../../Context/Context'
@@ -25,7 +26,7 @@ const ProductPage:React.FC = () => {
         }
     
         getData()
-    },[])
+    },[id])
 
     if (loading) return <SpinnerCircular className='loader'/>
 
@@ -35,6 +36,8 @@ const ProductPage:React.FC = () => {
                 <ProductImage src={productDetails.imageUrl} />
                 <ProductInfo />
             </Container>
+            
+            <HorisontalPizzaCarousel />
         </div>
     )
 }
