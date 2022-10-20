@@ -165,6 +165,9 @@ button {
   margin-left: 10px;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
 
 .shake__animation {
   animation: shake 1s ease-in infinite;

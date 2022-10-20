@@ -5,7 +5,8 @@ import Container from '../common/Container/Container'
 import Logotype from '../common/Icons/Logotype/Logotype'
 import MobileNavigation from '../common/MobileNavigation/MobileNavigation'
 import Search from '../Search/Search'
-import './_Header.scss'
+import './_Header.scss' 
+import AuthModal from '../common/Modals/AuthModal/AuthModal'
 
 const Header: React.FC = () => {
   const headerEl = React.useRef<HTMLDivElement | null>(null)
@@ -14,6 +15,15 @@ const Header: React.FC = () => {
 
   return (
     <div id="header" ref={headerEl}>
+      <div className="header__top">
+        <Container>
+          <span>Середній час доставки: 28:00:00</span>
+
+          <AuthModal />
+        </Container>
+      </div>
+
+      <div className="header__middle">
         <Container>
           <div className="header__content">
             <Logotype />
@@ -25,6 +35,7 @@ const Header: React.FC = () => {
             <MobileNavigation />
           </div>
         </Container>
+      </div>
     </div>
   )
 }

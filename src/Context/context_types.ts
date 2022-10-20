@@ -17,6 +17,7 @@ export type IAction =
     | { type: 'ADD_INGRIDIENT_TO_PIZZA',payload: {ingridients: IIngridients[],variants: PizzaProductSizeInterface[]}}
     | { type: 'CHANGE_INGRIDIENT_QTY',payload: IPizza}
     | { type: 'UPDATE_CART',payload: ICart}
+    | { type: 'SET_AUTH_MODAL_STATUS',payload: 'active' | 'inactive'}
 
 //Context actions types
 export interface IActionsList {
@@ -31,14 +32,16 @@ export interface IActionsList {
     removeFromCart: (item: IPizzaInCart | IDrinkInCart | ISideInCart) => void,
     setProductDetails: (product: IPizza) => void,
     addIngridientToPizza: (ingridient: IIngridients) => void,
-    changeIngridientQty: (type: string,ingridient: IIngridientsFull) => void
+    changeIngridientQty: (type: string,ingridient: IIngridientsFull) => void,
+    setAuthModalStatus: (status: 'active' | 'inactive') => void
 }
 
 export interface IInitialState {
     sort: ISort,
     cart: ICart,
     customerData: ICustomerData,
-    productDetails: IPizza
+    productDetails: IPizza,
+    view: IView
 }
 
 export interface ICartItem {
@@ -74,4 +77,10 @@ export interface ICart {
     
 export interface IProvider {
     children: React.ReactNode
+}
+
+export interface IView {
+    authModal: {
+        status: string
+    }
 }

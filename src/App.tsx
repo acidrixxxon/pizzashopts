@@ -8,6 +8,7 @@ import ProductPage from './Pages/Product/ProductPage';
 import OrderStatus from './Pages/OrderDetails/OrderStatus';
 import LocalStorageService from './Services/LocalStorageService';
 import { Context1 } from './Context/Context';
+import { io } from 'socket.io-client'
 
 
 function App() {
@@ -15,9 +16,17 @@ function App() {
 
   const appEl = React.useRef<HTMLDivElement | null>(null)
 
-  const { state: { cart }} = React.useContext(Context1)
+  const { state: { cart,view: { authModal } }} = React.useContext(Context1)
   
   // navigator.geolocation.getCurrentPosition((pos) => setPos(pos))
+  const socket = io('http://localhost:3000')
+
+  React.useEffect(() => {
+    socket.on('recieve_message',(data) => console.log(data))
+    socket.on('db_change',data => console.log(data))
+    socket.emit('send_message',{message: 'hello'})
+  },[])
+  
 
   React.useEffect(() => {
     const onScroll = (e: any) => {
@@ -40,7 +49,7 @@ function App() {
   },[cart])
   
   return (
-    <div className="App" ref={appEl}>
+    <div className={authModal.status === 'active' ? "App no-scroll" : 'App'} ref={appEl}>
       <Header />
 
       <Routes>
