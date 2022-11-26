@@ -7,11 +7,15 @@ import MobileNavigation from '../common/MobileNavigation/MobileNavigation'
 import Search from '../Search/Search'
 import './_Header.scss' 
 import AuthModal from '../common/Modals/AuthModal/AuthModal'
+import { Context1 } from '../../Context/Context'
+import UserCabinet from '../UserCabinet/UserCabinet'
 
 const Header: React.FC = () => {
   const headerEl = React.useRef<HTMLDivElement | null>(null)
 
   useStickyHeader(headerEl)
+
+  const { state: { user }} = React.useContext(Context1)
 
   return (
     <div id="header" ref={headerEl}>
@@ -19,7 +23,7 @@ const Header: React.FC = () => {
         <Container>
           <span>Середній час доставки: 28:00:00</span>
 
-          <AuthModal />
+          {user ? <UserCabinet /> : <AuthModal />}
         </Container>
       </div>
 

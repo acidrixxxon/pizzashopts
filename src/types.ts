@@ -1,3 +1,6 @@
+import { ICartItem } from "./Context/context_types"
+import { IPizza, IPizzaIngridientFull, IPizzaIngridientShort, IPizzaSize } from "./types/ProductTypes"
+
 export type initialStateType = {
     cart: ICart,
     category: number,
@@ -7,49 +10,41 @@ export type initialStateType = {
     productDetails: IPizza 
 }
 
-export interface IActions {
-    setCategory: (id:number) => void,
-    changeIngridientQty: (type: string,ingridient: IIngridientsFull) => void,
-    setSortType: (id: number) => void,
-    addIngridient: (ingridient: IIngridients) => void,
-    setPaymentType: (payment: IPaymentVariants) => void, 
-    clearCart: () => void,
-    setFieldError: (errors: IErrors) => void,
-    setCustomerData: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    addDoubleMocarella: (id: string) => void,
-    removeDoubleMocarella: (id: string) => void
+// export interface IActions {
+//     setCategory: (id:number) => void,
+//     changeIngridientQty: (type: string,ingridient: IIngridientsFull) => void,
+//     setSortType: (id: number) => void,
+//     addIngridient: (ingridient: IIngridients) => void,
+//     setPaymentType: (payment: IPaymentVariants) => void, 
+//     clearCart: () => void,
+//     setFieldError: (errors: IErrors) => void,
+//     setCustomerData: (e: React.ChangeEvent<HTMLInputElement>) => void,
+//     addDoubleMocarella: (id: string) => void,
+//     removeDoubleMocarella: (id: string) => void
 
-}
-export type Action =
- | { type: 'SET_CATEGORY',payload: number}
- | { type: 'SET_SORT',payload: number}
- | { type: 'ADD_TO_CART',payload: IPizzaInCart}
- | { type: 'CLEAR_CART'}
- | { type: 'REMOVE_FROM_CART',payload: IPizzaInCart | IDrinkInCart | ISideInCart}
- | { type: 'PLUS_QTY',payload:  number}
- | { type: 'MINUS_QTY',payload: number}
- | { type: 'SET_CUSTOMER_DATA',payload: React.ChangeEvent<HTMLInputElement>}
- | { type: 'SET_PAYMENT_TYPE',payload: IPaymentVariants}
- | { type: 'SET_PRODUCT_DETAILS',payload: IPizza}
- | { type: 'SET_INGRIDIENT_QTY',payload: IPizza }
- | { type: 'ADD_INGRIDIENT_TO_PIZZA',payload: {ingridients:  IIngridients[],variants: PizzaProductSizeInterface[]}}
- | { type: 'CLEAR_CART'}
- | { type : 'SET_FIELD_ERROR',payload: IErrors}
- | { type: 'ADD_DOUBLE_MOCARELLA',payload: {items: CartItemInterface[],totalCost:number}}
- | { type: 'REMOVE_DOUBLE_MOCARELLA',payload: {items: CartItemInterface[],totalCost: number}}
-
-export interface PizzaProductCrustInterface {
-    fulltitle: string,
-    inSell: boolean,
-    price: number,
-    title: string,
-    id: number
-}
+// }
+// export type Action =
+//  | { type: 'SET_CATEGORY',payload: number}
+//  | { type: 'SET_SORT',payload: number}
+//  | { type: 'ADD_TO_CART',payload: IPizzaInCart}
+//  | { type: 'CLEAR_CART'}
+//  | { type: 'REMOVE_FROM_CART',payload: IPizzaInCart | IDrinkInCart | ISideInCart}
+//  | { type: 'PLUS_QTY',payload:  number}
+//  | { type: 'MINUS_QTY',payload: number}
+//  | { type: 'SET_CUSTOMER_DATA',payload: React.ChangeEvent<HTMLInputElement>}
+//  | { type: 'SET_PAYMENT_TYPE',payload: IPaymentVariants}
+//  | { type: 'SET_PRODUCT_DETAILS',payload: IPizza}
+//  | { type: 'SET_INGRIDIENT_QTY',payload: IPizza }
+//  | { type: 'ADD_INGRIDIENT_TO_PIZZA',payload: {ingridients:  IIngridients1[],variants: PizzaProductSizeInterface[]}}
+//  | { type: 'CLEAR_CART'}
+//  | { type : 'SET_FIELD_ERROR',payload: IErrors}
+//  | { type: 'ADD_DOUBLE_MOCARELLA',payload: {items: CartItemInterface[],totalCost:number}}
+//  | { type: 'REMOVE_DOUBLE_MOCARELLA',payload: {items: CartItemInterface[],totalCost: number}}
 
 export interface ICart {
     totalItems: number,
     totalCost: number,
-    items: CartItemInterface[]
+    items: [IPizzaInCart,IDrinkInCart,ISideInCart] | []
 }
 export interface ICustomerData {
     name: string,
@@ -87,11 +82,6 @@ export interface IErrors {
     restaurant: string[] | null 
 }
 
-export interface PizzaProductSizeInterface {
-    title: string,
-    variants: PizzaProductCrustInterface[]
-}
-
 export interface SearchResultInterface {
     category: number,
     defaultPrice: number,
@@ -99,14 +89,8 @@ export interface SearchResultInterface {
     imageUrl: string,
     rating: number, 
     title: string,
-    variants: PizzaProductSizeInterface[],
-    ingridients: IIngridients[]
-}
-
-
-export interface PizzaIngridientInterface {
-    id: number,
-    qty: number
+    variants: IPizzaSize[],
+    ingridients: IIngridients1[]
 }
 
 export interface CartItemInterface {
@@ -114,21 +98,11 @@ export interface CartItemInterface {
     id: number,
     imageUrl: string,
     inSell: boolean,
-    ingridients: PizzaIngridientInterface[],
+    ingridients: IPizzaIngridientFull[],
     price: number,
     qty: number,
     title: string,
     uniqueId?: string
-}
-
-export interface IPizzaCategory {
-    id: number,
-    title: string
-}
-
-export interface CategoryInterface {
-    id: number,
-    title: string
 }
 
 export type SortVariantsType = {
@@ -136,72 +110,92 @@ export type SortVariantsType = {
     title: string
 }
 
-export interface IIngridientsFull {
-    id: number,
+export interface IIngridient {
     title: string,
-    category: number,
-    addPrice: number,
-    imageUrl: string
-}
-
-
-export interface IIngridients {
-    id: number,
-    qty: number
-}
-
-export interface IPizza {
-    id: number,
     imageUrl: string,
+    category: string,
+    addPrice: number,
+    _id: string
+}
+export interface IIngridients1 {
+    ingridientId: IIngridient,
+    _id: string,
+    qty: number,
+}
+
+export interface IPizzaCategory {
+    id?: number,
+    _id?: string,
     title: string,
-    ingridients: IIngridients[],
-    variants: PizzaProductSizeInterface[],
-    class: number,
-    category: number,
-    defaultObj?: IPizza
+    products?: IPizza[] | []
 }
 
 export interface IPizzaInCart {
     fulltitle: string,
-    id: number,
+    _id: string,
     imageUrl: string,
-    inSell: boolean,
-    ingridients: IIngridients[],
+    fullimageUrl: string | undefined,
+    isSell: boolean | undefined,
+    ingridients: IPizzaIngridientShort[],
     price: number,
     qty: number,
     title: string,
-    uniqueId?: string
+    uniqueId?: string,
+    class: number,
+    size?: undefined
 }
 
 export interface IDrinkInCart {
-    id: number,
+    _id: string,
     imageUrl: string,
     price: number,
     qty: number,
     size: string,
     uniqueId?: string
     title: string,
+    class: number,
+    ingridients?: IPizzaIngridientShort[],
+    fulltitle?: undefined
 }
 
 export interface ISideInCart {
-    id: number,
+    _id: string,
     imageUrl: string,
     price: number,
     qty: number,
     size: string,
     title: string,
-    uniqueId?: string
+    uniqueId?: string,
+    class: number,
+    ingridients?: IPizzaIngridientShort[],
+    fulltitle?: string
+}
+
+export interface IDeliveryInCart {
+    id: number,
+    title: string,
+    price: number,
+    items?: undefined,ingridients?: undefined,class?: undefined,size?: undefined,imageUrl?: undefined,
+    _id?: undefined,
+    uniqueId?: undefined
+}
+
+export  interface ISideCategory1 {
+    title: string,
+    _id: string | undefined,
+    products: ISide[] | []
 }
 
 export  interface ISideCategory {
     id: number,
-    title: string
+    title: string,
+    _id?: string | undefined
 }
 
 export interface ISide {
     class: number,
-    category: number,
-    id: number,
+    category: string,
+    _id: string,
     title: string,
     imageUrl: string,
     defaultPrice: number,
@@ -210,7 +204,8 @@ export interface ISide {
 
 export interface SideVariants {
     size: string,
-    price: number
+    price: number,
+    _id?: string
 }
 
 export interface IDrink {
@@ -231,6 +226,40 @@ export interface DrinkVariants {
 export interface IDrinkCategory {
     id: number,
     title: string
+}
+
+export interface IDrinkNew {
+    _id: string,
+    title: string,
+    defaultPrice: number,
+    newProduct: boolean,
+    rating: number,
+    class: number,
+    category: string,
+    imageUrl: string,
+    variants: [{
+        size: string,
+        price: number,
+        _id: string
+    }]
+}
+
+export interface IDrinkCategoryResponse {
+    message: string,
+    success: boolean,
+    categories: IDrinkCategory1[]
+}
+
+export interface IDrinkProductsResponse {
+    message: string,
+    success: boolean,
+    products: IDrinkNew[] | null
+}
+
+export interface IDrinkCategory1 {
+    _id: string,
+    title: string,
+    products: IDrinkNew[]
 }
 
 export interface IPaymentVariants {
@@ -289,3 +318,9 @@ export interface ICity {
     name: string,
     restaurants: IRestaurant[]
 }
+
+export interface ISidesCategories {
+    title: string,
+    _id: string
+}
+

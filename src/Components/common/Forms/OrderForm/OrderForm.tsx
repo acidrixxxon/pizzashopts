@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Context1 } from '../../../../Context/Context'
 import { newOrderDto } from '../../../../Dto/CartDto'
 import LocalStorageService from '../../../../Services/LocalStorageService'
+import OrderService from '../../../../Services/OrderService'
+import { INewOrderResponse, INewOrderResponseWithError } from '../../../../types/OrderTypes'
 import { initialCustomerDataErrors } from '../../../../Utils/initialStore'
 import { validateFields } from '../../../../Utils/Validation'
 import DeliveryIcon from '../../Icons/DeliveryIcon'
@@ -14,8 +16,8 @@ import DineinOrderForm from '../DineinOrderForm/DineinOrderForm'
 import './_OrderForm.scss'
 
 const OrderForm:React.FC = () => {
-  const { actions: { setCustomerData },state: { customerData,cart },actions: { clearCart,setFieldError }} = React.useContext(Context1)
- 
+  const { actions: { setCustomerData },state: { customerData,cart },actions: { clearCart,setFieldError },state} = React.useContext(Context1)
+  
   const navigate = useNavigate()
 
   const setOrderTypeHandler = (type: number): void =>  {
@@ -24,19 +26,21 @@ const OrderForm:React.FC = () => {
     setFieldError(initialCustomerDataErrors)
   }
 
-  const createOrderHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const createOrderHandler = async (e: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
     e.preventDefault()
     if(customerData.paymentType !== undefined) {
       const { errors,result } = validateFields(customerData,customerData.paymentType)
 
       if (result) {
         const newOrder = newOrderDto(cart,customerData)
-
-        console.log(newOrder)
   
-        // LocalStorageService.saveCustomerData(customerData,customerData.paymentType)
-        // clearCart()
-        // navigate('/order-status/sf3sf3')
+        const newOrderResponse:INewOrderResponse | INewOrderResponseWithError = await OrderService.newOrder(newOrder)
+        if(newOrderResponse !== null && newOrderResponse !== undefined && newOrderResponse.success === true) {
+          LocalStorageService.saveCustomerData(customerData,customerData.paymentType)
+          clearCart()
+          navigate(`/order-status/${newOrderResponse.order?._id}`)
+        }
+
       } else {
         setFieldError(errors)
       }
@@ -97,7 +101,7 @@ const OrderForm:React.FC = () => {
               <span className="orderform__costText">грн</span>
             </div>
 
-            <button className={cart.items.length === 0 ? 'orderform__confirm disabled' : 'orderform__confirm'} onClick={(e) => createOrderHandler(e)} disabled={cart.items.length === 0}>Замовити</button>
+            <button className={cart.items.length < 1 ? 'orderform__confirm disabled' : 'orderform__confirm'} onClick={(e) => createOrderHandler(e)} disabled={cart.items.length < 1}>Замовити</button>
           </div>
         </form>
       </div>

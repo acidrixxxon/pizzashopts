@@ -1,0 +1,16 @@
+
+
+
+
+#dashboard {
+  padding: 40px 0;
+
+  .container {
+
+    .dashboard__wrapper {
+      display: grid;
+      grid-template-columns: minmax(200px, .25fr) minmax(400px, .75fr);
+      grid-gap: 25px;
+    }
+  }
+}

@@ -5,7 +5,6 @@ import  { AiOutlineClose,AiOutlinePlus } from 'react-icons/ai'
 import ReactPortal from '../../ReactPortal/ReactPortal'
 import SetIngridients from '../../Modals/SetIngridients/SetIngridients'
 import { Context1 } from '../../../../Context/Context'
-import { CartProductDTO } from '../../../../Dto/CartDto'
 
 const ProductInfo:React.FC = () => {
     const [ activeSize,setActiveSize ] = React.useState<number>(0)
@@ -19,26 +18,26 @@ const ProductInfo:React.FC = () => {
 
     const { dispatch,state: { productDetails },actions: { addToCart,setProductDetails,changeIngridientQty }} = React.useContext(Context1)
     
-    const addToCartHandler = ():void => {
-        const productObj = new CartProductDTO(productDetails.class,productDetails.imageUrl,
-            productDetails.variants[activeSize].variants[activeType].fulltitle,
-            productDetails.title,
-            productDetails.variants[activeSize].variants[activeType].price,
-            productDetails.ingridients,
-            productDetails.variants[activeSize].variants[activeType].id,
-            productDetails.variants[activeSize].variants[activeType].inSell,undefined)
+    // const addToCartHandler = ():void => {
+    //     const productObj = new CartProductDTO(productDetails.class,productDetails.imageUrl,
+    //         productDetails.variants[activeSize].variants[activeType].fulltitle,
+    //         productDetails.title,
+    //         productDetails.variants[activeSize].variants[activeType].price,
+    //         productDetails.ingridients,
+    //         productDetails.variants[activeSize].variants[activeType].id,
+    //         productDetails.variants[activeSize].variants[activeType].inSell,undefined)
 
-        addToCart(productObj)
-        setSize(0)
-        setProductDetails(productDetails.defaultObj)
-    }
+    //     addToCart(productObj)
+    //     setSize(0)
+    //     setProductDetails(productDetails.defaultObj)
+    // }
 
 
     return (
         <div id="productInfo">
             <h4 className="productInfo__title">{productDetails.title}</h4>
 
-            {productDetails.ingridients !== undefined && productDetails.ingridients.length > 0 ? 
+            {/* {productDetails.ingridients !== undefined && productDetails.ingridients.length > 0 ? 
                 <>
                     <div className="productInfo__ingridients">
                         <span>Інгрідієнти</span>
@@ -75,7 +74,7 @@ const ProductInfo:React.FC = () => {
                             </li>
                         </ul>
                     </div>
-                </> : ''}
+                </> : ''} */}
 
             <div className="productInfo__options">
                 {productDetails.class === 0 ? <>
@@ -130,15 +129,15 @@ const ProductInfo:React.FC = () => {
                 <div className="productInfo__price">
                     {productDetails.variants[activeSize].variants[activeType].price}.00 грн
                 </div>
-
+{/* 
                 <button className="productInfo__toCart" onClick={addToCartHandler}>
                     В кошик
-                </button>
+                </button> */}
             </div>
-
+{/* 
             <ReactPortal wrapperId='root'>
                 <SetIngridients visible={visibleModal} setVisible={setVisibleModal} />
-            </ReactPortal>
+            </ReactPortal> */}
         </div>
     )
 }

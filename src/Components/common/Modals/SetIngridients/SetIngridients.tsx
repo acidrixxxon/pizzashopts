@@ -19,7 +19,7 @@ const SetIngridients:React.FC<IComponentProps> = ({ visible,setVisible }) => {
   return (
     <div className={visible? "addModal modal__isVisible" : "addModal"} onClick={() => setVisible(false)}>
 
-      <div className="addModal__content" onClick={(e) => e.stopPropagation()}>
+      {/* <div className="addModal__content" onClick={(e) => e.stopPropagation()}>
 
         <span className="addModal__closeIcon" onClick={() => setVisible(false)}>
           <AiOutlineClose />
@@ -36,7 +36,7 @@ const SetIngridients:React.FC<IComponentProps> = ({ visible,setVisible }) => {
             return <IngridientsCategory key={item.id} category={item} items={items} />
           })}
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

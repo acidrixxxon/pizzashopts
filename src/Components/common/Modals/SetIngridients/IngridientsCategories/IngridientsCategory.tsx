@@ -1,17 +1,17 @@
 import React from 'react'
-import { IIngridientsFull } from '../../../../../types'
 import { HiArrowSmRight } from 'react-icons/hi'
 import './_IngridientsCategory.scss'
 import { AnimatePresence,motion } from 'framer-motion'
 import IngridientsCategoryItem from './IngridientsCategoryItem/IngridientsCategoryItem'
 import useOutsideClick from '../../../../../hooks/useOutsideClick'
+import { IIngridients1 } from '../../../../../types'
 
 interface IComponentProps {
   category: {
     id: number,
     title: string
   },
-  items: IIngridientsFull[]
+  items: IIngridients1[]
 }
 
 const IngridientsCategory:React.FC<IComponentProps> = ({ category,items }) => {
@@ -48,7 +48,7 @@ const IngridientsCategory:React.FC<IComponentProps> = ({ category,items }) => {
         </span>
       </div>
 
-      <AnimatePresence>
+      {/* <AnimatePresence>
           {listVisibility && (
             <motion.ul 
               initial={{height: '0px',opacity: 0}}
@@ -59,7 +59,7 @@ const IngridientsCategory:React.FC<IComponentProps> = ({ category,items }) => {
               {items.map((ingridient) => <IngridientsCategoryItem item={ingridient}/>)}
             </motion.ul>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
     </div>
   )
 }

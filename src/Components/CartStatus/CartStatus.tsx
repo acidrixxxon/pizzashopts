@@ -82,7 +82,7 @@ const CartStatus = () => {
                                             <div className="cartStatus__promoText">Подвійна моцарела<br /> від 20грн</div>
                                         </div>
                                         <ul className='cartStatus__itemList'>
-                                            {cart.items.map((item) => <CartStatusItem item={item} />)}
+                                            {cart.items.map((item: any) => <CartStatusItem item={item} />)}
                                             
                                             {cart.totalCost < 300 && (
                                                 <li className='cartStatus__itemDelivery'>

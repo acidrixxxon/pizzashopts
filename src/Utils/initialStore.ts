@@ -1,4 +1,5 @@
-import { ICart, ICustomerData, IErrors, IPizza } from "../types";
+import { ICart, ICustomerData, IErrors } from "../types";
+import { IPizza } from "../types/ProductTypes";
 
 
 export const initialCustomerDataErrors: IErrors = {
@@ -35,17 +36,19 @@ export const initialCartState: ICart = {
 }
 
 export const initialProductDetails: IPizza = {
-    category: 0,
-    id: 0,
+    category: '0',
+    _id: '0',
     imageUrl: '',
+    fullimageUrl: '',
     ingridients: [],
     title: '',
     class: 0,
     variants: [],
     defaultObj: {
-        category: 0,
-        id: 0,
+        category: '0',
+        _id: '0',
         imageUrl: '',
+        fullimageUrl: '',
         ingridients: [],
         title: '',
         class: 0,

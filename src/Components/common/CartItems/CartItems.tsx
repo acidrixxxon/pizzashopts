@@ -14,7 +14,7 @@ const CartItems = () => {
         <div className="cartitems__items">
           {cart.items.length > 0 && (
             <ul className="cartitems__list">
-              {cart.items.map((item) => <CartItemComponent key={item.id} item={item} />)}
+              {cart.items.map((item) => <CartItemComponent key={item._id} item={item} />)}
               {cart.totalCost < 300 && <DeliveryItem /> }
             </ul>
           )}

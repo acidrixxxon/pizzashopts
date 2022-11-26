@@ -1,22 +1,22 @@
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { Context1 } from '../../../../../../Context/Context'
-import { IIngridientsFull, IPizza } from '../../../../../../types'
+import { IIngridient } from '../../../../../../types'
 import './_IngridientsCategoryItem.scss'
 
 
 interface IComponentProps {
-    item: IIngridientsFull
+    item: IIngridient
 }
 
 const IngridientsCategoryItem:React.FC<IComponentProps> = ({ item }) => {
     const { state: { productDetails },actions: { addIngridientToPizza,changeIngridientQty }} = React.useContext(Context1)
 
-    const alreadyInPizza = productDetails.ingridients.find(ingridient => ingridient.id === item.id)
+    // const alreadyInPizza = productDetails.ingridients.find(ingridient => ingridient.id === item.id)
     
     return (
         <div id="ingridientCategoryItem" >
-            <img src={item.imageUrl} alt="ingrti" className="ingridientItem__image" />
+            {/* <img src={item.imageUrl} alt="ingrti" className="ingridientItem__image" />
 
             <h6 className="ingridientItem__title">{item.title}</h6>
 
@@ -29,7 +29,7 @@ const IngridientsCategoryItem:React.FC<IComponentProps> = ({ item }) => {
             ) :    
                 <span className="ingridientItem__add" onClick={() => addIngridientToPizza({id: item.id,qty: 1})}>
                     <AiOutlinePlus />
-                </span>}
+                </span>} */}
         </div>
     )
 }

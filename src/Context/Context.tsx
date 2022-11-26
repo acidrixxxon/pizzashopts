@@ -1,10 +1,11 @@
 import { isEqual } from 'lodash'
 import React from 'react'
 import { ingridientsList } from '../mockdata'
-import { IDrinkInCart, IErrors, IIngridients, IIngridientsFull, IPizza, IPizzaInCart, ISideInCart } from '../types'
+import { IDrinkInCart, IErrors, IIngridient, IPizzaInCart, ISideInCart } from '../types'
+import { IPizza } from '../types/ProductTypes'
 import { initialCartState, initialCustomerData, initialProductDetails } from '../Utils/initialStore'
-import { ADD_INGRIDIENT_TO_PIZZA, ADD_TO_CART, CHANGE_INGRIDIENT_QTY, CHANGE_ITEM_QTY, CLEAR_CART, REMOVE_FROM_CART, SET_AUTH_MODAL_STATUS, SET_CATEGORY, SET_FIELD_ERROR, SET_PRODUCT_DETAILS, SET_SORT, TOGGLE_EXTRA_MOCARELLA, UPDATE_CART } from './constans'
-import { IActionsList, ICartItem, IInitialState, IProvider } from './context_types'
+import { ADD_INGRIDIENT_TO_PIZZA, ADD_TO_CART, CHANGE_INGRIDIENT_QTY, CHANGE_ITEM_QTY, CLEAR_CART, LOGIN_USER, LOGOUT_USER, REMOVE_FROM_CART, SET_AUTH_MODAL_STATUS, SET_CATEGORY, SET_FIELD_ERROR, SET_PRODUCT_DETAILS, SET_SOCKET, SET_SORT, TOGGLE_EXTRA_MOCARELLA, UPDATE_CART } from './constans'
+import { IActionsList, ICartItem, IInitialState, IProvider, IUser } from './context_types'
 import { rootReducer } from './reducers/rootReducer'
 
 const initialState:IInitialState = {
@@ -19,7 +20,9 @@ const initialState:IInitialState = {
         authModal: {
             status: 'inactive'
         }
-    }
+    },
+    user: null,
+    socket: null
 }
 
 interface ContextInterface {
@@ -42,37 +45,41 @@ const StateProvider:React.FC<IProvider> = ({ children }) => {
         dispatch({ type: SET_SORT,payload: id})
     }
 
-    const addToCart = (item: ICartItem): void => {
-        const alreadyInCart = state.cart.items.filter(product => product.id === item.id)
+    const addToCart = (item: any): void => {
+        const alreadyInCart = state.cart.items.filter(product => product._id === item._id)
         if (alreadyInCart.length > 0) {
 
-            const compare = alreadyInCart.map(prod => {
-                if (isEqual(prod.ingridients,item.ingridients)) {
-                    return prod
+            if (item.class === 0) {
+                const compare = alreadyInCart.map(prod => {
+                    if (isEqual(prod.ingridients,item.ingridients)) {
+                        return prod
+                    } else {
+                        return 
+                    }
+                })
+                
+                if (compare.filter(item => typeof item === 'object')[0]) {
+                    console.log('sovpal sostav')
+                    const itemIndex = state.cart.items.findIndex(prod => JSON.stringify(prod.ingridients) === JSON.stringify(item.ingridients) && prod._id === item._id)
+                    let itemsArray = state.cart.items
+                    let itemObj = state.cart.items[itemIndex]
+    
+                    itemObj.qty += 1
+                    itemsArray[itemIndex] = itemObj
+    
+                    const newCart = {
+                        items: itemsArray,
+                        totalCost: state.cart.totalCost + item.price,
+                        totalItems: state.cart.totalItems + 1
+                    }
+    
+                    dispatch({ type: UPDATE_CART,payload: newCart})
                 } else {
-                    return 
+                    console.log('ne sovpal sostav')
+                    dispatch({ type: ADD_TO_CART,payload: item})
                 }
-            })
-            
-            if (compare.filter(item => typeof item === 'object')[0]) {
-                console.log('sovpal sostav')
-                const itemIndex = state.cart.items.findIndex(prod => JSON.stringify(prod.ingridients) === JSON.stringify(item.ingridients) && prod.id === item.id)
-                let itemsArray = state.cart.items
-                let itemObj = state.cart.items[itemIndex]
-
-                itemObj.qty += 1
-                itemsArray[itemIndex] = itemObj
-
-                const newCart = {
-                    items: itemsArray,
-                    totalCost: state.cart.totalCost + item.price,
-                    totalItems: state.cart.totalItems + 1
-                }
-
-                dispatch({ type: UPDATE_CART,payload: newCart})
             } else {
-                console.log('ne sovpal sostav')
-                dispatch({ type: ADD_TO_CART,payload: item})
+
             }
         } else {
             dispatch({ type: ADD_TO_CART,payload: item})
@@ -131,13 +138,13 @@ const StateProvider:React.FC<IProvider> = ({ children }) => {
     }
 
     const toggleExtraMocarella = (id: string,type: string): void => {
-        let item = state.cart.items.find(item => item.uniqueId === id)
+        let item:IPizzaInCart = state.cart.items.find(item => item.uniqueId === id)
         const itemIndex = state.cart.items.findIndex(item => item.uniqueId === id)
         const mocarella = ingridientsList.find(item => item.id === 15)
         let array = state.cart.items
 
-        if (item !== undefined && itemIndex  !== undefined) {
-            const ingridientIndex = item.ingridients.findIndex(item => item.id === 15)
+        if (item !== undefined && itemIndex  !== undefined && item.ingridients !== undefined) {
+            const ingridientIndex = item.ingridients.findIndex(item => item._id === '63714ca4858cf7c6b09716fc')
 
             if (type === 'add') {
                 item.ingridients[ingridientIndex].qty += 1
@@ -175,116 +182,132 @@ const StateProvider:React.FC<IProvider> = ({ children }) => {
         dispatch({ type: SET_PRODUCT_DETAILS,payload: product})
     }
 
-    const addIngridientToPizza = ( ingridient: IIngridients): void => {
-        const prod: IIngridientsFull | undefined = ingridientsList.find(item => item.id === ingridient.id)
-        const isDefault = state.productDetails.defaultObj?.ingridients.find(item => item.id === ingridient.id)
+    const addIngridientToPizza = ( ingridient: IIngridient): void => {
+        // const prod: IIngridientsFull | undefined = ingridientsList.find(item => item.id === ingridient.id)
+        // const isDefault = state.productDetails.defaultObj?.ingridients.find(item => item.id === ingridient.id)
 
-        if (prod && state.productDetails.defaultObj !== undefined) {
-            if(isDefault) {
-                dispatch({ type: ADD_INGRIDIENT_TO_PIZZA,payload: {
-                    variants: state.productDetails.defaultObj.variants,
-                    ingridients: [...state.productDetails.ingridients,ingridient]
-                }})
-            } else {
-                dispatch({ type: ADD_INGRIDIENT_TO_PIZZA,payload: {
-                        variants: state.productDetails.variants.map(size => {
-                            return {
-                                ...size,
-                                variants: size.variants.map(crest => {
-                                    return {
-                                        ...crest,
-                                        price: crest.price + prod.addPrice
-                                    }
-                                })
-                            }
-                        }),
-                        ingridients: [...state.productDetails.ingridients,ingridient]
-                    }
-                })
-            }
-        }
+        // if (prod && state.productDetails.defaultObj !== undefined) {
+        //     if(isDefault) {
+        //         dispatch({ type: ADD_INGRIDIENT_TO_PIZZA,payload: {
+        //             variants: state.productDetails.defaultObj.variants,
+        //             ingridients: [...state.productDetails.ingridients,ingridient]
+        //         }})
+        //     } else {
+        //         dispatch({ type: ADD_INGRIDIENT_TO_PIZZA,payload: {
+        //                 variants: state.productDetails.variants.map(size => {
+        //                     return {
+        //                         ...size,
+        //                         variants: size.variants.map(crest => {
+        //                             return {
+        //                                 ...crest,
+        //                                 price: crest.price + prod.addPrice
+        //                             }
+        //                         })
+        //                     }
+        //                 }),
+        //                 ingridients: [...state.productDetails.ingridients,ingridient]
+        //             }
+        //         })
+        //     }
+        // }
         
     }
 
-    const changeIngridientQty = (type: string,ingridient: IIngridientsFull):void => {
-        let productDetailsObj:IPizza = state.productDetails
-        const ingridientIndex = productDetailsObj.ingridients.findIndex(item => item.id === ingridient.id)
-        let ingridientObj: IIngridients = productDetailsObj.ingridients[ingridientIndex]
-        let ingridientsArray: IIngridients[] = productDetailsObj.ingridients
+    const changeIngridientQty = (type: string,ingridient: IIngridient):void => {
+        // let productDetailsObj:IPizza = state.productDetails
+        // const ingridientIndex = productDetailsObj.ingridients.findIndex(item => item.id === ingridient.id)
+        // let ingridientObj: IIngridients = productDetailsObj.ingridients[ingridientIndex]
+        // let ingridientsArray: IIngridients[] = productDetailsObj.ingridients
 
-        if (type === 'plus') {
-            if (ingridientObj.qty < 2) {
-                ingridientObj.qty += 1
-                ingridientsArray[ingridientIndex] = ingridientObj
+        // if (type === 'plus') {
+        //     if (ingridientObj.qty < 2) {
+        //         ingridientObj.qty += 1
+        //         ingridientsArray[ingridientIndex] = ingridientObj
 
-                const newVariants = productDetailsObj.variants.map(size => {
-                    return {
-                        ...size,
-                        variants: size.variants.map(crest => {
-                            return {
-                                ...crest,
-                                price: crest.price + ingridient.addPrice
-                            }
-                        })
-                    }
-                })
+        //         const newVariants = productDetailsObj.variants.map(size => {
+        //             return {
+        //                 ...size,
+        //                 variants: size.variants.map(crest => {
+        //                     return {
+        //                         ...crest,
+        //                         price: crest.price + ingridient.addPrice
+        //                     }
+        //                 })
+        //             }
+        //         })
 
-                productDetailsObj.variants = newVariants
-                productDetailsObj.ingridients = ingridientsArray
+        //         productDetailsObj.variants = newVariants
+        //         productDetailsObj.ingridients = ingridientsArray
 
-                dispatch({type: CHANGE_INGRIDIENT_QTY,payload: productDetailsObj})
-            } else {
-                return
-            }
-        } else {
-            if (ingridientObj.qty === 1) {
-                const isDefault = state.productDetails.defaultObj?.ingridients.find(item => item.id === ingridient.id)
+        //         dispatch({type: CHANGE_INGRIDIENT_QTY,payload: productDetailsObj})
+        //     } else {
+        //         return
+        //     }
+        // } else {
+        //     if (ingridientObj.qty === 1) {
+        //         const isDefault = state.productDetails.defaultObj?.ingridients.find(item => item.id === ingridient.id)
                 
-                if (isDefault) {
-                    productDetailsObj.ingridients = ingridientsArray.filter(item => item.id !== ingridient.id)
-                    dispatch({type:CHANGE_INGRIDIENT_QTY,payload: productDetailsObj}) 
-                } else {
-                    productDetailsObj.ingridients = ingridientsArray.filter(item => item.id !== ingridient.id)
-                    productDetailsObj.variants = productDetailsObj.variants.map(size => {
-                        return {
-                            ...size,
-                            variants: size.variants.map(crest => {
-                                return {
-                                    ...crest,
-                                    price: crest.price - ingridient.addPrice
-                                }
-                            })
-                        }
-                    })
-                    dispatch({type:CHANGE_INGRIDIENT_QTY,payload: productDetailsObj}) 
-                }
+        //         if (isDefault) {
+        //             productDetailsObj.ingridients = ingridientsArray.filter(item => item.id !== ingridient.id)
+        //             dispatch({type:CHANGE_INGRIDIENT_QTY,payload: productDetailsObj}) 
+        //         } else {
+        //             productDetailsObj.ingridients = ingridientsArray.filter(item => item.id !== ingridient.id)
+        //             productDetailsObj.variants = productDetailsObj.variants.map(size => {
+        //                 return {
+        //                     ...size,
+        //                     variants: size.variants.map(crest => {
+        //                         return {
+        //                             ...crest,
+        //                             price: crest.price - ingridient.addPrice
+        //                         }
+        //                     })
+        //                 }
+        //             })
+        //             dispatch({type:CHANGE_INGRIDIENT_QTY,payload: productDetailsObj}) 
+        //         }
 
-            } else {
-                ingridientObj.qty -= 1
-                ingridientsArray[ingridientIndex] = ingridientObj
+        //     } else {
+        //         ingridientObj.qty -= 1
+        //         ingridientsArray[ingridientIndex] = ingridientObj
 
-                const newVariants = productDetailsObj.variants.map(size => {
-                    return {
-                        ...size,
-                        variants: size.variants.map(crest => {
-                            return {
-                                ...crest,
-                                price: crest.price - ingridient.addPrice
-                            }
-                        })
-                    }
-                })
+        //         const newVariants = productDetailsObj.variants.map(size => {
+        //             return {
+        //                 ...size,
+        //                 variants: size.variants.map(crest => {
+        //                     return {
+        //                         ...crest,
+        //                         price: crest.price - ingridient.addPrice
+        //                     }
+        //                 })
+        //             }
+        //         })
 
-                productDetailsObj.variants = newVariants
-                productDetailsObj.ingridients = ingridientsArray
+        //         productDetailsObj.variants = newVariants
+        //         productDetailsObj.ingridients = ingridientsArray
 
-                dispatch({type:CHANGE_INGRIDIENT_QTY,payload: productDetailsObj})
-            } 
-        }
+        //         dispatch({type:CHANGE_INGRIDIENT_QTY,payload: productDetailsObj})
+        //     } 
+        // }
     }
 
     const setAuthModalStatus = (status: 'active' | 'inactive'):void => {
         dispatch({type: SET_AUTH_MODAL_STATUS,payload: status})
+    }
+
+    const loginUserProcess = (user: {email: string,password: string} | null): void => {
+        if (user === null) dispatch({type: LOGIN_USER,payload: null})
+        if(user !== null && user.email === 'rizhenko.vadim.r1.fc@gmail.com' && user.password === '12345678') {
+            dispatch({type: LOGIN_USER,payload: {email: user.email,isAdmin: true}})
+            dispatch({type: SET_AUTH_MODAL_STATUS,payload: 'inactive'})
+        }
+    }
+
+    const userLogoutProcess = () => {
+        dispatch({type: LOGOUT_USER})
+    }
+
+    const setSocket = (socket: any | null) => {
+        dispatch({type: SET_SOCKET,payload: socket})
     }
 
     const actions:IActionsList = {
@@ -300,7 +323,10 @@ const StateProvider:React.FC<IProvider> = ({ children }) => {
         setProductDetails,
         addIngridientToPizza,
         changeIngridientQty,
-        setAuthModalStatus
+        setAuthModalStatus,
+        loginUserProcess,
+        userLogoutProcess,
+        setSocket
     }
 
     return (

@@ -1,6 +1,7 @@
-import { IPizza } from "../../types"
+import { IPizza } from "../../types/ProductTypes"
 import { ADD_INGRIDIENT_TO_PIZZA, CHANGE_INGRIDIENT_QTY, SET_PRODUCT_DETAILS } from "../constans"
 import { IAction } from "../context_types"
+
 
 export const productDetailsReducer = (state: IPizza,action: IAction) => {
     switch(action.type){

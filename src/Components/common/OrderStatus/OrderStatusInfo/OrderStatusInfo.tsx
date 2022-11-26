@@ -1,7 +1,12 @@
 import React from 'react'
+import { IOrderDetails } from '../../../../types/OrderTypes'
 import './_OrderStatusInfo.scss'
 
-const OrderStatusInfo:React.FC = () => {
+interface ComponentProps {
+  data: IOrderDetails | undefined
+}
+
+const OrderStatusInfo:React.FC<ComponentProps> = ({ data }) => {
   return (
     <div className="order__info">
         <div className="order__infoGroup">
@@ -9,17 +14,17 @@ const OrderStatusInfo:React.FC = () => {
 
           <div className="order__infoGroupRow">
               <span className='order__infoGroupField'>Имя:</span>
-              <span className='order__infoGroupData'>Антон</span>
+              <span className='order__infoGroupData'>{data?.customerData.name}</span>
           </div>
 
           <div className="order__infoGroupRow">
               <span className='order__infoGroupField'>Email:</span>
-              <span className='order__infoGroupData'>maslov@rambler.ru </span>
+              <span className='order__infoGroupData'>{data?.customerData.email}</span>
           </div>
 
           <div className="order__infoGroupRow">
               <span className='order__infoGroupField'>Телефон:</span>
-              <span className='order__infoGroupData'>+7(800)343-04-34</span>
+              <span className='order__infoGroupData'>{data?.customerData.phone}</span>
           </div>
         </div>
 
@@ -33,7 +38,12 @@ const OrderStatusInfo:React.FC = () => {
 
           <div className="order__infoGroupRow">
               <span className='order__infoGroupField'>Адрес:</span>
-              <span className='order__infoGroupData'>Москва, Новомосковская улица, 15Ас1  </span>
+              <span className='order__infoGroupData'>
+                Київ, 
+                {` ${data?.customerData.street}`}, 
+                {` ${data?.customerData.house}`}, 
+                {data?.customerData.floor ? ` ${data?.customerData.floor} поверх`: null},
+                {data?.customerData.room ? ` ${data?.customerData.room} квартира` : null}</span>
           </div>
 
           <div className="order__infoGroupRow">
@@ -46,7 +56,7 @@ const OrderStatusInfo:React.FC = () => {
           <h4 className="order__infoGroupTitle">Способ оплаты</h4>
 
           <div className="order__infoGroupRow">
-            <span>Готівка</span>
+            <span>{data?.paymentType.title}</span>
           </div>
         </div>
 
@@ -54,7 +64,7 @@ const OrderStatusInfo:React.FC = () => {
           <h4 className="order__infoGroupTitle">Коментар для кур'єра</h4>
 
           <div className="order__infoGroupRow">
-            <span>Заберу біля под'їзду, подзвоніть по прибуттю</span>
+            <span>{data?.customerData.comment ? data?.customerData.comment : 'Коментар відсутній'}</span>
           </div>
         </div>
     </div>

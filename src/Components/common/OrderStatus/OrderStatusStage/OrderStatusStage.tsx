@@ -3,7 +3,7 @@ import { STATUS_IMAGE_URL } from '../../../../mockdata'
 import './_OrderStatusStage.scss'
 
 interface IComponentProps {
-    status: number
+    status: number | undefined
 }
 
 const OrderStatusStage:React.FC<IComponentProps> = ({ status }) => {

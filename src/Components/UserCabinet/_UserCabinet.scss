@@ -1,0 +1,72 @@
+
+
+#userCabinet {
+  position: relative;
+
+  .userCabinet__content {
+    background-color: #fff;
+
+    color: #333;
+
+    padding: 5px 15px;
+    
+    border-radius: 15px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    .userCabinet__arrow {
+      transition: transform 0.25s ease-in 0s;
+
+      margin-left: 15px;
+      &.rotated {
+
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .userCabinet__dropdown {
+    position: absolute;
+    left: 0;
+    z-index: 99999;
+
+    border-radius: 15px;
+
+    width: 100%;
+    top: 30px;
+    
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 25px;
+    background-color: rgb(255, 255, 255);
+    .userCabinet__list {
+
+      .userCabinet__list-link {
+        color: #333;
+        text-decoration: none;
+      }
+
+      .userCabinet__list-item {
+        color: #333;
+
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+        padding-left: 20px;
+
+        min-height: 50px;
+
+        display: flex;
+        align-items: center;
+
+        cursor: pointer;
+
+        transition: background-color 0.25s ease-in 0s;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.08);
+        }
+      }
+    }
+  }
+}

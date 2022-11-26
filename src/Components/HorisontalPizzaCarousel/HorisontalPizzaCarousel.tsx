@@ -1,11 +1,11 @@
 import React from 'react'
 import { Context1 } from '../../Context/Context'
 import ProductService from '../../Services/ProductService'
-import { IPizza } from '../../types'
 import { IoIosArrowForward,IoIosArrowBack } from 'react-icons/io'
 import Spinner from '../common/Icons/Spinner/Spinner'
 import  './_HorisontalPizzaCarousel.scss'
 import { Link } from 'react-router-dom'
+import { IPizza } from '../../types/ProductTypes'
 
 const HorisontalPizzaCarousel:React.FC = () => {
   const [ items,setItems] = React.useState<IPizza[] | []>([])
@@ -53,7 +53,7 @@ const HorisontalPizzaCarousel:React.FC = () => {
               <ul className="carousel__list" style={{transform: `translate3d(-${offsetWidth * idx}px,0,0)`}} ref={itemRef}>
                 {items.length > 0 && items.map((item,idx) => {
                   return (
-                      <Link className='carousel__link' to={`/product/${item.id}`}>
+                      <Link className='carousel__link' to={`/product/${item._id}`}>
                         <li className='carousel__item'>
                           <img src={item.imageUrl} alt="" className="carousel__itemImage" />
                         </li>

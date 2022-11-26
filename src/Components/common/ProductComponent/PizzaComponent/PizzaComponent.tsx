@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ingridientsList } from '../../../../mockdata'
-import { IPizza } from '../../../../types'
+import { v4 as uuidv4 } from 'uuid';
+import { IPizzaInCart } from '../../../../types'
 import './_PizzaComponent.scss'
 import { Context1 } from '../../../../Context/Context'
-import { CartProductDTO } from '../../../../Dto/CartDto'
+import { IPizza } from '../../../../types/ProductTypes';
 
 interface ComponentProps {
   pizza: IPizza
@@ -27,38 +27,47 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
   const { actions: { addToCart } } = React.useContext(Context1)
   
   const addToCartHandler = (item: IPizza):void => {
-    const productObj = new CartProductDTO(pizza.class,item.imageUrl,
-            item.variants[activeSize].variants[activeType].fulltitle,
-            item.title,item.variants[activeSize].variants[activeType].price,
-            item.ingridients,
-            item.variants[activeSize].variants[activeType].id,
-            item.variants[activeSize].variants[activeType].inSell,undefined)
+    // const productObj = new CartProductDTO(pizza.class,item.imageUrl,
+    //         item.variants[activeSize].variants[activeType].fulltitle,
+    //         item.title,item.variants[activeSize].variants[activeType].price,
+    //         item.ingridients,
+    //         item.variants[activeSize].variants[activeType]._id,
+    //         item.variants[activeSize].variants[activeType].isSell,undefined)
 
+    const productObj:IPizzaInCart = {
+        _id: item.variants[activeSize].variants[activeType]._id,
+        uniqueId: uuidv4(),
+        imageUrl: item.imageUrl,
+        fullimageUrl: item.fullimageUrl,
+        class: item.class,
+        title: item.title,
+        fulltitle: item.variants[activeSize].variants[activeType].fulltitle,
+        price: item.variants[activeSize].variants[activeType].price,
+        ingridients: item.ingridients,
+        qty: 1,
+        isSell: item.variants[activeSize].variants[activeType].isSell
+    }
+    console.log(productObj)
     addToCart(productObj)
     resetAllButtons()
   }
 
     return (
         <div className='pizza-wrapper'>
-            <Link to={`/product/${pizza.id}`} className='pizza-image'>
+            <Link to={`/product/${pizza._id}`} className='pizza-image'>
                 <img src={pizza.imageUrl} alt="pizza-image1" />
             </Link>
 
             <div className="pizza-description">
 
-                <Link className="pizza-title" to={`/product/${pizza.id}`}>
+                <Link className="pizza-title" to={`/product/${pizza._id}`}>
                     {pizza.title}
                 </Link>
 
                 <p className="pizza-toppings">
-                    {pizza.ingridients ? pizza.ingridients.map((item,index) => {
-                        const prod = ingridientsList.find(prod => prod.id === item.id)
-                        if (prod) {
-                        return <span key={index}>{prod.title}{item.qty > 1 && '(Подвійна порція)'}{pizza.ingridients.length === index + 1 ? null : ', '}</span>
-                        } else {
-                            return null
-                        }
-                    }) : 'Гриби, Моцарела, Пепероні, Соус Альфредо'}
+                    {pizza.ingridients.map(({ ingridientId,qty },index) => {
+                        return <span key={ingridientId._id}>{ingridientId.title}{qty > 1 && '(Подвійна порція)'}{pizza.ingridients.length === index + 1 ? null : ', '}</span>
+                    })}
                 </p> 
             </div>
 
@@ -81,7 +90,7 @@ const PizzaComponent:React.FC<ComponentProps> = ({ pizza }) => {
                         return (
                             <button 
                                 key={index}
-                                disabled={!item.inSell}
+                                disabled={!item.isSell}
                                 onClick={() => setActiveType(index)}
                                 className={activeType === index ? 'pizza-variantsButton active' : 'pizza-variantsButton'}>
                                     {item.title}

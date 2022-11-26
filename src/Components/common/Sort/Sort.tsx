@@ -1,10 +1,11 @@
 import React from 'react'
 import { Context1 } from '../../../Context/Context'
 import useOutsideClick from '../../../hooks/useOutsideClick'
-import { sortVariants } from '../../../mockdata'
+import { SortVariantsType } from '../../../types'
 import './_Sort.scss'
 
 const Sort = () => {
+  const sortVariants: SortVariantsType[] = [{id: 0,title: 'популярністю'},{id: 1,title: 'ціною (найдорожчі)'},{id: 2,title: 'ціною (дешевші)'}]
   const [ visibleSortMenu,setVisibleSortMenu ] = React.useState<boolean>(false)
 
   const { state: { sort: { sort,category }},actions: { setSort } } = React.useContext(Context1)

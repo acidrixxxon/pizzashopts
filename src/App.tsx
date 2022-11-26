@@ -1,6 +1,6 @@
 import React from 'react'
 import './scss/_base.scss';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import HomePage from './Pages/Home/HomePage';
 import CartPage from './Pages/Cart/CartPage';
@@ -8,7 +8,8 @@ import ProductPage from './Pages/Product/ProductPage';
 import OrderStatus from './Pages/OrderDetails/OrderStatus';
 import LocalStorageService from './Services/LocalStorageService';
 import { Context1 } from './Context/Context';
-import { io } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
+import Dashboard from './Pages/AdminPanel/Dashboard/Dashboard';
 
 
 function App() {
@@ -16,15 +17,21 @@ function App() {
 
   const appEl = React.useRef<HTMLDivElement | null>(null)
 
-  const { state: { cart,view: { authModal } }} = React.useContext(Context1)
-  
+  const { state: { cart,view: { authModal },user,socket },actions: { setSocket }} = React.useContext(Context1)
+
   // navigator.geolocation.getCurrentPosition((pos) => setPos(pos))
-  const socket = io('http://localhost:3000')
+  React.useEffect(() => {
+    const socket = io('http://localhost:3001')
+    
+    setSocket(socket)
+  },[])
 
   React.useEffect(() => {
-    socket.on('recieve_message',(data) => console.log(data))
-    socket.on('db_change',data => console.log(data))
-    socket.emit('send_message',{message: 'hello'})
+    if (socket) {
+      socket.on('recieve_message',(data: any) => console.log(data))
+      socket.on('db_change',(data: any) => console.log(data))
+      socket.on('sidesCategory_change',(data: any) => console.log(data))
+    }
   },[])
   
 
@@ -55,8 +62,14 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/order-status/:id" element={<OrderStatus />} />
+        {/* <Route path="/product/:id" element={<ProductPage />} /> */}
+        <Route path="/order-status/:id" element={<OrderStatus />} /> 
+        {user?.isAdmin && <Route path="/admin/dashboard" element={<Dashboard />} />}
+
+        <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+    />
       </Routes>
     </div>
   );

@@ -26,6 +26,14 @@
             }
         }
 
+        .orderStatus__spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+        }
+
         .order__title {
             font-size: 25px;
             text-align: center;
@@ -90,17 +98,24 @@
                         border-bottom: none;
                     }
 
-                    img {
-                        max-width: 250px;
+                    .order__imageContainer {
+                        min-width: 150px;
+                        margin-right: 10px;
                         height: 100px;
 
-                        margin-right: 10px;
+                        text-align: center;
 
-                        border-radius: 15px;
+                        img {
+                            max-width: 250px;
+                            height: 100%;
+                            border-radius: 15px;
 
-                        @media screen and (max-width: 550px) {
-                            max-width: 100px;
-                            height: 55px;
+                            
+    
+                            @media screen and (max-width: 550px) {
+                                max-width: 100px;
+                                height: 55px;
+                            }
                         }
                     }
 

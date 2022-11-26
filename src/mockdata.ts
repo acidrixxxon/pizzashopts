@@ -1,10 +1,10 @@
-import { IDrinkCategory, IIngridientsFull, IPaymentVariants, IPizzaCategory, ISideCategory, SortVariantsType } from "./types";
+import { IDrinkCategory, IPizzaCategory, ISideCategory, SortVariantsType } from "./types";
 
 export const STATUS_IMAGE_URL = `https://dominospizza-clone.netlify.app/img/`
 
 export const ingridientsCategories:{id:number,title: string}[] = [{id: 1,title: "Соуси"},{id: 2,title: "Мясо"},{id: 3,title: "Овочі"},{id: 4,title: "Сири"}]
 
-export const ingridientsList:IIngridientsFull[] = [
+export const ingridientsList = [
     {id: 11,category: 1,title: 'Соус Dominos',addPrice: 20,imageUrl: 'https://media.dominos.ua/__sized__/menu/product_toppings_image/2018/07/31/%D1%81%D0%BE%D1%83%D1%81_%D0%B4%D0%BE%D0%BC%D0%B8%D0%BD%D0%BE%D1%81-thumbnail-512x512.png'},
     {id: 12,category: 1,title: 'Соус Барбекю',addPrice: 20,imageUrl: "https://media.dominos.ua/__sized__/menu/product_toppings_image/2018/07/31/%D1%81%D0%BE%D1%83%D1%81_%D0%B1%D0%B1%D0%BA-thumbnail-512x512.png"},
     {id: 13,category: 1,title: "Соус Альфредо",addPrice: 20,imageUrl: "https://media.dominos.ua/__sized__/menu/product_toppings_image/2018/07/31/%D0%B0%D0%BB%D1%8C%D1%84%D1%80%D0%B5%D0%B4%D0%BE-thumbnail-512x512-70.jpg"},
@@ -76,7 +76,7 @@ export const drinkCategory: IDrinkCategory[] = [
     }
 ]
 
-export const paymentVariants: IPaymentVariants[] = [{
+export const paymentVariants = [{
     id: 0,
     title: 'Готівка'
 },{
@@ -95,3 +95,15 @@ export const paymentVariants: IPaymentVariants[] = [{
 //     title: 'Самовиніс'
 // }]
 
+
+
+
+// {
+//     "title": "Комбо-боксы"
+//   },{
+//     "title": "Курка"
+//   },{
+//     "title": "Соуси"
+//   },{
+//     "title": "Хлібці"
+//   }

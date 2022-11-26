@@ -1,0 +1,39 @@
+
+
+
+#adminSideNavigation {
+  max-width: 350px;
+
+  .sideNav__list {
+    
+    &-item {
+      max-width: 250px;
+      height: 46px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 15px;
+      padding: 0 10px;
+
+      cursor: pointer;
+
+      margin-bottom: 10px;
+
+      transition: .2s all ease-in-out;
+      &:hover {
+        background-color: #5932EA;
+        color: #fff;
+      }
+
+      &.active {
+        background-color: #5932EA;
+        color: #fff;
+      }
+
+      .sideNav__list-itemIcon {
+        margin-right: 10px;
+      }
+    }
+  }
+}

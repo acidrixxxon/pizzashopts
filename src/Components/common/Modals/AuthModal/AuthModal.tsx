@@ -9,34 +9,34 @@ import RegisterForm from '../../Forms/RegisterForm/RegisterForm'
 import { Context1 } from '../../../../Context/Context'
 
 const AuthModal = () => {
-  const [ visibleModal,setVisibleModal ] = React.useState<boolean>(false)
   const [ authType,setAuthType ] = React.useState<string>('login')
 
   const { actions: { setAuthModalStatus },state: { view } } = React.useContext(Context1)
 
-  console.log(view)
-
-  const authSpanHandler = () => {
-    setVisibleModal(true)
+  const openAuthModal = () => {
     setAuthModalStatus('active')
+  }
+
+  const closeAuthModal = () => {
+    setAuthModalStatus('inactive')
   }
 
   return (
     <div id="authModal">
-      <span className="authModal__button" onClick={authSpanHandler}>
+      <span className="authModal__button" onClick={openAuthModal}>
         <FiLogIn />
         
         Увійти
       </span>
 
       <AnimatePresence>
-        {visibleModal && <ReactPortal wrapperId='root'>
+        {view.authModal.status === 'active' && <ReactPortal wrapperId='root'>
           <motion.div        
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }} 
             className='authModal__overlay' 
-            onClick={() => setVisibleModal(false)}>
+            onClick={closeAuthModal}>
 
             <motion.div             
               initial={{ transform: "scale(0)" }}
@@ -45,7 +45,7 @@ const AuthModal = () => {
               className="authModal__content" 
               onClick={(e) => e.stopPropagation()}>
 
-              <button className="authModal__closeBtn" onClick={() => setVisibleModal(false)}>
+              <button className="authModal__closeBtn" onClick={closeAuthModal}>
                 <AiOutlineClose className='authModal__closeBtn-icon'/>
               </button>
               
