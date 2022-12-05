@@ -1,8 +1,20 @@
-
-
 export interface IUserUpdateData {
-  firstName: string,
-  secondName: string,
-  phone: string,
-  email: string
+  firstName: string;
+  secondName: string;
+  phone: string;
+  email: string;
+}
+
+export interface IUserFromServer {
+  email: string;
+  isAdmin: boolean;
+  firstName: string;
+  secondName: string;
+  phone: string;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  confirmed: boolean;
+  _id: string;
 }

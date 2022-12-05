@@ -1,5 +1,6 @@
-import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import React from 'react'
+
 import './_Products.scss'
 import PizzaManagement from './PizzaManagement/PizzaManagement'
 import SidesManagement from './SidesManagement/SidesManagement'

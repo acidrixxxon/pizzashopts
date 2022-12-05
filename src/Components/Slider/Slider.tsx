@@ -1,4 +1,5 @@
 import React from 'react'
+
 import SliderItem from './SliderItem/SliderItem'
 import './_Slider.scss'
 
@@ -10,7 +11,7 @@ const Slider:React.FC<IComponentsProps> = () => {
   const [ activeIndex,setActiveIdx ] = React.useState(0)
   const [ offsetX,setOffsetX ] = React.useState<number>(0)
   const [ items,setItems ] = React.useState<string[]>(['https://media.dominos.ua/slider/slide_image/2022/04/29/vid-250-uah_slider_ukr.jpg','https://media.dominos.ua/slider/slide_image/2022/09/01/slider_ukr.jpg','https://media.dominos.ua/slider/slide_image/2022/04/29/vid-250-uah_slider_ukr.jpg','https://media.dominos.ua/slider/slide_image/2022/09/01/slider_ukr.jpg'])
-  let index = 0
+  const index = 0
   const lastSlideIndex = items.length - 1
   const slidesQty = items.length
   

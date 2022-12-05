@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Categories from '../../Components/common/Categories/Categories'
 import Container from '../../Components/common/Container/Container'
 import ProductList from '../../Components/common/Lists/ProductList/ProductList'

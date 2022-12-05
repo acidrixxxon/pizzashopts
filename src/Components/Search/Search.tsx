@@ -1,9 +1,12 @@
 import React from 'react'
 import { AiOutlineSearch,AiOutlineClose } from 'react-icons/ai'
+
 import ProductService from '../../Services/ProductService'
 import { SearchResultInterface } from '../../types'
+
 import './_Search.scss'
 import { debounce } from 'lodash'
+
 import Spinner from '../common/Icons/Spinner/Spinner'
 
 const Search = () => {

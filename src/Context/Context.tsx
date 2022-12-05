@@ -1,13 +1,6 @@
 import { isEqual } from 'lodash';
 import React from 'react';
-import { ingridientsList } from '../mockdata';
-import LocalStorageService from '../Services/LocalStorageService';
-import UserService from '../Services/UserService';
-import { IDrinkInCart, IErrors, IIngridient, IPizzaInCart, ISideInCart } from '../types';
-import { IPizza } from '../types/ProductTypes';
-import { IUserUpdateData } from '../types/UserTypes';
-import { initialCartState, initialCustomerData, initialProductDetails } from '../Utils/initialStore';
-import { BACKEND_URL } from '../Utils/vars';
+
 import {
   ADD_INGRIDIENT_TO_PIZZA,
   ADD_TO_CART,
@@ -29,6 +22,16 @@ import {
 } from './constans';
 import { IActionsList, ICartItem, IInitialState, IProvider, IUser } from './context_types';
 import { rootReducer } from './reducers/rootReducer';
+
+
+import { ingridientsList } from '../mockdata';
+import LocalStorageService from '../Services/LocalStorageService';
+import UserService from '../Services/UserService';
+import { IDrinkInCart, IErrors, IIngridient, IPizzaInCart, ISideInCart } from '../types';
+import { IPizza } from '../types/ProductTypes';
+import { IRefreshTokenResponse } from '../types/Response/UserServiceReponseType';
+import { IUserUpdateData } from '../types/UserTypes';
+import { initialCartState, initialCustomerData, initialProductDetails } from '../Utils/initialStore';
 
 const initialState: IInitialState = {
   sort: {
@@ -327,10 +330,18 @@ const StateProvider: React.FC<IProvider> = ({ children }) => {
   };
 
   const updateUserProfile = async (formData: IUserUpdateData, token: string | undefined) => {
-    const result = await UserService.updateUserProfile(formData, token);
+    const result: IRefreshTokenResponse = await UserService.updateUserProfile(formData, token);
 
     if (result.success === true) {
       dispatch({ type: UPDATE_PROFILE, payload: result.user });
+    }
+  };
+
+  const refreshUserToken = async () => {
+    const result: IRefreshTokenResponse = await UserService.refreshToken();
+
+    if (result.success === true) {
+      dispatch({ type: LOGIN_USER, payload: result.user });
     }
   };
 
@@ -361,6 +372,7 @@ const StateProvider: React.FC<IProvider> = ({ children }) => {
     updateUserProfile,
     userLogoutProcess,
     setSocket,
+    refreshUserToken,
   };
 
   return <Context1.Provider value={{ state, dispatch, actions }}>{children}</Context1.Provider>;

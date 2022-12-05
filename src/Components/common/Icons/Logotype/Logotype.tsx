@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import { Context1 } from '../../../../Context/Context'
 import './_Logotype.scss'
 

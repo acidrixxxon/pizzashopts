@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { IOrderDetails } from '../../../../types/OrderTypes'
 import './_OrderStatusInfo.scss'
 

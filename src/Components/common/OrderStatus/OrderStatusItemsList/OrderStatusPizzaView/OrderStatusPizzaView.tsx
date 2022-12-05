@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { IPizzaInCart } from '../../../../../types'
 import './_OrderStatusPizzaView.scss'
 

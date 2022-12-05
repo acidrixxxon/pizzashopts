@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { ISideInCart } from '../../../../../types'
 
 interface ComponentProps {

@@ -1,7 +1,9 @@
 import React from 'react'
-import { Context1 } from '../../../Context/Context'
+
 import CartItemComponent from './CartItemComponent/CartItemComponent'
 import DeliveryItem from './DeliveryItem/DeliveryItem'
+
+import { Context1 } from '../../../Context/Context'
 import './_CartItems.scss'
 
 const CartItems = () => {

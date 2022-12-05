@@ -1,10 +1,12 @@
 import React from 'react'
+
 import './_ProductInfo.scss'
-import { ingridientsList } from '../../../../mockdata'
 import  { AiOutlineClose,AiOutlinePlus } from 'react-icons/ai'
-import ReactPortal from '../../ReactPortal/ReactPortal'
-import SetIngridients from '../../Modals/SetIngridients/SetIngridients'
+
 import { Context1 } from '../../../../Context/Context'
+import { ingridientsList } from '../../../../mockdata'
+import SetIngridients from '../../Modals/SetIngridients/SetIngridients'
+import ReactPortal from '../../ReactPortal/ReactPortal'
 
 const ProductInfo:React.FC = () => {
     const [ activeSize,setActiveSize ] = React.useState<number>(0)

@@ -1,8 +1,9 @@
-import React from 'react'
-import { IOrderFromServer } from '../../../../types/OrderTypes'
 import dateFormat from "dateformat";
 import { AnimatePresence,motion } from 'framer-motion';
+import React from 'react'
+
 import { IDeliveryInCart, IDrinkInCart, IPizzaInCart, ISideInCart } from '../../../../types';
+import { IOrderFromServer } from '../../../../types/OrderTypes'
 import './_UserCabinetOrderItem.scss'
 
 interface ComponentProps {

@@ -1,12 +1,13 @@
 import React from 'react'
+
 import './_PizzaList.scss'
-import { IPizzaCategory } from '../../../../types'
-import PizzaComponent from '../../ProductComponent/PizzaComponent/PizzaComponent'
-import ItemsList from '../../ItemsList/ItemsList'
-import ProductService from '../../../../Services/ProductService'
-import Skeleton from '../../Skeleton/Skeleton'
 import { Context1 } from '../../../../Context/Context'
+import ProductService from '../../../../Services/ProductService'
+import { IPizzaCategory } from '../../../../types'
 import { IPizza } from '../../../../types/ProductTypes'
+import ItemsList from '../../ItemsList/ItemsList'
+import PizzaComponent from '../../ProductComponent/PizzaComponent/PizzaComponent'
+import Skeleton from '../../Skeleton/Skeleton'
 
 
 const PizzaList:React.FC = () => {

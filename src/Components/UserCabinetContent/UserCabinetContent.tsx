@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion'
 import React from 'react'
+
 import UserCabinetOrders from './UserCabinetOrders/UserCabinetOrders'
 import UserCabinetProfile from './UserCabinetProfile/UserCabinetProfile'
 

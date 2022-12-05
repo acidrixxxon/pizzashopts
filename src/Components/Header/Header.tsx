@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { useStickyHeader } from '../../hooks/useStickyHeader'
 import CartStatus from '../CartStatus/CartStatus'
 import Container from '../common/Container/Container'

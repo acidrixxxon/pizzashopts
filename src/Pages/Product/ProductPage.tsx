@@ -1,10 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { SpinnerCircular } from 'spinners-react'
+
 import Container from '../../Components/common/Container/Container'
-import HorisontalPizzaCarousel from '../../Components/HorisontalPizzaCarousel/HorisontalPizzaCarousel'
 import ProductImage from '../../Components/common/ProductDetailsComponents/ProductImage/ProductImage'
 import ProductInfo from '../../Components/common/ProductDetailsComponents/ProductInfo/ProductInfo'
+import HorisontalPizzaCarousel from '../../Components/HorisontalPizzaCarousel/HorisontalPizzaCarousel'
 import { Context1 } from '../../Context/Context'
 import ProductService from '../../Services/ProductService'
 import './_ProductPage.scss'

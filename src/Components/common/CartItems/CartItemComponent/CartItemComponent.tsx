@@ -1,12 +1,16 @@
 import React from 'react'
+
 import { IDrinkInCart, IPizzaInCart, ISideInCart } from '../../../../types'
+
 import './_CartItemComponent.scss'
 import { AiOutlineClose } from 'react-icons/ai'
-import { Context1 } from '../../../../Context/Context'
-import { ICartItem } from '../../../../Context/context_types'
+
+import CartItemDrink from './CartItemDrink/CartItemDrink'
 import CartItemPizza from './CartItemPizza/CartItemPizza'
 import CartItemSide from './CartItemSide/CartItemSide'
-import CartItemDrink from './CartItemDrink/CartItemDrink'
+
+import { Context1 } from '../../../../Context/Context'
+import { ICartItem } from '../../../../Context/context_types'
 
 interface ComponentProps {
     item: any,

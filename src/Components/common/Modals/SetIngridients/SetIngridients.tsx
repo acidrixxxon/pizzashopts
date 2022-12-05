@@ -1,9 +1,11 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import './_SetIngridients.scss'
 import { AiOutlineClose } from 'react-icons/ai'
-import { ingridientsCategories, ingridientsList } from '../../../../mockdata'
+
 import IngridientsCategory from './IngridientsCategories/IngridientsCategory'
+
 import { Context1 } from '../../../../Context/Context'
+import { ingridientsCategories, ingridientsList } from '../../../../mockdata'
 
 
 interface IComponentProps {

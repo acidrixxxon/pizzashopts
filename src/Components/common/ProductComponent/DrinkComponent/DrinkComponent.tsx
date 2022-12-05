@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { Context1 } from '../../../../Context/Context'
 import { IDrinkNew } from '../../../../types'
 import NewProductIcon from '../../NewProductIcon/NewProductIcon'
+
 import './_DrinkComponent.scss'
 import { v4 as uuidv4 } from 'uuid';
 

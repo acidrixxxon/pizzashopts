@@ -1,9 +1,10 @@
-import React from 'react'
 import { motion } from 'framer-motion'
+import React from 'react'
 import './_RegisterForm.scss'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineCheck } from 'react-icons/ai'
-import Error from '../../Error/Error'
+
 import { Context1 } from '../../../../Context/Context'
+import Error from '../../Error/Error'
 
 interface IFormField {
   email: string,

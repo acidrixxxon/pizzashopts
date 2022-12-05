@@ -1,6 +1,7 @@
 import React from 'react'
-import { FiMenu } from 'react-icons/fi'
 import { AiOutlineClose } from 'react-icons/ai'
+import { FiMenu } from 'react-icons/fi'
+
 import MobileLogotype from '../Icons/MobileLogotype/MobileLogotype'
 import './_MobileNavigation.scss'
 import PizzaIcon from '../Icons/PizzaIcon'

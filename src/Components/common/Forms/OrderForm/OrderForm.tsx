@@ -1,6 +1,7 @@
 import { AnimatePresence,motion } from 'framer-motion'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { Context1 } from '../../../../Context/Context'
 import { newOrderDto } from '../../../../Dto/CartDto'
 import LocalStorageService from '../../../../Services/LocalStorageService'

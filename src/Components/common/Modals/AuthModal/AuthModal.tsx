@@ -1,9 +1,12 @@
 import React from 'react'
 import { FiLogIn } from 'react-icons/fi'
+
 import ReactPortal from '../../ReactPortal/ReactPortal'
+
 import './_AuthModal.scss'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AiOutlineClose } from 'react-icons/ai'
+
 import LoginForm from '../../Forms/LoginForm/LoginForm'
 import RegisterForm from '../../Forms/RegisterForm/RegisterForm'
 import { Context1 } from '../../../../Context/Context'

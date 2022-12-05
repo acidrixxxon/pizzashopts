@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Context1 } from '../../../Context/Context'
 import useOutsideClick from '../../../hooks/useOutsideClick'
 import { paymentVariants } from '../../../mockdata'

@@ -1,4 +1,3 @@
-import { IAction, IInitialState } from "../context_types";
 import { cartReducer } from "./cartReducer";
 import { customerDataReducer } from "./customerData";
 import { productDetailsReducer } from "./productDetailsReducer";
@@ -6,6 +5,8 @@ import { socketReducer } from "./socketReducer";
 import { sortReducer } from "./sortReducer";
 import { userReducer } from "./userReducer";
 import { viewReducer } from "./viewReducer";
+
+import { IAction, IInitialState } from "../context_types";
 
 
 

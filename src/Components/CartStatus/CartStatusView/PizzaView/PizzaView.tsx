@@ -1,5 +1,6 @@
 import React from 'react'
 import { AiFillCheckCircle, AiOutlinePlusCircle } from 'react-icons/ai'
+
 import './_PizzaView.scss'
 import { Context1 } from '../../../../Context/Context'
 import LocalStorageService from '../../../../Services/LocalStorageService'

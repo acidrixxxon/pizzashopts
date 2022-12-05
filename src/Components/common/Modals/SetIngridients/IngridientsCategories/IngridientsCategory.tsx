@@ -2,7 +2,9 @@ import React from 'react'
 import { HiArrowSmRight } from 'react-icons/hi'
 import './_IngridientsCategory.scss'
 import { AnimatePresence,motion } from 'framer-motion'
+
 import IngridientsCategoryItem from './IngridientsCategoryItem/IngridientsCategoryItem'
+
 import useOutsideClick from '../../../../../hooks/useOutsideClick'
 import { IIngridients1 } from '../../../../../types'
 

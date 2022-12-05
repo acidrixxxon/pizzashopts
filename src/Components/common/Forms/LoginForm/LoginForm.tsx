@@ -1,8 +1,9 @@
-import React from 'react'
 import { motion } from 'framer-motion'
+import React from 'react'
+
 import './_LoginForm.scss'
-import Error from '../../Error/Error'
 import { Context1 } from '../../../../Context/Context'
+import Error from '../../Error/Error'
 
 const LoginForm:React.FC = () => {
   const [ data,setData ] = React.useState<{login: string,password: string}>({login: '',password: ''})

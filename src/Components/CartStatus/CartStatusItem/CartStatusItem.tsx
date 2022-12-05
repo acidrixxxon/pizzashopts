@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { IDrinkInCart, IPizzaInCart, ISideInCart } from '../../../types'
 import DrinkView from '../CartStatusView/DrinkView/DrinkView'
 import PizzaView from '../CartStatusView/PizzaView/PizzaView'
