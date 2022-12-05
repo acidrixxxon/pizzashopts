@@ -142,7 +142,8 @@ export interface IPizzaInCart {
     title: string,
     uniqueId?: string,
     class: number,
-    size?: undefined
+    size?: undefined,
+    id?: undefined
 }
 
 export interface IDrinkInCart {
@@ -155,7 +156,8 @@ export interface IDrinkInCart {
     title: string,
     class: number,
     ingridients?: IPizzaIngridientShort[],
-    fulltitle?: undefined
+    fulltitle?: undefined,
+    id?: undefined
 }
 
 export interface ISideInCart {
@@ -168,7 +170,7 @@ export interface ISideInCart {
     uniqueId?: string,
     class: number,
     ingridients?: IPizzaIngridientShort[],
-    fulltitle?: string
+    fulltitle?: string,
 }
 
 export interface IDeliveryInCart {
@@ -177,7 +179,12 @@ export interface IDeliveryInCart {
     price: number,
     items?: undefined,ingridients?: undefined,class?: undefined,size?: undefined,imageUrl?: undefined,
     _id?: undefined,
-    uniqueId?: undefined
+    uniqueId?: undefined,
+    qty?: number
+}
+
+export interface AdditionalTypes {
+    id?: undefined
 }
 
 export  interface ISideCategory1 {

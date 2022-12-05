@@ -1,0 +1,28 @@
+
+
+
+#UserCabinet__navigation {
+  max-width: 350px;
+
+  .userCabinet__list {
+
+
+    .userCabinet__item {
+      max-width: 250px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      border-radius: 15px;
+      padding: 0 10px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: .2s all ease-in-out;
+
+      &.active {
+        background-color: #5932EA;
+        color: #fff;
+      }
+    }
+  }
+
+}

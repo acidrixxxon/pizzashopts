@@ -1,0 +1,69 @@
+
+#UserCabinet__Profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .userCabinet__title {
+    font-size: 18px;
+
+    margin-bottom: 40px;
+  }
+
+  .userCabinet__form {
+
+
+    .userCabinet__group {
+      margin-bottom: 15px;
+      
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .userCabinet__input {
+        border: 1px solid #c7c7c7;
+
+        padding: .55em 1em .6em;
+
+        color: #666;
+
+        outline: none;
+
+        min-width: 300px;
+      }
+
+      .userCabinet__label {
+        margin-right: 10px;
+      }
+    }
+
+    .userCabinet__submitBtn {
+      width: 50%;
+      height: 43px;
+
+      display: block;
+      margin: 0 auto;
+
+      border-radius: 5px;
+      border: 2px solid transparent;
+
+      cursor: pointer;
+
+      font-size: 16px;
+      font-family: Roboto;
+      font-weight: 700;
+      color: #fff;
+
+      background: #be171b;
+
+      &[disabled] {
+        color: #d51a1e;
+        background-color: transparent;
+
+        border: 2px solid #d51a1e;
+      }
+    }
+  }
+}

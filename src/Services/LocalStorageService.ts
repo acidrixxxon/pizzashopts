@@ -19,6 +19,10 @@ class LocalStorageService {
     getCustomerData(): ICustomerData | null {
         return localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer') || '{}') : null
     }
+
+    saveAccessToken(token: string): void {
+        localStorage.setItem('accessToken',JSON.stringify(token))
+    }
 }
 
 

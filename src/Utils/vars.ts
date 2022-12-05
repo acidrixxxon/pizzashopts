@@ -1,5 +1,6 @@
-export const BACKEND_URL: string = 'https://dominosclonebackend.herokuapp.com'
+const VARIANT1 = 'http://localhost:3001'
+const VARIANT2 = 'https://dominosclonebackend.herokuapp.com'
+
+export const BACKEND_URL: string = VARIANT1
 
 
-// 'http://localhost:3001'
-// 'https://dominosclonebackend.herokuapp.com'

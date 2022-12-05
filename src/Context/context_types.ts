@@ -1,5 +1,6 @@
 import { ICustomerData, IDeliveryInCart, IDrinkInCart, IErrors, IIngridients1, IPizzaInCart, ISideInCart } from "../types"
 import {  IPizza, IPizzaIngridientFull, IPizzaSize } from "../types/ProductTypes"
+import { IUserUpdateData } from "../types/UserTypes"
 
 export type IAction =
     | { type: 'ADD_TO_CART',payload: any}
@@ -21,6 +22,7 @@ export type IAction =
     | { type: 'SET_AUTH_MODAL_STATUS',payload: 'active' | 'inactive'}
     | { type: 'LOGIN_USER',payload: IUser | null}
     | { type: 'LOGOUT_USER'}
+    | { type: 'UPDATE_PROFILE',payload: IUser}
     | { type: 'SET_SOCKET',payload: any | null}
 
 //Context actions types
@@ -38,9 +40,11 @@ export interface IActionsList {
     addIngridientToPizza: (ingridient: IPizzaIngridientFull) => void,
     changeIngridientQty: (type: string,ingridient: IPizzaIngridientFull) => void,
     setAuthModalStatus: (status: 'active' | 'inactive') => void,
-    loginUserProcess: (user: {email: string,password: string} | null) => void,
+    loginUserProcess: (user: {email: string,password: string}) => void,
     userLogoutProcess: () => void,
-    setSocket: (socket: any | null) => void
+    setSocket: (socket: any | null) => void,
+    registerUserProcess: (user: {email: string,password: string,copyPassword: string}) => void,
+    updateUserProfile: (data: IUserUpdateData,token: string | undefined) => void
 }
 
 export interface IInitialState {
@@ -55,7 +59,16 @@ export interface IInitialState {
 
 export interface IUser {
     email: string,
-    isAdmin: boolean
+    isAdmin: boolean,
+    firstName: string,
+    secondName: string,
+    phone: string,
+    tokens?: {
+        accessToken: string,
+        refreshToken: string
+    },
+    confirmed: boolean,
+    _id: string
 }
 
 export interface ICartItem {

@@ -10,8 +10,6 @@ const LoginForm:React.FC = () => {
 
   const { actions: { loginUserProcess },state: {user}} = React.useContext(Context1)
 
-  console.log(user)
-
   const loginHandler = (e: React.FormEvent<HTMLFormElement>):void => {
     e.preventDefault()
 

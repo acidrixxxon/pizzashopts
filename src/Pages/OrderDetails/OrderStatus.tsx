@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import Container from '../../Components/common/Container/Container'
 import Spinner from '../../Components/common/Icons/Spinner/Spinner'
 import OrderStatusInfo from '../../Components/common/OrderStatus/OrderStatusInfo/OrderStatusInfo'
+import OrderStatusItemsList from '../../Components/common/OrderStatus/OrderStatusItemsList/OrderStatusItemsList'
 import OrderStatusStage from '../../Components/common/OrderStatus/OrderStatusStage/OrderStatusStage'
 import OrderService from '../../Services/OrderService'
 import { IIngridients1 } from '../../types'
@@ -15,7 +16,7 @@ const OrderStatus:React.FC = () => {
 
   const { id } = useParams()
 
-  
+  console.log(order?.cart.items)
 
   React.useEffect(() => {
     const fetchOrderData = async () => {
@@ -59,36 +60,7 @@ const OrderStatus:React.FC = () => {
                     Информация о заказе
                   </div>
 
-                  <div className="order__itemsList">
-                    {order?.cart.items.map((item) => {
-                      return (
-                        <div className="order__item">
-                          <div className="order__imageContainer">
-                            <img src={item.imageUrl} alt="orderImage" />
-                          </div>
-    
-                          <div className="order__data">
-                            <div className="order__itemHeader">
-                              <div>
-                                <h4 className="order__itemTitle">{item.class === 0 ? item.fulltitle : item.title}{item.class !== 0 && `(${item.size})`}</h4>
-                              </div>
-    
-                            <span className="order__itemPrice">{item.price} грн.</span>
-                          </div>
-  
-                          {item.ingridients && 
-                            <div className="order__itemFooter">
-                              <p>{item.ingridients.map((ingridient,index: number) => {
-                                return (
-                                  `${ingridient.ingridientId.title} ${item.ingridients !== undefined && index + 1 !== item.ingridients.length ? ', ' : ''}`
-                                )
-                              })}</p>
-                            </div>}
-                        </div>
-                      </div>
-                      )
-                    })}
-                  </div>
+                  <OrderStatusItemsList items={order?.cart.items}/>
 
                   <div className="order__totals">
                     <p>Итого: <span>{order?.cart.totalCost}</span> грн.</p>

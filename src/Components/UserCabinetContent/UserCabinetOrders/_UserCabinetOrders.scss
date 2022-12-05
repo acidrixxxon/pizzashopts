@@ -1,0 +1,43 @@
+
+
+
+#UserCabinet__Orders {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+  .userCabinet__spinner {
+    margin-top: 100px;
+
+    div {
+      border-color: blue transparent transparent transparent;
+    }
+  }
+
+  .userCabinet__table {
+    width: 100%;
+
+    .userCabinet__thead {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr .5fr 1fr .8fr;
+
+      border-bottom: 1px solid #e5e5e5;
+
+      color: #999;
+      font-size: 1em;
+
+      .status {
+        text-align: center;
+      }
+      
+      .th {
+        padding: 15px 20px;
+      }
+    }
+
+    .userCabinet__tbody {
+
+    }
+  }
+}

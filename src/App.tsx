@@ -10,19 +10,16 @@ import LocalStorageService from './Services/LocalStorageService';
 import { Context1 } from './Context/Context';
 import { io, Socket } from 'socket.io-client'
 import Dashboard from './Pages/AdminPanel/Dashboard/Dashboard';
+import UserCabinetPage from './Pages/UserCabinetPage/UserCabinetPage';
 
 
 function App() {
-  const [ pos,setPos ] = React.useState<any>(null)
-
   const appEl = React.useRef<HTMLDivElement | null>(null)
 
   const { state: { cart,view: { authModal },user,socket },actions: { setSocket }} = React.useContext(Context1)
-
-  // navigator.geolocation.getCurrentPosition((pos) => setPos(pos))
+  
   React.useEffect(() => {
     const socket = io('http://localhost:3001')
-    
     setSocket(socket)
   },[])
 
@@ -65,6 +62,7 @@ function App() {
         {/* <Route path="/product/:id" element={<ProductPage />} /> */}
         <Route path="/order-status/:id" element={<OrderStatus />} /> 
         {user?.isAdmin && <Route path="/admin/dashboard" element={<Dashboard />} />}
+        {user !== null && <Route path="/cabinet" element={<UserCabinetPage />} />}
 
         <Route
         path="*"

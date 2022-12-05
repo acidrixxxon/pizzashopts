@@ -1,0 +1,108 @@
+
+
+#registerForm {
+  
+  .registerForm__group {
+    position: relative;
+
+    color: #6a6a76;
+
+    .registerForm__inputWrapper {
+      position: relative;
+
+
+      .watchPassword,.hidePassword {
+        position: absolute;
+
+        right: 10px;
+        top: 3px;
+
+        cursor: pointer;
+        
+        z-index: 20;
+
+        opacity: .8;
+
+        transition: .2s opacity linear;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      &:after {
+        width: 300%;
+        position: absolute;
+        content: "";
+        display: block;
+        height: 1px;
+        bottom: -10px;
+        background: linear-gradient(270deg, rgb(214, 216, 220) 33.3333%, rgb(11, 11, 11) 33.3333%, rgb(11, 11, 11) 66.6667%, rgb(224, 67, 30) 66.6667%);
+        left: -200%;
+        transition: left 0.2s cubic-bezier(0, 0.63, 0.39, 1.04) 0s;
+      }
+    }
+
+    .registerForm__label {
+
+      &.label_onTop {
+        top: 5px;
+        font-size: 12px;
+      }
+    }
+
+    .regsiterForm__inputError{
+      display: block;
+      margin-top: 15px;
+      margin-left: 0;
+      color: red;
+      font-size: 11px;
+    }
+  }
+
+  .registerForm__registerBtn {
+    margin-top: 15px;
+    border: 1px solid #e31836;
+    background-color: #e31836;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &.inactiveBtn {
+      border: 1px solid transparent !important;
+      background-color: #ffabab !important;
+    }
+  }
+}
+
+.registerForm__confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .registerForm__confirmMessage {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .registerForm__confirmIcon {
+    border: 1px solid gray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+
+    .registerForm__icon {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

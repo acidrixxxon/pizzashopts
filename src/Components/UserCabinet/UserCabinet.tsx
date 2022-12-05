@@ -11,7 +11,7 @@ const UserCabinet:React.FC = () => {
   const dropdownEl = React.useRef<HTMLDivElement>(null)
 
   const { state: { user },actions: { userLogoutProcess }} = React.useContext(Context1)
-
+  
   useOutsideClick(dropdownEl,() => setShowDropdown(false))
 
   const userLogout = () => {
@@ -28,24 +28,29 @@ const UserCabinet:React.FC = () => {
 
       <AnimatePresence>
         {showDropdown && (        
-          <motion.div       initial={{ maxHeight: '0px'}}
+          <motion.div       
+            initial={{ maxHeight: '0px'}}
             animate={{ maxHeight:'200px'}}
             exit={{maxHeight: '0'}}
             className="userCabinet__dropdown">
               <ul className="userCabinet__list">
-                <li className="userCabinet__list-item">
-                  Профіль
-                </li>
-                <li className="userCabinet__list-item">
-                  Замовлення
-                </li>
+                <Link to="/cabinet?state=profile" onClick={() => setShowDropdown(false)} className='userCabinet__list-link'>
+                  <li className="userCabinet__list-item">
+                    Профіль
+                  </li>
+                  </Link>
+                  <Link to="/cabinet?state=orders" onClick={() => setShowDropdown(false)} className='userCabinet__list-link'>
+                    <li className="userCabinet__list-item">
+                      Замовлення
+                    </li>
+                  </Link>
                 {user?.isAdmin && 
                   <Link to="/admin/dashboard" onClick={() => setShowDropdown(false)} className='userCabinet__list-link'>
                     <li className="userCabinet__list-item">
                         Адмін панель
                     </li>
                   </Link>}
-                <li className="userCabinet__list-item" onClick={userLogout}>
+                <li className="userCabinet__list-link" onClick={userLogout}>
                   Вихід
                 </li>
               </ul>

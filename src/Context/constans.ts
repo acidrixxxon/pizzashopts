@@ -28,6 +28,7 @@ export const SET_AUTH_MODAL_STATUS = 'SET_AUTH_MODAL_STATUS'
 //User
 export const LOGOUT_USER = 'LOGOUT_USER'
 export const LOGIN_USER = 'LOGIN_USER'
+export const UPDATE_PROFILE = 'UPDATE_PROFILE'
 
 //Socket
 export const SET_SOCKET = 'SET_SOCKET'

@@ -1,0 +1,112 @@
+
+
+                .order__item {
+                  border-bottom: 0.125em solid rgb(240, 240, 247);
+                  padding: 20px 0;
+
+                  display: flex;
+
+                  &:last-child {
+                      border-bottom: none;
+                  }
+
+                  .order__imageContainer {
+                      min-width: 150px;
+                      margin-right: 10px;
+                      height: 100px;
+
+                      text-align: center;
+
+                      img {
+                          max-width: 250px;
+                          height: 100%;
+                          border-radius: 15px;
+
+                          
+  
+                          @media screen and (max-width: 550px) {
+                              max-width: 100px;
+                              height: 55px;
+                          }
+                      }
+                  }
+
+                  .order__data {
+                      padding: 8px 0;
+                      width: 100%;
+                      display: flex;
+                      flex-direction: column;
+
+                      @media screen and (max-width: 750px) {
+                          .order__itemFooter {
+                              font-size: 14px;
+                              max-width: 250px;
+                          }
+                      }
+
+                      @media screen and (max-width: 550px) {
+                          padding: 0;
+
+                          .order__itemFooter {
+                              font-size: 12px;
+                              max-width: 250px;
+                          }
+                      }
+
+                      .order__itemHeader {
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: center;
+
+                          @media screen and (max-width: 550px) {
+                              align-items: flex-start;
+
+                              .order__itemPrice {
+                                      margin-top: 5px;
+                              }
+                          }
+  
+                          div {
+                              display: flex;
+                              flex-direction: column;
+
+                              @media screen and (max-width: 750px) {
+                                  width: 80%;
+
+                                  .order__itemTitle {
+                                      font-size: 17px !important;
+                                  }
+
+                                  .order__itemSize {
+                                      font-size: 14px !important;
+                                      margin-bottom: 10px;
+                                  }
+                              }
+
+                              @media screen and (max-width: 550px) {
+                                  .order__itemTitle {
+                                      font-size: 15px !important;
+                                  }
+
+                                  .order__itemSize {
+                                      font-size: 12px !important;
+                                      margin-bottom: 10px;
+                                  }
+                              }
+
+                              @media screen and (max-width: 450px) {
+                                  width: 60%;
+                              }
+
+                              .order__itemTitle {
+                                  margin-bottom: 5px;
+                                  font-size: 19px;
+                              }
+
+                              .order__itemSize {
+                                  font-size: 16px;
+                              }
+                          }
+                      }
+                  }
+              }

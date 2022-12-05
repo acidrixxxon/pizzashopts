@@ -1,0 +1,17 @@
+
+
+
+#UserCabinetPage {
+  background: #f8f4f8;
+  
+  .container {
+
+    .UserCabinet__wrapper {
+      padding: 40px 0;
+      
+      display: grid;
+      grid-template-columns: minmax(200px, 0.2fr) minmax(400px, 0.8fr);
+      grid-gap: 25px;
+    }
+  }
+}
