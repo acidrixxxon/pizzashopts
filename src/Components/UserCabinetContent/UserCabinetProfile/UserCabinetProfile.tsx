@@ -1,14 +1,20 @@
-import React from 'react';
-
-import { Context1 } from '../../../Context/Context';
-import UserService from '../../../Services/UserService';
 import './_UserCabinetProfile.scss';
 
+import { Context1 } from '../../../Context/Context';
+import React from 'react';
+import { Rings } from 'react-loader-spinner';
+import { isEqual } from 'lodash';
+import { getUserActions } from '../../../Context/actions/userActions';
+
 const UserCabinetProfile: React.FC = () => {
+  const [loading, setLoading] = React.useState(false);
+
   const {
     state: { user },
-    actions: { updateUserProfile },
+    dispatch,
   } = React.useContext(Context1);
+
+  const { updateUserProfile } = getUserActions(dispatch);
 
   const [formData, setFormData] = React.useState({
     email: user?.email || '',
@@ -33,9 +39,15 @@ const UserCabinetProfile: React.FC = () => {
       user?.secondName !== formData.secondName ||
       user?.phone !== formData.phone
     ) {
-      updateUserProfile(formData, user?.tokens?.accessToken);
+      setLoading(true);
+      const { success, message } = await updateUserProfile(formData, user?.tokens?.accessToken);
+      if (success && message) {
+        setTimeout(() => setLoading(false), 2000);
+      }
     }
   };
+
+  const userFromContext = { email: user?.email, firstName: user?.firstName, phone: user?.phone, secondName: user?.secondName };
 
   return (
     <div id='UserCabinet__Profile'>
@@ -90,8 +102,18 @@ const UserCabinetProfile: React.FC = () => {
           />
         </div>
 
-        <button type='submit' className='userCabinet__submitBtn' disabled={false}>
-          Зберегти
+        <button
+          type='submit'
+          className={loading ? 'userCabinet__submitBtn saving' : 'userCabinet__submitBtn'}
+          disabled={isEqual(formData, userFromContext)}>
+          {!loading ? (
+            'Зберегти'
+          ) : (
+            <>
+              <span>Зберігаємо</span>
+              <Rings wrapperClass='btnLoaderIcon' color='#333' />
+            </>
+          )}
         </button>
       </form>
     </div>

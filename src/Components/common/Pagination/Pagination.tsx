@@ -3,7 +3,7 @@ import React from 'react';
 const Pagination: React.FC = () => {
   return (
     <ul className='pagination'>
-      <span className='da' key={'da'} defaultChecked aria-disabled datatype='s' autoSave='s'>
+      <span className='da'>
         <a href=''></a>
       </span>
     </ul>

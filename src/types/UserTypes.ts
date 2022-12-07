@@ -18,3 +18,14 @@ export interface IUserFromServer {
   confirmed: boolean;
   _id: string;
 }
+
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
+
+export interface IRegisterUser {
+  email: string;
+  password: string;
+  copyPassword: string;
+}

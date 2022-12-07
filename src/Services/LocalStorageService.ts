@@ -1,9 +1,8 @@
+import { ICart } from '../Context/context_types';
 import { ICustomerData } from './../types';
 
-import { ICart } from '../Context/context_types';
-
 class LocalStorageService {
-  saveCustomerData(customerData: ICustomerData, paymentType: { id: number; title: string } | null): void {
+  saveCustomerData(customerData: ICustomerData): void {
     localStorage.setItem('customer', JSON.stringify(customerData));
   }
 
@@ -13,6 +12,10 @@ class LocalStorageService {
 
   getCartFromStorage(): void {
     return localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') || '{}') : null;
+  }
+
+  removeCartFromStorage(): void {
+    localStorage.removeItem('cart');
   }
 
   getCustomerData(): ICustomerData | null {
@@ -29,6 +32,10 @@ class LocalStorageService {
       localStorage.getItem('accessToken') !== undefined
       ? JSON.parse(localStorage.getItem('accessToken') || '')
       : null;
+  }
+
+  removeAccessToken(): void {
+    localStorage.removeItem('accessToken');
   }
 }
 

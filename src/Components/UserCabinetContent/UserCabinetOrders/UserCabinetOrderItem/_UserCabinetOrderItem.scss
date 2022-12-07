@@ -1,121 +1,135 @@
+.userCabinet__item {
+  border-bottom: 1px solid #e5e5e5;
 
+  .userCabinet__trow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0.5fr 0.7fr 1.5fr;
+    align-items: center;
 
-      .userCabinet__item {
+    .status {
+      text-align: center;
+    }
 
-        border-bottom: 1px solid #e5e5e5;
+    .price {
+      span {
+        font-weight: 700;
+      }
+    }
 
-        .userCabinet__trow {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr .5fr 1fr .8fr;
-          align-items: center;
-  
-          .status {
-            text-align: center;
-          }
-  
-          .price {
-  
-            span {
-              font-weight: 700;
-            }
-          }
-  
-          .actions {
-  
-            .actions__detailsBtn {
-              width: 100%;
-  
-              background-color: #92080b;
-              color: #fff;
-              border-color: #92080b;
-              font-weight: 700;
-  
-              border-radius: .4em;
-  
-              height: 2.813em;
-  
-              padding: 0 15px;
-  
-              cursor: pointer;
-  
-              transition: .2s all ease-in-out;
-  
-              &.active {
-                background-color: #fff;
-                border: 1px solid #d1d1d1;
-                color:  #333;
-              }
-            }
-          }
-          
-  
-          .th {
-            padding: 15px 20px;
-  
-            font-size: 14px;
-          }
+    .actions {
+      display: flex;
+
+      .actions__reorderBtn,
+      .actions__detailsBtn {
+        width: 50%;
+
+        height: 2.813em;
+
+        cursor: pointer;
+
+        border-radius: 0.4em;
+
+        transition: 0.2s all ease-in-out;
+      }
+
+      .actions__reorderBtn {
+        margin-left: 10px;
+
+        border: 1px solid #d1d1d1;
+
+        background-color: transparent;
+      }
+
+      .actions__detailsBtn {
+        background-color: #d51a1e;
+        color: #fff;
+
+        border: 1px solid transparent;
+
+        font-weight: 700;
+
+        padding: 0 15px;
+
+        &:hover {
+          background-color: #92080b;
+          border-color: #92080b;
         }
-  
-        .userCabinet__cartItems {
-          display: flex;
-          flex-wrap: wrap;
-  
-          padding: 15px 20px;
-  
-          .userCabinet__cartItem {
-            display: flex;
-            width: 50%;
-  
-            margin-bottom: 20px;
-  
-            .userCabinet__imageContainer {
-              width: 12em;
 
-              position: relative;
-
-              text-align: center;
-
-              .userCabinet__qty {
-                position: absolute;
-                right: 0;
-                top: 0;
-
-                transform: translate(50%,-50%);
-
-                background-color: red;
-                
-                width: 20px;
-                height: 20px;
-
-                font-size: 12px;
-                color: #fff;
-                font-weight: 600;
-
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                border-radius: 50%;
-              }
-  
-              .userCabinet__image {
-                height: auto;
-                max-height: 120px;
-  
-                object-fit: cover;
-                
-                border-radius: 5px;
-              }
-            }
-  
-            .userCabinet__data {
-              padding: 10px 15px;
-  
-              .userCabinet__title {
-                font-weight: 600;
-                font-size: 13px;
-              }
-            }
-          }
+        &.active {
+          background-color: #fff;
+          border: 1px solid #d1d1d1;
+          color: #333;
         }
       }
+    }
+
+    .th {
+      padding: 15px 5px;
+
+      font-size: 14px;
+    }
+  }
+
+  .userCabinet__cartItems {
+    display: flex;
+    flex-wrap: wrap;
+
+    padding: 15px 20px;
+
+    .userCabinet__cartItem {
+      display: flex;
+      width: 50%;
+
+      margin-bottom: 20px;
+
+      .userCabinet__imageContainer {
+        width: 12em;
+
+        position: relative;
+
+        text-align: center;
+
+        .userCabinet__qty {
+          position: absolute;
+          right: 0;
+          top: 0;
+
+          transform: translate(50%, -50%);
+
+          background-color: red;
+
+          width: 20px;
+          height: 20px;
+
+          font-size: 12px;
+          color: #fff;
+          font-weight: 600;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          border-radius: 50%;
+        }
+
+        .userCabinet__image {
+          height: auto;
+          max-height: 120px;
+
+          object-fit: cover;
+
+          border-radius: 5px;
+        }
+      }
+
+      .userCabinet__data {
+        padding: 10px 15px;
+
+        .userCabinet__title {
+          font-weight: 600;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

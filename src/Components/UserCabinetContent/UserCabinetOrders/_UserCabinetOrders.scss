@@ -1,12 +1,8 @@
-
-
-
 #UserCabinet__Orders {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  
   .userCabinet__spinner {
     margin-top: 100px;
 
@@ -20,7 +16,7 @@
 
     .userCabinet__thead {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr .5fr 1fr .8fr;
+      grid-template-columns: 1fr 1fr 1fr 0.5fr 0.7fr 1.5fr;
 
       border-bottom: 1px solid #e5e5e5;
 
@@ -30,14 +26,13 @@
       .status {
         text-align: center;
       }
-      
+
       .th {
-        padding: 15px 20px;
+        padding: 15px 5px;
       }
     }
 
     .userCabinet__tbody {
-
     }
   }
 }

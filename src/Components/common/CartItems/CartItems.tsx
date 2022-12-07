@@ -1,37 +1,50 @@
-import React from 'react'
+import React from 'react';
 
-import CartItemComponent from './CartItemComponent/CartItemComponent'
-import DeliveryItem from './DeliveryItem/DeliveryItem'
+import CartItemComponent from './CartItemComponent/CartItemComponent';
+import DeliveryItem from './DeliveryItem/DeliveryItem';
 
-import { Context1 } from '../../../Context/Context'
-import './_CartItems.scss'
+import { Context1 } from '../../../Context/Context';
+import './_CartItems.scss';
+import { getCartActions } from '../../../Context/actions';
 
 const CartItems = () => {
-  const { state: { cart },actions: { clearCart }} = React.useContext(Context1)
+  const {
+    state: { cart },
+    dispatch,
+  } = React.useContext(Context1);
+  const { clearCart } = getCartActions(dispatch);
 
-    return (
-      <div id="cartitems">
-        <h4 className="cartitems__title">Ваше замовлення</h4>
+  return (
+    <div id='cartitems'>
+      <h4 className='cartitems__title'>Ваше замовлення</h4>
 
-        <div className="cartitems__items">
+      <div className='cartitems__items'>
+        {cart.items.length > 0 && (
+          <ul className='cartitems__list'>
+            {cart.items.map((item) => (
+              <CartItemComponent key={item._id} item={item} />
+            ))}
+            {cart.totalCost < 300 && <DeliveryItem />}
+          </ul>
+        )}
+
+        <div className='cartitems__listFooter'>
           {cart.items.length > 0 && (
-            <ul className="cartitems__list">
-              {cart.items.map((item) => <CartItemComponent key={item._id} item={item} />)}
-              {cart.totalCost < 300 && <DeliveryItem /> }
-            </ul>
+            <button onClick={() => clearCart()} className='cartitems__clearCartBtn'>
+              Очистити корзину
+            </button>
           )}
-          
-          <div className="cartitems__listFooter">
-            {cart.items.length > 0 && <button onClick={() => clearCart()} className='cartitems__clearCartBtn'>Очистити корзину</button>}
 
-            <h4 className="cartitems__totalCost">
-              <span className="cartitems__totalCostNumber">{cart.totalCost < 300 && cart.totalItems > 0 && cart.items.length > 0 ? cart.totalCost + 40 : cart.totalCost}.00 </span>
-              <span className="cartitems__totalCostText">грн</span>
-            </h4>
-          </div>
-        </div>  
+          <h4 className='cartitems__totalCost'>
+            <span className='cartitems__totalCostNumber'>
+              {cart.totalCost < 300 && cart.totalItems > 0 && cart.items.length > 0 ? cart.totalCost + 40 : cart.totalCost}.00{' '}
+            </span>
+            <span className='cartitems__totalCostText'>грн</span>
+          </h4>
+        </div>
       </div>
-    )
-}
+    </div>
+  );
+};
 
-export default CartItems
+export default CartItems;

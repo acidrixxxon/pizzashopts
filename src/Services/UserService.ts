@@ -1,8 +1,7 @@
-import LocalStorageService from './LocalStorageService';
-
+import { BACKEND_URL } from '../Utils/vars';
 import { IRefreshTokenResponse } from '../types/Response/UserServiceReponseType';
 import { IUserUpdateData } from '../types/UserTypes';
-import { BACKEND_URL } from '../Utils/vars';
+import LocalStorageService from './LocalStorageService';
 
 interface IUserData {
   email: string;
@@ -80,6 +79,8 @@ class UserService {
       });
 
       const data: IRefreshTokenResponse = await response.json();
+      if (data.success === false) LocalStorageService.removeAccessToken();
+      if (data.success === true) LocalStorageService.saveAccessToken(data.user?.tokens.accessToken);
 
       return data;
     } catch (error: any) {

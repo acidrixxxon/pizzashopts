@@ -1,22 +1,22 @@
-import React from 'react';
 import './scss/_base.scss';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { io } from 'socket.io-client';
 
-import Header from './Components/Header/Header';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+import CartPage from './Pages/Cart/CartPage';
 import { Context1 } from './Context/Context';
 import Dashboard from './Pages/AdminPanel/Dashboard/Dashboard';
-import CartPage from './Pages/Cart/CartPage';
+import Header from './Components/Header/Header';
 import HomePage from './Pages/Home/HomePage';
+import LocalStorageService from './Services/LocalStorageService';
 import OrderStatus from './Pages/OrderDetails/OrderStatus';
 import ProductPage from './Pages/Product/ProductPage';
+import React from 'react';
 import UserCabinetPage from './Pages/UserCabinetPage/UserCabinetPage';
-import LocalStorageService from './Services/LocalStorageService';
-import UserService from './Services/UserService';
+import { io } from 'socket.io-client';
+import { getUserActions } from './Context/actions/userActions';
+import { getSocketActions } from './Context/actions';
 
 function App() {
-  const appEl = React.useRef<HTMLDivElement | null>(null);
-
   const {
     state: {
       cart,
@@ -24,16 +24,21 @@ function App() {
       user,
       socket,
     },
-    actions: { setSocket, refreshUserToken },
+    dispatch,
   } = React.useContext(Context1);
+  const { setSocket } = getSocketActions(dispatch);
+
+  const { refreshTokenProccess } = getUserActions(dispatch);
+
+  React.useLayoutEffect(() => {
+    refreshTokenProccess();
+  }, []);
+
+  const appEl = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
     const socket = io('http://localhost:3001');
     setSocket(socket);
-  }, []);
-
-  React.useEffect(() => {
-    refreshUserToken();
   }, []);
 
   React.useEffect(() => {
@@ -63,6 +68,8 @@ function App() {
     LocalStorageService.saveCartUpdate(cart);
   }, [cart]);
 
+  const resolveCabinetRoute = user !== null || LocalStorageService.getAccessToken() ? true : false;
+
   return (
     <div className={authModal.status === 'active' ? 'App no-scroll' : 'App'} ref={appEl}>
       <Header />
@@ -73,7 +80,7 @@ function App() {
         <Route path='/product/:id' element={<ProductPage />} />
         <Route path='/order-status/:id' element={<OrderStatus />} />
         {user?.isAdmin && <Route path='/admin/dashboard' element={<Dashboard />} />}
-        {user !== null && <Route path='/cabinet' element={<UserCabinetPage />} />}
+        {resolveCabinetRoute && <Route path='/cabinet' element={<UserCabinetPage />} />}
 
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>

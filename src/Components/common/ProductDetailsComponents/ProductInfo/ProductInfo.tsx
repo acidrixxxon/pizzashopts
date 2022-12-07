@@ -1,45 +1,51 @@
-import React from 'react'
+import React from 'react';
 
-import './_ProductInfo.scss'
-import  { AiOutlineClose,AiOutlinePlus } from 'react-icons/ai'
+import './_ProductInfo.scss';
+import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 
-import { Context1 } from '../../../../Context/Context'
-import { ingridientsList } from '../../../../mockdata'
-import SetIngridients from '../../Modals/SetIngridients/SetIngridients'
-import ReactPortal from '../../ReactPortal/ReactPortal'
+import { Context1 } from '../../../../Context/Context';
+import { ingridientsList } from '../../../../mockdata';
+import SetIngridients from '../../Modals/SetIngridients/SetIngridients';
+import ReactPortal from '../../ReactPortal/ReactPortal';
+import { getCartActions, getProductDetailsActions } from '../../../../Context/actions';
 
-const ProductInfo:React.FC = () => {
-    const [ activeSize,setActiveSize ] = React.useState<number>(0)
-    const [ activeType,setActiveType ] = React.useState<number>(0)
-    const [ visibleModal,setVisibleModal ] = React.useState<boolean>(false)
+const ProductInfo: React.FC = () => {
+  const [activeSize, setActiveSize] = React.useState<number>(0);
+  const [activeType, setActiveType] = React.useState<number>(0);
+  const [visibleModal, setVisibleModal] = React.useState<boolean>(false);
 
-    const setSize = (index: number): void => {
-        setActiveSize(index)
-        setActiveType(0)
-    }
+  const setSize = (index: number): void => {
+    setActiveSize(index);
+    setActiveType(0);
+  };
 
-    const { dispatch,state: { productDetails },actions: { addToCart,setProductDetails,changeIngridientQty }} = React.useContext(Context1)
-    
-    // const addToCartHandler = ():void => {
-    //     const productObj = new CartProductDTO(productDetails.class,productDetails.imageUrl,
-    //         productDetails.variants[activeSize].variants[activeType].fulltitle,
-    //         productDetails.title,
-    //         productDetails.variants[activeSize].variants[activeType].price,
-    //         productDetails.ingridients,
-    //         productDetails.variants[activeSize].variants[activeType].id,
-    //         productDetails.variants[activeSize].variants[activeType].inSell,undefined)
+  const {
+    dispatch,
+    state,
+    state: { productDetails },
+  } = React.useContext(Context1);
+  const { addToCart } = getCartActions(dispatch, state);
+  const { setProductDetails, changeIngridientQty } = getProductDetailsActions(dispatch);
 
-    //     addToCart(productObj)
-    //     setSize(0)
-    //     setProductDetails(productDetails.defaultObj)
-    // }
+  // const addToCartHandler = ():void => {
+  //     const productObj = new CartProductDTO(productDetails.class,productDetails.imageUrl,
+  //         productDetails.variants[activeSize].variants[activeType].fulltitle,
+  //         productDetails.title,
+  //         productDetails.variants[activeSize].variants[activeType].price,
+  //         productDetails.ingridients,
+  //         productDetails.variants[activeSize].variants[activeType].id,
+  //         productDetails.variants[activeSize].variants[activeType].inSell,undefined)
 
+  //     addToCart(productObj)
+  //     setSize(0)
+  //     setProductDetails(productDetails.defaultObj)
+  // }
 
-    return (
-        <div id="productInfo">
-            <h4 className="productInfo__title">{productDetails.title}</h4>
+  return (
+    <div id='productInfo'>
+      <h4 className='productInfo__title'>{productDetails.title}</h4>
 
-            {/* {productDetails.ingridients !== undefined && productDetails.ingridients.length > 0 ? 
+      {/* {productDetails.ingridients !== undefined && productDetails.ingridients.length > 0 ? 
                 <>
                     <div className="productInfo__ingridients">
                         <span>Інгрідієнти</span>
@@ -78,70 +84,67 @@ const ProductInfo:React.FC = () => {
                     </div>
                 </> : ''} */}
 
-            <div className="productInfo__options">
-                {productDetails.class === 0 ? <>
-                    <div className="productInfo__left">
-                        <h4 className="productInfo__title">Розміри</h4>
+      <div className='productInfo__options'>
+        {productDetails.class === 0 ? (
+          <>
+            <div className='productInfo__left'>
+              <h4 className='productInfo__title'>Розміри</h4>
 
-                        <ul className="productInfo__list">
-                            {productDetails.variants && productDetails.variants.map((item,index) => {
-                                return (
-                                    <li className='productInfo__item' key={index} onClick={() =>setSize(index)}>
-                                        <div className="productInfo__checkbox">
-                                            <input type="checkbox" checked={activeSize === index} />
+              <ul className='productInfo__list'>
+                {productDetails.variants &&
+                  productDetails.variants.map((item, index) => {
+                    return (
+                      <li className='productInfo__item' key={index} onClick={() => setSize(index)}>
+                        <div className='productInfo__checkbox'>
+                          <input type='checkbox' checked={activeSize === index} />
 
-                                            {item.title}
-                                        </div>
+                          {item.title}
+                        </div>
 
-                                        <div className="productInfo__price">
-                                            від {item.variants[0].price}.00 грн
-                                        </div>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </div>
-
-                    <div className="productInfo__right">
-                        <h4 className="productInfo__title">Тісто</h4>    
-
-                        <ul className="productInfo__list">
-                            {productDetails.variants && productDetails.variants[activeSize].variants.map((item,index) => {
-
-                                return (
-                                    <li className='productInfo__item' key={index} onClick={() => setActiveType(index)}>
-                                        <div className="productInfo__checkbox">
-                                            <input type="checkbox" checked={activeType === index} />
-
-                                            {item.title}
-                                        </div>
-
-                                        <div className="productInfo__price">
-                                            від {item.price}.00 грн
-                                        </div>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </div>
-                </> : null}
+                        <div className='productInfo__price'>від {item.variants[0].price}.00 грн</div>
+                      </li>
+                    );
+                  })}
+              </ul>
             </div>
 
-            <div className="productInfo__totals">
-                <div className="productInfo__price">
-                    {productDetails.variants[activeSize].variants[activeType].price}.00 грн
-                </div>
-{/* 
+            <div className='productInfo__right'>
+              <h4 className='productInfo__title'>Тісто</h4>
+
+              <ul className='productInfo__list'>
+                {productDetails.variants &&
+                  productDetails.variants[activeSize].variants.map((item, index) => {
+                    return (
+                      <li className='productInfo__item' key={index} onClick={() => setActiveType(index)}>
+                        <div className='productInfo__checkbox'>
+                          <input type='checkbox' checked={activeType === index} />
+
+                          {item.title}
+                        </div>
+
+                        <div className='productInfo__price'>від {item.price}.00 грн</div>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          </>
+        ) : null}
+      </div>
+
+      <div className='productInfo__totals'>
+        <div className='productInfo__price'>{productDetails.variants[activeSize].variants[activeType].price}.00 грн</div>
+        {/* 
                 <button className="productInfo__toCart" onClick={addToCartHandler}>
                     В кошик
                 </button> */}
-            </div>
-{/* 
+      </div>
+      {/* 
             <ReactPortal wrapperId='root'>
                 <SetIngridients visible={visibleModal} setVisible={setVisibleModal} />
             </ReactPortal> */}
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default ProductInfo
+export default ProductInfo;

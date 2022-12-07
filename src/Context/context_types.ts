@@ -1,6 +1,15 @@
-import { ICustomerData, IDeliveryInCart, IDrinkInCart, IErrors, IIngridients1, IPizzaInCart, ISideInCart } from '../types';
+import { type } from 'os';
+import {
+  ICustomerData,
+  IDeliveryInCart,
+  IDrinkInCart,
+  IErrors,
+  IIngridients1,
+  IPaymentVariants,
+  IPizzaInCart,
+  ISideInCart,
+} from '../types';
 import { IPizza, IPizzaIngridientFull, IPizzaSize } from '../types/ProductTypes';
-import { IUserUpdateData } from '../types/UserTypes';
 
 export type IAction =
   | { type: 'ADD_TO_CART'; payload: any }
@@ -16,6 +25,8 @@ export type IAction =
     }
   | { type: 'CLEAR_CART' }
   | { type: 'SET_CUSTOMER_DATA'; payload: React.ChangeEvent<HTMLInputElement> }
+  | { type: 'SET_PAYMENT_TYPE'; payload: IPaymentVariants | null }
+  | { type: 'SET_ORDER_TYPE'; payload: number }
   | { type: 'SET_FIELD_ERROR'; payload: IErrors }
   | { type: 'REMOVE_FROM_CART'; payload: IPizzaInCart | IDrinkInCart | ISideInCart }
   | { type: 'SET_PRODUCT_DETAILS'; payload: IPizza }
@@ -26,30 +37,10 @@ export type IAction =
   | { type: 'LOGIN_USER'; payload: IUser | null }
   | { type: 'LOGOUT_USER' }
   | { type: 'UPDATE_PROFILE'; payload: IUser }
-  | { type: 'SET_SOCKET'; payload: any | null };
+  | { type: 'SET_SOCKET'; payload: any | null }
+  | { type: 'SET_REFRESH_TOKEN_LOADING'; payload: 'active' | 'inactive' };
 
 //Context actions types
-export interface IActionsList {
-  setCategory: (id: number) => void;
-  setSort: (id: number) => void;
-  addToCart: (item: any) => void;
-  changeItemQty: (type: string, id: string) => void;
-  toggleExtraMocarella: (id: string, type: string) => void;
-  clearCart: () => void;
-  setCustomerData: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setFieldError: (errors: IErrors) => void;
-  removeFromCart: (item: IPizzaInCart | IDrinkInCart | ISideInCart) => void;
-  setProductDetails: (product: IPizza) => void;
-  addIngridientToPizza: (ingridient: IPizzaIngridientFull) => void;
-  changeIngridientQty: (type: string, ingridient: IPizzaIngridientFull) => void;
-  setAuthModalStatus: (status: 'active' | 'inactive') => void;
-  loginUserProcess: (user: { email: string; password: string }) => void;
-  userLogoutProcess: () => void;
-  setSocket: (socket: any | null) => void;
-  registerUserProcess: (user: { email: string; password: string; copyPassword: string }) => void;
-  updateUserProfile: (data: IUserUpdateData, token: string | undefined) => void;
-  refreshUserToken: () => void;
-}
 
 export interface IInitialState {
   sort: ISort;
@@ -107,5 +98,8 @@ export interface IProvider {
 export interface IView {
   authModal: {
     status: string;
+  };
+  loaders: {
+    refreshTokenLoading: string;
   };
 }
