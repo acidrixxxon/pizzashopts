@@ -1,7 +1,7 @@
-import { IInitialState, IProvider } from './context_types';
-import { initialCartState, initialCustomerData, initialProductDetails } from '../Utils/initialStore';
-
 import React from 'react';
+
+import { initialCartState, initialCustomerData, initialProductDetails } from '../Utils/initialStore';
+import { IInitialState, IProvider } from './context_types';
 import { rootReducer } from './reducers/rootReducer';
 
 const initialState: IInitialState = {
@@ -15,6 +15,12 @@ const initialState: IInitialState = {
   view: {
     authModal: {
       status: 'inactive',
+    },
+    search: {
+      searchResultModal: {
+        status: 'hidden',
+        data: null,
+      },
     },
     loaders: {
       refreshTokenLoading: 'active',
@@ -31,10 +37,12 @@ interface ContextInterface {
 
 const Context1 = React.createContext<ContextInterface>({ state: initialState, dispatch: () => null });
 
+export const useContextSelector = () => React.useContext(Context1);
+
 const StateProvider: React.FC<IProvider> = ({ children }) => {
   const [state, dispatch] = React.useReducer(rootReducer, initialState);
 
   return <Context1.Provider value={{ state, dispatch }}>{children}</Context1.Provider>;
 };
 
-export { StateProvider, Context1 };
+export { Context1, StateProvider };

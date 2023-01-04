@@ -1,6 +1,6 @@
-import './_Spinner.scss';
-
 import React from 'react';
+
+import './_Spinner.scss';
 
 const Spinner = ({ className = '' }) => {
   return (

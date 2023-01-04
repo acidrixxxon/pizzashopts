@@ -1,10 +1,10 @@
 import React from 'react';
 import { AiFillCheckCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 
-import './_PizzaView.scss';
-import { Context1 } from '../../../../Context/Context';
-import LocalStorageService from '../../../../Services/LocalStorageService';
 import { getCartActions } from '../../../../Context/actions';
+import { Context1 } from '../../../../Context/Context';
+
+import './_PizzaView.scss';
 
 interface ComponentProps {
   item: any;
@@ -14,11 +14,7 @@ const PizzaView: React.FC<ComponentProps> = ({ item }) => {
   const [addCheese, setAddCheese] = React.useState<boolean>(false);
   const [animation, setAnimation] = React.useState<'scaleup__animation' | 'scaledown__animation' | null>(null);
 
-  const {
-    state: { cart },
-    state,
-    dispatch,
-  } = React.useContext(Context1);
+  const { state, dispatch } = React.useContext(Context1);
   const { changeItemQty, toggleExtraMocarella } = getCartActions(dispatch, state);
 
   const addCheeseHandler = () => {
@@ -31,7 +27,7 @@ const PizzaView: React.FC<ComponentProps> = ({ item }) => {
     toggleExtraMocarella(item.uniqueId, 'remove');
   };
 
-  const changeQtyHandler = (type: string, id: string | undefined): void => {
+  const changeQtyHandler = (type: string): void => {
     if (type === 'plus') {
       setAnimation('scaleup__animation');
       changeItemQty('plus', item.uniqueId);
@@ -56,7 +52,7 @@ const PizzaView: React.FC<ComponentProps> = ({ item }) => {
         }
       }
 
-      LocalStorageService.saveCartUpdate(cart);
+      // LocalStorageService.saveCartUpdate(cart);
     }
   }, [item]);
 
@@ -77,13 +73,13 @@ const PizzaView: React.FC<ComponentProps> = ({ item }) => {
 
       <div className='cartStatus__body'>
         <div className='cartStatus__qty'>
-          <span className='minus' onClick={() => changeQtyHandler('minus', item.uniqueId)}>
+          <span className='minus' onClick={() => changeQtyHandler('minus')}>
             <svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 491.858 491.858'>
               <path d='M465.167,211.613H240.21H26.69c-8.424,0-26.69,11.439-26.69,34.316s18.267,34.316,26.69,34.316h213.52h224.959 c8.421,0,26.689-11.439,26.689-34.316S473.59,211.613,465.167,211.613z'></path>
             </svg>
           </span>
           <span className={animation ? `qty ${animation}` : 'qty'}>{item.qty}</span>
-          <span className='plus' onClick={() => changeQtyHandler('plus', item.uniqueId)}>
+          <span className='plus' onClick={() => changeQtyHandler('plus')}>
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
               <path d='m23,10h-8.5c-0.3,0-0.5-0.2-0.5-0.5v-8.5c0-0.6-0.4-1-1-1h-2c-0.6,0-1,0.4-1,1v8.5c0,0.3-0.2,0.5-0.5,0.5h-8.5c-0.6,0-1,0.4-1,1v2c0,0.6 0.4,1 1,1h8.5c0.3,0 0.5,0.2 0.5,0.5v8.5c0,0.6 0.4,1 1,1h2c0.6,0 1-0.4 1-1v-8.5c0-0.3 0.2-0.5 0.5-0.5h8.5c0.6,0 1-0.4 1-1v-2c0-0.6-0.4-1-1-1z'></path>
             </svg>

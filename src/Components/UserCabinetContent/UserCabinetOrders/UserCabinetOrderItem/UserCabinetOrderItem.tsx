@@ -1,14 +1,14 @@
-import './_UserCabinetOrderItem.scss';
-
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import dateFormat from 'dateformat';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import { getCartActions } from '../../../../Context/actions';
+import { Context1 } from '../../../../Context/Context';
 import { IDeliveryInCart, IDrinkInCart, IPizzaInCart, ISideInCart } from '../../../../types';
 import { IOrderCart, IOrderFromServer } from '../../../../types/OrderTypes';
 
-import { Context1 } from '../../../../Context/Context';
-import React from 'react';
-import dateFormat from 'dateformat';
-import { useNavigate } from 'react-router-dom';
-import { getCartActions } from '../../../../Context/actions';
+import './_UserCabinetOrderItem.scss';
 
 interface ComponentProps {
   item: IOrderFromServer;

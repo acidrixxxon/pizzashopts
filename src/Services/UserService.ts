@@ -1,6 +1,7 @@
-import { BACKEND_URL } from '../Utils/vars';
-import { IRefreshTokenResponse } from '../types/Response/UserServiceReponseType';
+import { ILoginUserResponse, IRefreshTokenResponse } from '../types/Response/UserServiceReponseType';
 import { IUserUpdateData } from '../types/UserTypes';
+import { BACKEND_URL } from '../Utils/vars';
+
 import LocalStorageService from './LocalStorageService';
 
 interface IUserData {
@@ -10,7 +11,7 @@ interface IUserData {
 }
 
 class UserService {
-  async loginUser(user: IUserData) {
+  async loginUser(user: IUserData): Promise<ILoginUserResponse> {
     try {
       const response = await fetch(`${BACKEND_URL}/user/login`, {
         method: 'POST',
@@ -25,6 +26,11 @@ class UserService {
       return data;
     } catch (error: any) {
       console.log(error.message);
+
+      return {
+        success: false,
+        message: error.message,
+      };
     }
   }
 

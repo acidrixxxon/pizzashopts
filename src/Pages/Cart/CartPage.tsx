@@ -7,6 +7,7 @@ import { getCustomerDataActions } from '../../Context/actions';
 import { Context1 } from '../../Context/Context';
 import { useLocationChanges } from '../../hooks/useLocationChanges';
 import { initialCustomerDataErrors } from '../../Utils/initialStore';
+
 import './_CartPage.scss';
 
 const CartPage: React.FC = () => {

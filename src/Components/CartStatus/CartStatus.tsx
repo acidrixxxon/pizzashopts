@@ -1,17 +1,16 @@
 import React from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useLocation } from 'react-router-dom';
-
-import CartStatusItem from './CartStatusItem/CartStatusItem';
-
-import { useLocationChanges } from '../../hooks/useLocationChanges';
-import useOutsideClick from '../../hooks/useOutsideClick';
-
-import './_CartStatus.scss';
 import { MdKeyboardArrowDown } from 'react-icons/md';
+import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Context1 } from '../../Context/Context';
+import { useLocationChanges } from '../../hooks/useLocationChanges';
+import useOutsideClick from '../../hooks/useOutsideClick';
+
+import CartStatusItem from './CartStatusItem/CartStatusItem';
+
+import './_CartStatus.scss';
 
 const CartStatus = () => {
   const [visibleList, setVisibleList] = React.useState<boolean>(false);

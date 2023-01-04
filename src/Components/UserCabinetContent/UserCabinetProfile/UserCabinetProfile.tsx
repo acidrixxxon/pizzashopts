@@ -1,10 +1,11 @@
-import './_UserCabinetProfile.scss';
-
-import { Context1 } from '../../../Context/Context';
 import React from 'react';
 import { Rings } from 'react-loader-spinner';
 import { isEqual } from 'lodash';
+
 import { getUserActions } from '../../../Context/actions/userActions';
+import { Context1 } from '../../../Context/Context';
+
+import './_UserCabinetProfile.scss';
 
 const UserCabinetProfile: React.FC = () => {
   const [loading, setLoading] = React.useState(false);

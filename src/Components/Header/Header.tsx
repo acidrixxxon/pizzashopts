@@ -1,17 +1,16 @@
-import './_Header.scss';
-
 import React from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
 import { Context1 } from '../../Context/Context';
 import { useStickyHeader } from '../../hooks/useStickyHeader';
 import CartStatus from '../CartStatus/CartStatus';
+import Search from '../Search/Search';
+import UserCabinet from '../UserCabinet/UserCabinet';
 import Container from '../common/Container/Container';
 import Logotype from '../common/Icons/Logotype/Logotype';
 import MobileNavigation from '../common/MobileNavigation/MobileNavigation';
 import AuthModal from '../common/Modals/AuthModal/AuthModal';
-import Search from '../Search/Search';
-import UserCabinet from '../UserCabinet/UserCabinet';
+import './_Header.scss';
 
 const Header: React.FC = () => {
   const headerEl = React.useRef<HTMLDivElement | null>(null);

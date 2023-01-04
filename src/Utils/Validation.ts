@@ -1,9 +1,7 @@
 import { ICustomerData, IErrors } from '../types';
+import { ILoginUser } from '../types/UserTypes';
 
-export const validateFields = (
-  data: ICustomerData,
-  paymentType: { id: number; title: string } | null,
-): { errors: IErrors; result: boolean } => {
+export const validateFields = (data: ICustomerData): { errors: IErrors; result: boolean } => {
   const errors: IErrors = {
     name: null,
     phone: null,
@@ -14,79 +12,138 @@ export const validateFields = (
     city: null,
     restaurant: null,
   };
-  const { name, phone, email, street, house, city, restaurant } = data;
+  const { firstName, phone, email, street, house, city, restaurant, paymentType } = data;
 
-  errors.name = [];
-  errors.phone = [];
-  errors.email = [];
-  errors.street = [];
-  errors.house = [];
-  errors.paymentType = [];
-  errors.city = [];
-  errors.restaurant = [];
+  if (data.orderType === 0) {
+    errors.name = [];
+    errors.phone = [];
+    errors.email = [];
+    errors.street = [];
+    errors.house = [];
+    errors.paymentType = [];
 
-  if (name.trim().length < 1) {
-    errors.name.push(`Введіть ім'я`);
-  } else if (name.trim().length < 4) {
-    errors.name.push('Коротке імя');
+    if (firstName) {
+      if (firstName.trim().length < 1) {
+        errors.name.push(`Введіть ім'я`);
+      } else if (firstName.trim().length < 4) {
+        errors.name.push('Коротке імя');
+      } else {
+        errors.name = null;
+      }
+    }
+
+    if (phone.trim().length === 0) {
+      errors.phone.push('Введіть номер');
+    } else if (phone.trim().length < 12) {
+      errors.phone.push('Короткий номер');
+    } else {
+      errors.phone = null;
+    }
+
+    if (email.trim().length === 0) {
+      errors.email.push('Введіть email');
+    } else {
+      errors.email = null;
+    }
+
+    if (street.trim().length === 0) {
+      errors.street.push('Введіть вашу вулицю');
+    } else {
+      errors.street = null;
+    }
+
+    if (house.trim().length === 0) {
+      errors.house.push('Введіть номер будинку');
+    } else {
+      errors.house = null;
+    }
+
+    if (paymentType === null) {
+      errors.paymentType.push('Виберіть тип оплати');
+    } else {
+      errors.paymentType = null;
+    }
+
+    let result = true;
+
+    (Object.keys(errors) as (keyof typeof errors)[]).forEach((key) => {
+      if (errors[key] !== null) {
+        result = false;
+      }
+    });
+
+    return {
+      errors,
+      result,
+    };
   } else {
-    errors.name = null;
-  }
+    errors.city = [];
+    errors.restaurant = [];
+    errors.paymentType = [];
+    errors.name = [];
+    errors.phone = [];
+    errors.email = [];
 
-  if (phone.trim().length === 0) {
-    errors.phone.push('Введіть номер');
-  } else if (phone.trim().length < 12) {
-    errors.phone.push('Короткий номер');
-  } else {
-    errors.phone = null;
-  }
+    if (paymentType === null) {
+      errors.paymentType.push('Виберіть тип оплати');
+    } else {
+      errors.paymentType = null;
+    }
 
-  if (email.trim().length === 0) {
-    errors.email.push('Введіть email');
-  } else {
-    errors.email = null;
-  }
+    if (city === null) {
+      errors.city.push('Ви не обрали місто');
+    } else {
+      errors.city = null;
+    }
 
-  if (street.trim().length === 0) {
-    errors.street.push('Введіть вашу вулицю');
-  } else {
-    errors.street = null;
-  }
+    if (restaurant === null) {
+      errors.restaurant.push('Ви не обрали рестаран');
+    } else {
+      errors.restaurant = null;
+    }
 
-  if (house.trim().length === 0) {
-    errors.house.push('Введіть номер будинку');
-  } else {
-    errors.house = null;
-  }
+    let result = true;
 
-  if (paymentType === null) {
-    errors.paymentType.push('Виберіть тип оплати');
-  } else {
-    errors.paymentType = null;
-  }
+    (Object.keys(errors) as (keyof typeof errors)[]).forEach((key) => {
+      if (errors[key] !== null) {
+        result = false;
+      }
+    });
 
-  if (city === null) {
-    errors.city.push('Ви не обрали місто');
-  } else {
-    errors.city = null;
+    return {
+      errors,
+      result,
+    };
   }
+};
 
-  if (restaurant === null) {
-    errors.restaurant.push('Ви не обрали рестаран');
-  } else {
-    errors.restaurant = null;
-  }
+interface ILoginErrors {
+  email: string[];
+  password: string[];
+}
+export const validateLoginUserForm = ({ email, password }: ILoginUser): { result: boolean; errors: ILoginErrors } => {
+  const errors: ILoginErrors = {
+    email: [],
+    password: [],
+  };
 
   let result = true;
 
-  (Object.keys(errors) as (keyof typeof errors)[]).forEach((key, index) => {
-    if (errors[key] !== null) {
-      result = false;
-    }
-  });
+  if (email.trim() === '') {
+    errors.email.push('Ви не ввели email');
+    result = false;
+  }
+
+  if (password === '') {
+    errors.email.push('Ви не ввели пароль');
+    result = false;
+  } else if (password.length < 8) {
+    errors.password.push('Пароль має бути від 8ми символів!');
+    result = false;
+  }
 
   return {
-    errors,
     result,
+    errors,
   };
 };

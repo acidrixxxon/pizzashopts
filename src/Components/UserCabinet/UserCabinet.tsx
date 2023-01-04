@@ -1,11 +1,12 @@
-import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import { getUserActions } from '../../Context/actions/userActions';
+import { AnimatePresence, motion } from 'framer-motion';
 
+import { getUserActions } from '../../Context/actions/userActions';
 import { Context1 } from '../../Context/Context';
 import useOutsideClick from '../../hooks/useOutsideClick';
+
 import './_UserCabinet.scss';
 
 const UserCabinet: React.FC = () => {

@@ -16,12 +16,8 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/socket.io-client": "^3.0.0",
     "@types/uuid": "^8.3.4",
+    "classnames": "^2.3.2",
     "dateformat": "^5.0.3",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-import-resolver-typescript": "^3.5.2",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
     "framer-motion": "^7.2.1",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
@@ -34,6 +30,7 @@
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
     "socket.io-client": "^4.5.2",
     "spinners-react": "^1.0.7",
     "typescript": "^4.7.4",
@@ -68,9 +65,15 @@
     ]
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.29.0",
-    "eslint-plugin-react": "^7.31.11"
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-simple-import-sort": "^8.0.0"
   }
 }

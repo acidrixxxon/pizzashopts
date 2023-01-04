@@ -1,7 +1,8 @@
-import './_Slider.scss';
-
 import React from 'react';
+
 import SliderItem from './SliderItem/SliderItem';
+
+import './_Slider.scss';
 
 const Slider: React.FC = () => {
   const [activeIndex, setActiveIdx] = React.useState(0);

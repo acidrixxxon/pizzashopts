@@ -1,10 +1,10 @@
 import React from 'react';
 
-import './_CartItemComponent.scss';
-
 import CartItemDrink from './CartItemDrink/CartItemDrink';
 import CartItemPizza from './CartItemPizza/CartItemPizza';
 import CartItemSide from './CartItemSide/CartItemSide';
+
+import './_CartItemComponent.scss';
 
 interface ComponentProps {
   item: any;

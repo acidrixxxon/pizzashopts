@@ -1,143 +1,97 @@
 // import { ICart, ICustomerData, IIngridients1 } from "../types";
 // import { ICartItem } from '../Context/context_types'
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
-import { ICart, ICartItem } from "../Context/context_types";
-import { ICustomerData } from "../types";
-import { INewOrder } from "../types/OrderTypes";
+import { ICart } from '../Context/context_types';
+import { ICustomerData, IDrinkInCart, IPizzaInCart, ISideInCart } from '../types';
+import { IDrinkMain, IPizzaMain, ISideMain } from '../types/ProductTypes';
 
-
-// export class CustomerDataDto {
-//     name: string | undefined;
-//     phone: string | undefined;
-//     email: string | undefined;
-//     orderType: number | undefined;
-//     street: string | undefined;
-//     house: string | undefined;
-//     room: string | undefined;
-//     floor: string | undefined;
-//     comment: string | undefined;
-
-//     constructor(customerData: ICustomerData) {
-//         this.name = customerData.name;
-//         this.phone = customerData.phone;
-//         this.email = customerData.email;
-//         this.orderType = customerData.orderType;
-//         this.street = customerData.street;
-//         this.house = customerData.house;
-//         this.room = customerData.room;
-//         this.floor = customerData.floor;
-//         this.comment = customerData.comment;
-//     }
-// }
-
-export class NewOrderDto {
-    items: ICartItem | undefined;
-    totalItems: number | undefined;
-    totalCost: number | undefined;
-    customerData: ICustomerData | undefined;
-
-    constructor(cart: ICart,customerData: ICustomerData) {
-        this.totalCost = cart.totalCost;
-        this.totalItems = cart.totalItems;
-        this.customerData = customerData;
-    }
+export function newOrderDto(cart: ICart, customerData: ICustomerData) {
+  if (customerData.orderType === 0) {
+    return {
+      cart: {
+        items: cart.totalCost < 300 ? [...cart.items, { title: 'Доставка', price: 40, id: 999 }] : [...cart.items],
+        totalItems: cart.totalCost < 300 ? cart.totalItems + 1 : cart.totalItems,
+        totalCost: cart.totalCost < 300 ? cart.totalCost + 40 : cart.totalCost,
+      },
+      details: {
+        orderType: {
+          title: 'Доставка',
+          id: 0,
+        },
+        customerData: {
+          email: customerData.email,
+          phone: customerData.phone,
+          name: customerData.name,
+          street: customerData.street,
+          house: customerData.house,
+          floor: customerData.floor,
+          room: customerData.room,
+          comment: customerData.comment,
+        },
+        paymentType: customerData.paymentType,
+      },
+    };
+  } else {
+    return {
+      ...cart,
+      customerData: {
+        email: customerData.email,
+        phone: customerData.phone,
+        name: customerData.name,
+        city: customerData.city,
+        restaurant: customerData.restaurant,
+      },
+      paymentType: customerData.paymentType,
+    };
+  }
 }
 
-
-export function newOrderDto(cart: ICart,customerData: ICustomerData) {
-    if (customerData.orderType === 0) {
-        return {
-            cart: {
-                items: cart.totalCost < 300 ? [...cart.items,{title: 'Доставка',price: 40,id: 999}] : [...cart.items],
-                totalItems: cart.totalCost < 300 ? cart.totalItems + 1 : cart.totalItems,
-                totalCost: cart.totalCost < 300 ? cart.totalCost + 40 : cart.totalCost
-            },
-            details: {
-                orderType: {
-                    title: 'Доставка',
-                    id: 0
-                },
-                customerData: {
-                    email: customerData.email,
-                    phone: customerData.phone,
-                    name: customerData.name,
-                    street: customerData.street,
-                    house: customerData.house,
-                    floor: customerData.floor,
-                    room: customerData.room,
-                    comment: customerData.comment
-                },
-                paymentType: customerData.paymentType
-            },
-        }
-    } else {
-        return {
-            ...cart,
-            customerData: {
-                email: customerData.email,
-                phone: customerData.phone,
-                name: customerData.name,
-                city: customerData.city,
-                restaurant: customerData.restaurant
-            },
-            paymentType: customerData.paymentType
-        }
+export const getProductDto = (
+  item: any,
+  activeSize: number,
+  activeType?: number,
+): IPizzaInCart | IDrinkInCart | ISideInCart | null => {
+  if (item)
+    if (item.class === 0 && activeType) {
+      return {
+        _id: item.variants[activeSize].variants[activeType]._id,
+        uniqueId: uuidv4(),
+        imageUrl: item.imageUrl,
+        fullimageUrl: item.fullimageUrl,
+        class: item.class,
+        title: item.title,
+        fulltitle: item.variants[activeSize].variants[activeType].fulltitle,
+        price: item.variants[activeSize].variants[activeType].price,
+        ingridients: item.ingridients,
+        qty: 1,
+        isSell: item.variants[activeSize].variants[activeType].inSell,
+      };
+    } else if (item.class === 2) {
+      return {
+        _id: item.variants[activeSize]._id,
+        uniqueId: uuidv4(),
+        size: item.variants[activeSize].size,
+        price: item.variants[activeSize].price,
+        title: item.title,
+        qty: 1,
+        category: item.category,
+        class: 2,
+        imageUrl: item.imageUrl,
+      };
+    } else if (item.class === 1) {
+      return {
+        _id: item.variants[activeSize]._id,
+        uniqueId: uuidv4(),
+        class: 1,
+        imageUrl: item.imageUrl,
+        title: item.title,
+        size: item.variants[activeSize].size,
+        price: item.variants[activeSize].price,
+        category: item.category,
+        qty: 1,
+      };
     }
-}
 
-
-// export class CartProductDTO {
-//     productClass: number | undefined;
-//     imageUrl: string | undefined;
-//     qty: number | undefined;
-//     title: string | undefined;
-//     ingridients: IIngridients1[] | undefined;
-//     uniqueId: string | undefined;
-//     fulltitle: string | undefined;
-//     price: number | undefined;
-//     _id:  number | string | undefined;
-//     isSell: boolean | undefined;
-//     size: string | undefined;
-
-//     constructor(productClass: number,imageUrl: string,fulltitle: string,title: string,price: number,ingridients: IIngridients1[] | undefined,id: number | string,isSell: boolean | undefined,size: string | undefined) {
-//         this.productClass = productClass;
-//         this.uniqueId = uuidv4();
-//         this.imageUrl = imageUrl;
-//         this.qty = 1;
-//         this.title = title;
-//         this.fulltitle = fulltitle;
-//         this.price = price;
-//         this.id = id;
-//         this.isSell = isSell;
-//         this.ingridients = ingridients;
-//         this.size = size;
-//     }
-// }
-
-
-// export class PizzaToCartDTO {
-//     productClass: number | undefined;
-//     imageUrl: string | undefined;
-//     qty: number | undefined;
-//     title: string | undefined;
-//     ingridients: IIngridients1[] | undefined;
-//     uniqueId: string | undefined;
-//     fulltitle: string | undefined;
-//     price: number | undefined;
-//     _id: string | undefined;
-//     isSell: boolean | undefined;
-
-//     constructor(productClass: number,imageUrl: string,fulltitle: string,title: string,price: number,ingridients: IIngridients1[],_id: string,isSell: boolean | undefined) {
-//         this.productClass = productClass;
-//         this.uniqueId = uuidv4();
-//         this.imageUrl = imageUrl;
-//         this.qty = 1;
-//         this.title = title;
-//         this.fulltitle = fulltitle;
-//         this.price = price;
-//         this._id = _id;
-//         this.isSell = isSell;
-//         this.ingridients = ingridients;
-//     }
-// }
+  return null;
+};

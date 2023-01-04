@@ -5,8 +5,16 @@
   padding: 0;
 
   box-sizing: border-box;
-  
-  font-family: 'ProximaNova',sans-serif;
+
+  font-family: 'ProximaNova', sans-serif;
+}
+
+.App {
+  .Toastify {
+    .Toastify__toast-container {
+      z-index: 99999999;
+    }
+  }
 }
 
 body {
@@ -23,7 +31,7 @@ body {
         top: 50%;
         left: 50%;
         width: 150px !important;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
       }
     }
   }
@@ -62,6 +70,11 @@ li {
   padding-top: 70px;
 }
 
+.scroll__blocked {
+  max-height: 100vh;
+  overflow: hidden;
+}
+
 .is-sticky {
   position: fixed;
   z-index: 999999;
@@ -89,46 +102,49 @@ button {
 
   opacity: 0;
 
-  transition: .3s all ease-in;
+  transition: 0.3s all ease-in;
 
   position: absolute;
   top: 35%;
   right: 30%;
 
   .qty {
-      background-color: red;
+    background-color: red;
 
-      color: #fff !important;
+    color: #fff !important;
 
-      margin-left: -.25em;
-      margin-right: -.25em;
+    margin-left: -0.25em;
+    margin-right: -0.25em;
 
-      width: 33px !important;
-      height: 33px !important;
+    width: 33px !important;
+    height: 33px !important;
 
-      z-index: 5;
+    z-index: 5;
   }
 
-  .minus,.plus {
-      background-color: #fff;
-      position: relative;
-      width: 22px;
-      height: 22px;
+  .minus,
+  .plus {
+    background-color: #fff;
+    position: relative;
+    width: 22px;
+    height: 22px;
   }
 
-  .minus,.plus,.qty {
-      width: 27px;
-      height: 27px;
+  .minus,
+  .plus,
+  .qty {
+    width: 27px;
+    height: 27px;
 
-      display: block;
+    display: block;
 
-      border-radius: 50%;
+    border-radius: 50%;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      font-size: 18px;
+    font-size: 18px;
   }
 }
 
@@ -139,25 +155,25 @@ button {
 
   .form__input {
     width: 100%;
-      
+
     font-size: 16px;
     color: #4f4f4f;
-  
+
     outline: none;
-  
+
     padding: 0 10px;
-    
+
     height: 30px;
-  
+
     border-radius: 15px;
     border: 1px solid rgba(79, 79, 79, 0.5);
-  
+
     &.not__valid {
       border-color: red;
     }
-  
+
     &:focus {
-        border-color: rgba(79, 79, 79, 0.5) !important;
+      border-color: rgba(79, 79, 79, 0.5) !important;
     }
   }
 }
@@ -176,23 +192,44 @@ button {
 }
 
 @keyframes shake {
-  0%  { transform: translate(2px, 1px)   rotate(0deg);  }
-  10% { transform: translate(-1px, -2px) rotate(-2deg); }
-  20% { transform: translate(-3px, 0px)  rotate(3deg);  }
-  30% { transform: translate(0px, 2px)   rotate(0deg);  }
-  40% { transform: translate(1px, -1px)  rotate(1deg);  }
-  50% { transform: translate(-1px, 2px)  rotate(-1deg); }
-  60% { transform: translate(-3px, 1px)  rotate(0deg);  }
-  70% { transform: translate(2px, 1px)   rotate(-2deg); }
-  80% { transform: translate(-1px, -1px) rotate(4deg);  }
-  90% { transform: translate(2px, 2px)   rotate(0deg);  }
-  100%{ transform: translate(1px, -2px)  rotate(-1deg); }
+  0% {
+    transform: translate(2px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-2deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(3deg);
+  }
+  30% {
+    transform: translate(0px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(2px, 1px) rotate(-2deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(4deg);
+  }
+  90% {
+    transform: translate(2px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 
 .scaleup__animation {
-  animation: scaleupanimation .4s ease-in 1;
+  animation: scaleupanimation 0.4s ease-in 1;
 }
-
 
 @keyframes scaleupanimation {
   0% {
@@ -209,9 +246,8 @@ button {
 }
 
 .scaledown__animation {
-  animation: scaledownanimation .4s ease-in 1;
+  animation: scaledownanimation 0.4s ease-in 1;
 }
-
 
 @keyframes scaledownanimation {
   0% {
@@ -223,10 +259,10 @@ button {
   }
 
   50% {
-    transform: scale(.3);
+    transform: scale(0.3);
   }
 
-  100%{
+  100% {
     transform: scale(1);
   }
 }

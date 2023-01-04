@@ -1,20 +1,20 @@
 import { motion } from 'framer-motion';
 import React from 'react';
+import { Rings } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
 
-import './_LoginForm.scss';
 import { Context1 } from '../../../../Context/Context';
-import Error from '../../Error/Error';
 import { getUserActions } from '../../../../Context/actions/userActions';
+import { validateLoginUserForm } from '../../../../Utils/Validation';
+import { ILoginErrors } from '../../../../types/ErrorTypes';
 import { ILoginUser } from '../../../../types/UserTypes';
-
-interface IErrors {
-  email: null | string[];
-  password: null | string[];
-}
+import Error from '../../Error/Error';
+import './_LoginForm.scss';
 
 const LoginForm: React.FC = () => {
   const [data, setData] = React.useState<ILoginUser>({ email: '', password: '' });
-  const [errors, setErrors] = React.useState<IErrors>({ email: null, password: null });
+  const [errors, setErrors] = React.useState<ILoginErrors>({ email: null, password: null });
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const { dispatch } = React.useContext(Context1);
 
@@ -23,26 +23,17 @@ const LoginForm: React.FC = () => {
   const loginHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    if (data.email.trim() === '') {
-      setErrors((state) => ({
-        ...state,
-        login: ['Введіть телефон або email!'],
-      }));
+    setLoading(true);
+    const { result, errors } = validateLoginUserForm(data);
+
+    if (result === true) {
+      loginUserProccess({ email: data.email, password: data.password });
+      setErrors({ email: null, password: null });
+    } else {
+      setErrors(errors);
     }
 
-    if (data.password === '') {
-      setErrors((state) => ({
-        ...state,
-        password: ['Введіть пароль!'],
-      }));
-    } else if (data.password.length < 8) {
-      setErrors((state) => ({
-        ...state,
-        password: ['Пароль має бути від 8ми символів!'],
-      }));
-    }
-
-    loginUserProccess({ email: data.email, password: data.password });
+    setLoading(false);
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,8 +71,14 @@ const LoginForm: React.FC = () => {
       <button
         type='submit'
         disabled={data.email == '' && data.password == ''}
-        className={data.email !== '' && data.password !== '' ? 'loginForm__loginBtn' : 'loginForm__loginBtn inactiveBtn'}>
-        Увійти
+        className={data.email !== '' && data.password !== '' && !loading ? 'loginForm__loginBtn' : 'loginForm__loginBtn inactiveBtn'}>
+        {loading ? (
+          <span className='loading'>
+            Входимо <Rings height={30} width={30} color='#fff' />
+          </span>
+        ) : (
+          'Увійти'
+        )}
       </button>
 
       <span className='loginForm__forgotPassword'>Забули пароль?</span>

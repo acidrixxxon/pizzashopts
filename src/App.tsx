@@ -1,89 +1,52 @@
-import './scss/_base.scss';
-
-import { Navigate, Route, Routes } from 'react-router-dom';
-
-import CartPage from './Pages/Cart/CartPage';
-import { Context1 } from './Context/Context';
-import Dashboard from './Pages/AdminPanel/Dashboard/Dashboard';
-import Header from './Components/Header/Header';
-import HomePage from './Pages/Home/HomePage';
-import LocalStorageService from './Services/LocalStorageService';
-import OrderStatus from './Pages/OrderDetails/OrderStatus';
-import ProductPage from './Pages/Product/ProductPage';
+import classNames from 'classnames';
 import React from 'react';
-import UserCabinetPage from './Pages/UserCabinetPage/UserCabinetPage';
-import { io } from 'socket.io-client';
+import { Slide, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Header from './Components/Header/Header';
+import Router from './Components/Router';
+import { Context1 } from './Context/Context';
 import { getUserActions } from './Context/actions/userActions';
-import { getSocketActions } from './Context/actions';
+import { useActivateAccount } from './hooks/useActivateAccount';
+import { useCartChangesHandler } from './hooks/useCartChangesHandler';
+import { useScrollTop } from './hooks/useScrollTop';
+import { useSetCustomerData } from './hooks/useSetCustomerData';
+import useSetSocket from './hooks/useSetSocket';
+import './scss/_base.scss';
 
 function App() {
   const {
     state: {
-      cart,
-      view: { authModal },
-      user,
-      socket,
+      view: {
+        authModal,
+        search: { searchResultModal },
+      },
     },
+    state,
     dispatch,
   } = React.useContext(Context1);
-  const { setSocket } = getSocketActions(dispatch);
-
+  // console.log(state);
   const { refreshTokenProccess } = getUserActions(dispatch);
 
   React.useLayoutEffect(() => {
     refreshTokenProccess();
   }, []);
 
-  const appEl = React.useRef<HTMLDivElement | null>(null);
+  const appEl = React.useRef<HTMLDivElement>(null);
+  const appClassNames = classNames('App', { 'no-scroll': authModal.status === 'active' || searchResultModal.status === 'visible' });
 
-  React.useEffect(() => {
-    const socket = io('http://localhost:3001');
-    setSocket(socket);
-  }, []);
-
-  React.useEffect(() => {
-    if (socket) {
-      socket.on('recieve_message', (data: any) => console.log(data));
-      socket.on('db_change', (data: any) => console.log(data));
-      socket.on('sidesCategory_change', (data: any) => console.log(data));
-    }
-  }, []);
-
-  React.useEffect(() => {
-    const onScroll = (e: any) => {
-      const scrollTop = window.scrollY;
-      if (appEl !== null) {
-        scrollTop >= 70 ? appEl.current?.classList.add('padding-top') : appEl.current?.classList.remove('padding-top');
-      }
-    };
-
-    window.addEventListener('scroll', onScroll);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, []);
-
-  React.useEffect(() => {
-    LocalStorageService.saveCartUpdate(cart);
-  }, [cart]);
-
-  const resolveCabinetRoute = user !== null || LocalStorageService.getAccessToken() ? true : false;
+  useActivateAccount();
+  useCartChangesHandler();
+  useSetCustomerData();
+  useSetSocket();
+  useScrollTop(appEl);
 
   return (
-    <div className={authModal.status === 'active' ? 'App no-scroll' : 'App'} ref={appEl}>
+    <div className={appClassNames} ref={appEl}>
       <Header />
+      <ToastContainer transition={Slide} />
 
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/cart' element={<CartPage />} />
-        <Route path='/product/:id' element={<ProductPage />} />
-        <Route path='/order-status/:id' element={<OrderStatus />} />
-        {user?.isAdmin && <Route path='/admin/dashboard' element={<Dashboard />} />}
-        {resolveCabinetRoute && <Route path='/cabinet' element={<UserCabinetPage />} />}
-
-        <Route path='*' element={<Navigate to='/' replace />} />
-      </Routes>
+      <Router />
     </div>
   );
 }

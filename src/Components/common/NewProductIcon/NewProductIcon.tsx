@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { stat } from 'fs'
+
 import './_NewProductIcon.scss'
 
 

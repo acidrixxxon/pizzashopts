@@ -1,0 +1,57 @@
+#addToCartModal__size {
+  margin-bottom: 10px;
+
+  .size__variants {
+    display: flex;
+
+    border-radius: 40px;
+    background-color: rgb(243, 243, 247);
+
+    margin-bottom: 10px;
+
+    .size__button {
+      flex-grow: 1;
+
+      color: rgb(80, 80, 97);
+      background-color: transparent;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      height: 32px;
+
+      border: none;
+      outline: none;
+
+      border-radius: 40px;
+
+      cursor: pointer;
+
+      &.active__button {
+        color: #fff;
+
+        background-color: rgb(80, 80, 97);
+      }
+    }
+
+    &.crust {
+      background-color: transparent;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+
+      .size__button {
+        margin-bottom: 5px;
+
+        background-color: rgb(243, 243, 247);
+
+        &.active__button {
+          color: #fff;
+
+          background-color: rgb(80, 80, 97);
+        }
+      }
+    }
+  }
+}

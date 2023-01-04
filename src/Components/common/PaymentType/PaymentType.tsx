@@ -1,10 +1,11 @@
 import React from 'react';
-import { getCustomerDataActions } from '../../../Context/actions';
 
+import { getCustomerDataActions } from '../../../Context/actions';
 import { Context1 } from '../../../Context/Context';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { paymentVariants } from '../../../mockdata';
 import { IPaymentVariants } from '../../../types';
+
 import './_PaymentType.scss';
 
 const PaymentType = () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SET_CATEGORY, SET_SORT } from '../constans';
 
 interface IActions {

@@ -5,6 +5,7 @@ import Container from '../../Components/common/Container/Container'
 import ProductList from '../../Components/common/Lists/ProductList/ProductList'
 import Sort from '../../Components/common/Sort/Sort'
 import Slider from '../../Components/Slider/Slider'
+
 import './_HomePage.scss'
 
 const HomePage: React.FC = () => {

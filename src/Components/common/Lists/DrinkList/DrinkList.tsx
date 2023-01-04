@@ -1,10 +1,10 @@
-import { IDrinkCategory1, IDrinkCategoryResponse, IDrinkNew, IDrinkProductsResponse } from '../../../../types';
+import React from 'react';
 
 import { Context1 } from '../../../../Context/Context';
-import DrinkComponent from '../../ProductComponent/DrinkComponent/DrinkComponent';
-import ItemsList from '../../ItemsList/ItemsList';
 import ProductService from '../../../../Services/ProductService';
-import React from 'react';
+import { IDrinkCategory1, IDrinkCategoryResponse, IDrinkNew, IDrinkProductsResponse } from '../../../../types';
+import ItemsList from '../../ItemsList/ItemsList';
+import DrinkComponent from '../../ProductComponent/DrinkComponent/DrinkComponent';
 import Skeleton from '../../Skeleton/Skeleton';
 
 const DrinkList = () => {

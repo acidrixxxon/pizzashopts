@@ -1,13 +1,13 @@
-import './_ClientDataForm.scss';
+import React from 'react';
 
 import { Context1 } from '../../../../Context/Context';
-import Error from '../../Error/Error';
-import React from 'react';
 import { getCustomerDataActions } from '../../../../Context/actions';
+import Error from '../../Error/Error';
+import './_ClientDataForm.scss';
 
 const ClientDataForm = () => {
   const {
-    state: { customerData, user },
+    state: { customerData },
     dispatch,
   } = React.useContext(Context1);
   const { setCustomerData, setFieldError } = getCustomerDataActions(dispatch);
@@ -26,12 +26,12 @@ const ClientDataForm = () => {
           <input
             type='text'
             placeholder='Імя'
-            value={customerData.name}
+            value={customerData?.firstName}
             className={
               customerData.errors.name !== null ? 'clientForm__input not__valid form__input' : 'clientForm__input form__input'
             }
             onChange={(e) => inputChangeHandler(e)}
-            name='name'
+            name='firstName'
           />
           <Error className='clientForm__inputError' value={customerData.errors.name} />
         </div>

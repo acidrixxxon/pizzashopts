@@ -1,5 +1,5 @@
-import { AnimatePresence,motion } from 'framer-motion'
 import React from 'react'
+import { AnimatePresence,motion } from 'framer-motion'
 
 const Error:React.FC<{value: string[] | null,className: string}> = ({value,className}) => {
     if(value === null) return null

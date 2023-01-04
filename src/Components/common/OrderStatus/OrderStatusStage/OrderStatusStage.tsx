@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { STATUS_IMAGE_URL } from '../../../../mockdata'
+
 import './_OrderStatusStage.scss'
 
 interface IComponentProps {

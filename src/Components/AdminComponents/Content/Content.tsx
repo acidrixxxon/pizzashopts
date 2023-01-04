@@ -1,5 +1,5 @@
-import { AnimatePresence } from 'framer-motion'
 import React from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 import MainContent from './Tabs/Main/MainContent'
 import Products from './Tabs/Products/Products'

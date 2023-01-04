@@ -1,17 +1,17 @@
-import { getUserActions } from './userActions';
 import { getCartActions } from './cartActions';
-import { getSortActions } from './sortActions';
 import { getCustomerDataActions } from './customerDataActions';
 import { getProductDetailsActions } from './productDetailsActions';
-import { getViewActions } from './viewActions';
 import { getSocketActions } from './socketActions';
+import { getSortActions } from './sortActions';
+import { getUserActions } from './userActions';
+import { getViewActions } from './viewActions';
 
 export {
-  getUserActions,
   getCartActions,
-  getSortActions,
   getCustomerDataActions,
   getProductDetailsActions,
-  getViewActions,
   getSocketActions,
+  getSortActions,
+  getUserActions,
+  getViewActions,
 };

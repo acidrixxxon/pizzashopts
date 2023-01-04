@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { getCartActions } from '../../../Context/actions';
+import { Context1 } from '../../../Context/Context';
+
 import CartItemComponent from './CartItemComponent/CartItemComponent';
 import DeliveryItem from './DeliveryItem/DeliveryItem';
 
-import { Context1 } from '../../../Context/Context';
 import './_CartItems.scss';
-import { getCartActions } from '../../../Context/actions';
 
 const CartItems = () => {
   const {

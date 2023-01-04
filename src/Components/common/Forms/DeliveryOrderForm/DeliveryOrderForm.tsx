@@ -1,10 +1,11 @@
-import './_DeliveryOrderForm.scss';
+import React from 'react';
 
+import { getCustomerDataActions } from '../../../../Context/actions';
 import { Context1 } from '../../../../Context/Context';
 import Error from '../../Error/Error';
 import PaymentType from '../../PaymentType/PaymentType';
-import React from 'react';
-import { getCustomerDataActions } from '../../../../Context/actions';
+
+import './_DeliveryOrderForm.scss';
 
 const DeliveryOrderForm = () => {
   const {

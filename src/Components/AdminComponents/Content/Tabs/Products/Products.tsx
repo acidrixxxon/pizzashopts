@@ -1,9 +1,10 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
-import './_Products.scss'
 import PizzaManagement from './PizzaManagement/PizzaManagement'
 import SidesManagement from './SidesManagement/SidesManagement'
+
+import './_Products.scss'
 
 const Products = () => {
   const [ activeManagement,setActiveManagement ] = React.useState<number>(0)

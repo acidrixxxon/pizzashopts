@@ -1,11 +1,12 @@
 import React from 'react';
-import { getCustomerDataActions } from '../../../../Context/actions';
 
+import { getCustomerDataActions } from '../../../../Context/actions';
 import { Context1 } from '../../../../Context/Context';
 import ProductService from '../../../../Services/ProductService';
 import { ICity } from '../../../../types';
 import Error from '../../Error/Error';
 import PaymentType from '../../PaymentType/PaymentType';
+
 import './_DineinOrderForm.scss';
 
 const DineinOrderForm: React.FC = () => {

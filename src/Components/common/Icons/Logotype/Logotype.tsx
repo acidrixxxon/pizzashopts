@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getSortActions } from '../../../../Context/actions';
 
+import { getSortActions } from '../../../../Context/actions';
 import { Context1 } from '../../../../Context/Context';
+
 import './_Logotype.scss';
 
 const Logotype = () => {

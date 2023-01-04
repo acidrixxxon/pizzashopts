@@ -1,4 +1,5 @@
 import React from 'react'
+
 import './_DeliveryItem.scss'
 
 const DeliveryItem = () => {

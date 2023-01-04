@@ -1,4 +1,4 @@
-import { IPizza, IPizzaIngridientFull, IPizzaIngridientShort, IPizzaSize } from './types/ProductTypes';
+import { IPizzaIngridientFull, IPizzaIngridientShort, IPizzaMain, IPizzaSize } from './types/ProductTypes';
 
 export type initialStateType = {
   cart: ICart;
@@ -6,7 +6,7 @@ export type initialStateType = {
   sort: number;
   customerData: ICustomerData;
   paymentType: null | { id: number; title: string };
-  productDetails: IPizza;
+  productDetails: IPizzaMain;
 };
 
 export interface ICart {
@@ -16,6 +16,7 @@ export interface ICart {
 }
 export interface ICustomerData {
   name: string;
+  firstName?: string;
   phone: string;
   email: string;
   street: string;
@@ -89,13 +90,6 @@ export interface IIngridients1 {
   ingridientId: IIngridient;
   _id: string;
   qty: number;
-}
-
-export interface IPizzaCategory {
-  id?: number;
-  _id?: string;
-  title: string;
-  products?: IPizza[] | [];
 }
 
 export interface IPizzaInCart {
@@ -181,12 +175,15 @@ export interface ISide {
   imageUrl: string;
   defaultPrice: number;
   variants: SideVariants[];
+  ingridients?: IPizzaIngridientShort[];
 }
 
 export interface SideVariants {
   size: string;
   price: number;
   _id: string;
+  variants?: null;
+  title?: string;
 }
 
 export interface IDrink {
@@ -197,11 +194,16 @@ export interface IDrink {
   imageUrl: string;
   defaultPrice: number;
   variants: DrinkVariants[];
+  _id?: string;
+  ingridients?: IPizzaIngridientShort[];
 }
 
 export interface DrinkVariants {
   size: string;
   price: number;
+  _id?: string;
+  variants?: null;
+  title?: string;
 }
 
 export interface IDrinkCategory {
@@ -270,16 +272,6 @@ export interface IOrderObj {
 export interface IActionSetCategory {
   type: string;
   payload: number;
-}
-
-export interface IActionChangeIngridientQty {
-  type: string;
-  payload: IPizza;
-}
-
-export interface ISortReducer {
-  category: number;
-  sort: number;
 }
 
 export interface ICartReducer {

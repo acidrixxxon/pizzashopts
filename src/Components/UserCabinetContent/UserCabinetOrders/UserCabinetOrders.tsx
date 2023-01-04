@@ -1,11 +1,13 @@
-import './_UserCabinetOrders.scss';
+import React from 'react';
 
 import { Context1 } from '../../../Context/Context';
-import { IOrderFromServer } from '../../../types/OrderTypes';
 import OrderService from '../../../Services/OrderService';
-import React from 'react';
+import { IOrderFromServer } from '../../../types/OrderTypes';
 import Spinner from '../../common/Icons/Spinner/Spinner';
+
 import UserCabinetOrderItem from './UserCabinetOrderItem/UserCabinetOrderItem';
+
+import './_UserCabinetOrders.scss';
 
 const UserCabinetOrders: React.FC = () => {
   const [loading, setLoading] = React.useState<boolean>(true);

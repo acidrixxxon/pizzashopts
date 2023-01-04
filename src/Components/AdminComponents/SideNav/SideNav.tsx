@@ -1,7 +1,8 @@
 import React from 'react'
 import { AiOutlineDashboard } from 'react-icons/ai'
-import './_SideNav.scss'
 import { TbBrandProducthunt } from 'react-icons/tb'
+
+import './_SideNav.scss'
 
 
 interface ComponentProps {

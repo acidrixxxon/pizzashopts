@@ -1,22 +1,22 @@
-import './_OrderForm.scss';
-
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { INewOrderResponse, INewOrderResponseWithError } from '../../../../types/OrderTypes';
 
-import ClientDataForm from '../ClientDataForm/ClientDataForm';
+import { getCartActions, getCustomerDataActions } from '../../../../Context/actions';
 import { Context1 } from '../../../../Context/Context';
-import DeliveryIcon from '../../Icons/DeliveryIcon';
-import DeliveryOrderForm from '../DeliveryOrderForm/DeliveryOrderForm';
-import DineInIcon from '../../Icons/DineinIcon';
-import DineinOrderForm from '../DineinOrderForm/DineinOrderForm';
+import { newOrderDto } from '../../../../Dto/CartDto';
 import LocalStorageService from '../../../../Services/LocalStorageService';
 import OrderService from '../../../../Services/OrderService';
-import React from 'react';
+import { INewOrderResponse, INewOrderResponseWithError } from '../../../../types/OrderTypes';
 import { initialCustomerDataErrors } from '../../../../Utils/initialStore';
-import { newOrderDto } from '../../../../Dto/CartDto';
-import { useNavigate } from 'react-router-dom';
 import { validateFields } from '../../../../Utils/Validation';
-import { getCartActions, getCustomerDataActions } from '../../../../Context/actions';
+import DeliveryIcon from '../../Icons/DeliveryIcon';
+import DineInIcon from '../../Icons/DineinIcon';
+import ClientDataForm from '../ClientDataForm/ClientDataForm';
+import DeliveryOrderForm from '../DeliveryOrderForm/DeliveryOrderForm';
+import DineinOrderForm from '../DineinOrderForm/DineinOrderForm';
+
+import './_OrderForm.scss';
 
 const OrderForm: React.FC = () => {
   const {
@@ -35,10 +35,11 @@ const OrderForm: React.FC = () => {
   };
 
   const createOrderHandler = async (e: React.MouseEvent<HTMLButtonElement>): Promise<any> => {
+    console.log('da');
     e.preventDefault();
     if (customerData.paymentType !== undefined) {
-      const { errors, result } = validateFields(customerData, customerData.paymentType);
-
+      const { errors, result } = validateFields(customerData);
+      console.log(result);
       if (result) {
         const newOrder = newOrderDto(cart, customerData);
 

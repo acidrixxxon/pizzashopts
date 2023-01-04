@@ -9,6 +9,7 @@ import HorisontalPizzaCarousel from '../../Components/HorisontalPizzaCarousel/Ho
 import { getProductDetailsActions } from '../../Context/actions';
 import { Context1 } from '../../Context/Context';
 import ProductService from '../../Services/ProductService';
+
 import './_ProductPage.scss';
 
 const ProductPage: React.FC = () => {
@@ -24,10 +25,12 @@ const ProductPage: React.FC = () => {
   React.useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      const data = await ProductService.getProductById(id);
+      const data = await ProductService.getProductById('pizza', id);
 
-      setProductDetails(data);
-      setLoading(false);
+      if (data.success === true) {
+        setLoading(false);
+        setProductDetails(data.pizza);
+      }
     };
 
     getData();

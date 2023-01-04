@@ -1,23 +1,21 @@
 import React from 'react';
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 import { Context1 } from '../../Context/Context';
 import ProductService from '../../Services/ProductService';
-import { IPizza } from '../../types/ProductTypes';
+import { IPizzaMain } from '../../types/ProductTypes';
 import Spinner from '../common/Icons/Spinner/Spinner';
-
 import './_HorisontalPizzaCarousel.scss';
 
 const HorisontalPizzaCarousel: React.FC = () => {
-  const [items, setItems] = React.useState<IPizza[] | []>([]);
+  const [items, setItems] = React.useState<IPizzaMain[] | []>([]);
   const [fetching, setFetching] = React.useState<boolean>(false);
   const [offsetX, setOffsetX] = React.useState<number>(0);
   const [idx, setIdx] = React.useState<number>(0);
 
   const itemRef = React.useRef<HTMLUListElement>(null);
   const listQty: number | null = items.length > 0 ? Math.round(items.length / 5) : null;
-  console.log(listQty, idx);
 
   const {
     state: { productDetails },

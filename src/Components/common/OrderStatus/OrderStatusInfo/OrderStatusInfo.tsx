@@ -1,7 +1,8 @@
-import './_OrderStatusInfo.scss';
+import React from 'react';
 
 import { IOrderDetails } from '../../../../types/OrderTypes';
-import React from 'react';
+
+import './_OrderStatusInfo.scss';
 
 interface ComponentProps {
   data: IOrderDetails | undefined;

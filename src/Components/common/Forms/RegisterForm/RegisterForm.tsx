@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import './_RegisterForm.scss';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineCheck } from 'react-icons/ai';
+import { Rings } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
 
 import { Context1 } from '../../../../Context/Context';
-import Error from '../../Error/Error';
 import { getUserActions } from '../../../../Context/actions/userActions';
+import { IRegisterErrors } from '../../../../types/ErrorTypes';
+import Error from '../../Error/Error';
+import './_RegisterForm.scss';
 
 interface IFormField {
   email: string;
@@ -18,24 +21,19 @@ interface IShowPassword {
   copyPassword: boolean;
 }
 
-interface IErrors {
-  email: null | string[];
-  password: null | string[];
-  copyPassword: null | string[];
-}
-
 const RegisterForm: React.FC = () => {
   const [data, setData] = React.useState<IFormField>({ email: '', password: '', copyPassword: '' });
   const [showPassword, setShowPassword] = React.useState<IShowPassword>({ password: false, copyPassword: false });
-  const [errors, setErrors] = React.useState<IErrors>({ email: null, password: null, copyPassword: null });
-  const [status, setStatus] = React.useState(false);
+  const [errors, setErrors] = React.useState<IRegisterErrors>({ email: null, password: null, copyPassword: null });
+  const [status, setStatus] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const { dispatch } = React.useContext(Context1);
   const { registerUserProcess } = getUserActions(dispatch);
 
   const registerHandler = async (e: React.FormEvent<HTMLFormElement>): Promise<any> => {
     e.preventDefault();
-
+    setLoading(true);
     setErrors({ email: null, password: null, copyPassword: null });
 
     if (data.password !== data.copyPassword) {
@@ -45,12 +43,18 @@ const RegisterForm: React.FC = () => {
         copyPassword: ['Паролі не співпадають'],
       }));
 
+      setLoading(false);
       return;
     }
 
     if (errors.email === null && errors.password === null && errors.copyPassword === null) {
       const { success, message, user } = await registerUserProcess(data);
-      if (success === true && user) setStatus(true);
+      if (success === true && user) {
+        setStatus(true);
+      } else {
+        toast.error(message);
+      }
+      setLoading(false);
     }
   };
 
@@ -155,7 +159,13 @@ const RegisterForm: React.FC = () => {
                 : 'registerForm__registerBtn inactiveBtn'
             }
             type='submit'>
-            Реєстрація
+            {loading ? (
+              <span className='loading'>
+                Реєструємо <Rings height={30} width={30} color='#fff' />
+              </span>
+            ) : (
+              'Реєстрація'
+            )}
           </button>
         </motion.form>
       ) : (

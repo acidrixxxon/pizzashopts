@@ -1,15 +1,15 @@
-import { motion } from 'framer-motion';
 import React from 'react';
-
-import './_SidesManagement.scss';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { GrAddCircle } from 'react-icons/gr';
+import { motion } from 'framer-motion';
 
 import { Context1 } from '../../../../../../Context/Context';
 import AdminService from '../../../../../../Services/AdminService';
 import ProductService from '../../../../../../Services/ProductService';
 import { ISideCategory1 } from '../../../../../../types';
 import Spinner from '../../../../../common/Icons/Spinner/Spinner';
+
+import './_SidesManagement.scss';
 
 const SidesManagement = () => {
   const [categories, setCategories] = React.useState<ISideCategory1[] | null>(null);

@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash';
-import { ingridientsList } from '../../mockdata';
+
 import { IDrinkInCart, IPizzaInCart, ISideInCart } from '../../types';
 import { IOrderCart } from '../../types/OrderTypes';
 import { ADD_TO_CART, CHANGE_ITEM_QTY, CLEAR_CART, REMOVE_FROM_CART, TOGGLE_EXTRA_MOCARELLA, UPDATE_CART } from '../constans';
@@ -16,9 +16,10 @@ interface IActions {
 
 export const getCartActions = (dispatch: React.Dispatch<any>, state?: IInitialState): IActions => {
   const addToCart = (item: IPizzaInCart | ISideInCart | IDrinkInCart): void => {
-    const alreadyInCart = state?.cart.items.filter((product) => product._id === item._id);
+    //перевіряємо чи є данний обьєкт у корзині
+    const alreadyInCart = state && state?.cart.items.filter((product) => product._id === item._id);
 
-    if (alreadyInCart && state && alreadyInCart.length > 0) {
+    if (alreadyInCart && alreadyInCart.length > 0) {
       if (item.class === 0) {
         const compare = alreadyInCart.map((prod) => {
           if (isEqual(prod.ingridients, item.ingridients)) {
@@ -51,6 +52,23 @@ export const getCartActions = (dispatch: React.Dispatch<any>, state?: IInitialSt
         } else {
           console.log('ne sovpal sostav');
           dispatch({ type: ADD_TO_CART, payload: item });
+        }
+      } else {
+        const itemIndex = state.cart.items.findIndex((item) => item._id === item._id);
+        const itemsArray = state.cart.items;
+        const itemObj = state.cart.items[itemIndex];
+
+        if (itemObj) {
+          itemObj.qty = itemObj.qty && itemObj.qty + 1;
+          itemsArray[itemIndex] = itemObj;
+
+          const newCart = {
+            items: itemsArray,
+            totalCost: state.cart.totalCost + item.price,
+            totalItems: state.cart.totalItems + 1,
+          };
+
+          dispatch({ type: UPDATE_CART, payload: newCart });
         }
       }
     } else {
@@ -122,32 +140,31 @@ export const getCartActions = (dispatch: React.Dispatch<any>, state?: IInitialSt
     if (state) {
       const item = state.cart.items.find((item) => item.uniqueId === id);
       const itemIndex = state.cart.items.findIndex((item) => item.uniqueId === id);
-      const mocarella = ingridientsList.find((item) => item.id === 15);
+      const mocarella = item?.ingridients?.find((item) => item.ingridientId._id === '63714ca4858cf7c6b09716fc');
       const array = state.cart.items;
+      const ingridientIndex = item?.ingridients?.findIndex((item) => item.ingridientId._id === '63714ca4858cf7c6b09716fc');
 
-      if (item && item !== undefined && itemIndex !== undefined && item.ingridients !== undefined) {
-        const ingridientIndex = item.ingridients.findIndex((item) => item._id === '63714ca4858cf7c6b09716fc');
-
+      if (item && item !== undefined && itemIndex !== undefined && item.ingridients !== undefined && mocarella && ingridientIndex) {
         if (type === 'add') {
           item.ingridients[ingridientIndex].qty += 1;
 
           if (mocarella) {
-            item.price += mocarella.addPrice;
+            item.price += mocarella.ingridientId.addPrice;
             array[itemIndex] = item;
             dispatch({
               type: TOGGLE_EXTRA_MOCARELLA,
-              payload: { items: array, totalCost: state.cart.totalCost + mocarella?.addPrice * item.qty },
+              payload: { items: array, totalCost: state.cart.totalCost + mocarella?.ingridientId.addPrice * item.qty },
             });
           }
         } else {
           item.ingridients[ingridientIndex].qty -= 1;
 
           if (mocarella) {
-            item.price -= mocarella.addPrice;
+            item.price -= mocarella.ingridientId.addPrice;
             array[itemIndex] = item;
             dispatch({
               type: TOGGLE_EXTRA_MOCARELLA,
-              payload: { items: array, totalCost: state.cart.totalCost - mocarella?.addPrice * item.qty },
+              payload: { items: array, totalCost: state.cart.totalCost - mocarella?.ingridientId.addPrice * item.qty },
             });
           }
         }

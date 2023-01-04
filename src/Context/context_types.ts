@@ -1,4 +1,3 @@
-import { type } from 'os';
 import {
   ICustomerData,
   IDeliveryInCart,
@@ -9,7 +8,8 @@ import {
   IPizzaInCart,
   ISideInCart,
 } from '../types';
-import { IPizza, IPizzaIngridientFull, IPizzaSize } from '../types/ProductTypes';
+import { IDrinkMain, IPizzaIngridientShort, IPizzaMain, IPizzaSize, ISideMain } from '../types/ProductTypes';
+import { IUser, IUserUpdateData } from '../types/UserTypes';
 
 export type IAction =
   | { type: 'ADD_TO_CART'; payload: any }
@@ -20,7 +20,7 @@ export type IAction =
       type: 'TOGGLE_EXTRA_MOCARELLA';
       payload: {
         totalCost: number;
-        items: ICartItem[];
+        items: (IPizzaInCart | IDrinkInCart | ISideInCart)[];
       };
     }
   | { type: 'CLEAR_CART' }
@@ -29,16 +29,21 @@ export type IAction =
   | { type: 'SET_ORDER_TYPE'; payload: number }
   | { type: 'SET_FIELD_ERROR'; payload: IErrors }
   | { type: 'REMOVE_FROM_CART'; payload: IPizzaInCart | IDrinkInCart | ISideInCart }
-  | { type: 'SET_PRODUCT_DETAILS'; payload: IPizza }
+  | { type: 'SET_PRODUCT_DETAILS'; payload: IPizzaMain }
+  | { type: 'INIT_CUSTOMER_DATA'; payload: IUserUpdateData }
   | { type: 'ADD_INGRIDIENT_TO_PIZZA'; payload: { ingridients: IIngridients1[]; variants: IPizzaSize[] } }
-  | { type: 'CHANGE_INGRIDIENT_QTY'; payload: IPizza }
+  | { type: 'CHANGE_INGRIDIENT_QTY'; payload: IPizzaMain }
   | { type: 'UPDATE_CART'; payload: ICart }
   | { type: 'SET_AUTH_MODAL_STATUS'; payload: 'active' | 'inactive' }
   | { type: 'LOGIN_USER'; payload: IUser | null }
   | { type: 'LOGOUT_USER' }
   | { type: 'UPDATE_PROFILE'; payload: IUser }
   | { type: 'SET_SOCKET'; payload: any | null }
-  | { type: 'SET_REFRESH_TOKEN_LOADING'; payload: 'active' | 'inactive' };
+  | { type: 'SET_REFRESH_TOKEN_LOADING'; payload: 'active' | 'inactive' }
+  | { type: 'SET_SEARCH_RESULT_MODAL_DATA'; payload: IDrinkMain | IPizzaMain | ISideMain | null }
+  | { type: 'SET_SEARCH_RESULT_MODAL_VISIBILITY'; payload: 'hidden' | 'visible' }
+  | { type: 'SEARCH_RESULT_ADD_INGRIDIENT'; payload: IPizzaMain }
+  | { type: 'SEARCH_RESULT_REMOVE_INGRIDIENT'; payload: IPizzaMain };
 
 //Context actions types
 
@@ -46,38 +51,10 @@ export interface IInitialState {
   sort: ISort;
   cart: ICart;
   customerData: ICustomerData;
-  productDetails: IPizza;
+  productDetails: IPizzaMain;
   view: IView;
   user: IUser | null;
   socket: any | null;
-}
-
-export interface IUser {
-  email: string;
-  isAdmin: boolean;
-  firstName: string;
-  secondName: string;
-  phone: string;
-  tokens?: {
-    accessToken: string;
-    refreshToken: string;
-  };
-  confirmed: boolean;
-  _id: string;
-}
-
-export interface ICartItem {
-  fulltitle: string;
-  _id: string;
-  imageUrl: string;
-  isSell: boolean;
-  ingridients?: IIngridients1[];
-  price: number;
-  qty: number;
-  title: string;
-  uniqueId?: string;
-  productClass: number;
-  size?: string;
 }
 
 export interface ISort {
@@ -98,6 +75,12 @@ export interface IProvider {
 export interface IView {
   authModal: {
     status: string;
+  };
+  search: {
+    searchResultModal: {
+      status: 'visible' | 'hidden';
+      data: IPizzaMain | IDrinkMain | ISideMain | null;
+    };
   };
   loaders: {
     refreshTokenLoading: string;

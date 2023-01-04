@@ -1,16 +1,15 @@
 import React from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
+import { AnimatePresence, motion } from 'framer-motion';
 
+import { getViewActions } from '../../../../Context/actions';
+import { Context1 } from '../../../../Context/Context';
+import LoginForm from '../../Forms/LoginForm/LoginForm';
+import RegisterForm from '../../Forms/RegisterForm/RegisterForm';
 import ReactPortal from '../../ReactPortal/ReactPortal';
 
 import './_AuthModal.scss';
-import { AnimatePresence, motion } from 'framer-motion';
-import { AiOutlineClose } from 'react-icons/ai';
-
-import LoginForm from '../../Forms/LoginForm/LoginForm';
-import RegisterForm from '../../Forms/RegisterForm/RegisterForm';
-import { Context1 } from '../../../../Context/Context';
-import { getViewActions } from '../../../../Context/actions';
 
 const AuthModal = () => {
   const [authType, setAuthType] = React.useState<string>('login');

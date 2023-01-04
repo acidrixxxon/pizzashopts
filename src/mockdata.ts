@@ -1,4 +1,5 @@
-import { IDrinkCategory, IPizzaCategory, ISideCategory } from './types';
+import { IDrinkCategory, ISideCategory } from './types';
+import { IPizzaCategory } from './types/ProductTypes';
 
 export const STATUS_IMAGE_URL = `https://dominospizza-clone.netlify.app/img/`;
 
@@ -140,7 +141,7 @@ export const ingridientsList = [
   },
 ];
 
-export const pizzaCategory: IPizzaCategory[] = [
+export const pizzaCategory = [
   {
     id: 0,
     title: 'Краща ціна',

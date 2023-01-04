@@ -1,91 +1,99 @@
-import React from 'react'
-import { AiOutlineSearch,AiOutlineClose } from 'react-icons/ai'
+import { debounce } from 'lodash';
+import React from 'react';
+import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 
-import ProductService from '../../Services/ProductService'
-import { SearchResultInterface } from '../../types'
+import { Context1 } from '../../Context/Context';
+import SearchService from '../../Services/SearchService';
+import useOutsideClick from '../../hooks/useOutsideClick';
+import { IDrink, ISide } from '../../types';
+import { IDrinkMain, IPizzaMain, ISideMain } from '../../types/ProductTypes';
+import Spinner from '../common/Icons/Spinner/Spinner';
+import AddToCartModal from '../common/Modals/AddToCartModal/AddToCartModal';
+import SearchResultItem from './SearchResultItem/SearchResultItem';
+import './_Search.scss';
 
-import './_Search.scss'
-import { debounce } from 'lodash'
+const Search: React.FC = () => {
+  const [searchQuery, setSearchQuery] = React.useState<string>('');
+  const [searchResults, setSearchResults] = React.useState<(IDrinkMain | IPizzaMain | ISideMain)[] | null>(null);
+  const [loading, setLoading] = React.useState(false);
 
-import Spinner from '../common/Icons/Spinner/Spinner'
+  const {
+    state: {
+      view: {
+        search: {
+          searchResultModal: { status, data },
+        },
+      },
+    },
+  } = React.useContext(Context1);
 
-const Search = () => {
-    const [ searchQuery,setSearchQuery ] = React.useState<string>('')
-    const [ searchResults,setSearchResults ] = React.useState<null | SearchResultInterface[]>(null)
-    const [ loading,setLoading ] = React.useState(false)
+  const onInputChange = (value: string): void => {
+    setSearchQuery(value);
+    debounceFetchFunction(value);
+  };
 
-    const onInputChange = (value: string):void => {
-        setSearchQuery(value)
-        debounceFetchFunction(value)
-    }
+  const debounceFetchFunction = React.useCallback(
+    debounce(async (value: string) => {
+      setSearchResults(null);
+      setLoading(true);
+      const data = await SearchService.searchQuery(value);
 
-    const debounceFetchFunction = React.useCallback(debounce(async (value: string) => {
-        setSearchResults(null)
-        setLoading(true)
-        const data = await ProductService.search(value)
+      if (data.success === true && data.result) {
+        setSearchResults(data.result);
+      } else {
+        setSearchResults([]);
+      }
+      setLoading(false);
+    }, 250),
+    [],
+  );
 
-        setSearchResults(data)
-        setLoading(false)
-    },250),[])
+  const searchEl = React.useRef<HTMLDivElement>(null);
 
-    const searchEl = React.useRef<HTMLDivElement>(null)
+  const resetAfterSearch = () => {
+    setSearchQuery('');
+    setSearchResults(null);
+    setLoading(false);
+  };
 
-    React.useEffect(() => {
-        const handleOutsideClick = (event: any) => {
-            const path = event.path || (event.composedPath && event.composedPath());
-            if (!path.includes(searchEl)) {
-                setSearchQuery('')
-                setSearchResults(null)
-                setLoading(false)
-            }
-        }
+  useOutsideClick(searchEl, () => resetAfterSearch());
 
-        document.addEventListener('click',handleOutsideClick)
+  return (
+    <div id='search' ref={searchEl}>
+      <div className='search__input'>
+        <AiOutlineSearch className='search__searchIcon' />
 
-        return () => document.removeEventListener('click',handleOutsideClick)
-    },[])
+        <input
+          className='search__field'
+          type='text'
+          value={searchQuery}
+          onChange={(e) => onInputChange(e.target.value)}
+          placeholder='Пошук піцци...'
+        />
 
-    return (
-        <div id='search' ref={searchEl}>
-            <div className="search__input">
-                <AiOutlineSearch className='search__searchIcon'/>
+        {searchQuery !== '' && <AiOutlineClose className='search__clearIcon' onClick={resetAfterSearch} />}
+      </div>
 
-                <input 
-                    className='search__field'
-                    type="text"  
-                    value={searchQuery} 
-                    onChange={(e) => onInputChange(e.target.value)} 
-                    placeholder='Пошук піцци...' />
+      {searchResults !== null || loading === true ? (
+        <div className='search__results'>
+          {loading && <Spinner />}
 
-                    {searchQuery !== '' && <AiOutlineClose className='search__clearIcon'/>}
-            </div>
-
-            {searchResults !== null || loading === true ? 
-                <div className="search__results">
-                {loading && <Spinner />}
-
-                {searchResults !== null && (
-                    searchResults.length > 0 ? (
-                        <ul className='search__resultsList'>
-                            {searchResults.slice(0,5).map((item) => {
-                                return <li className='search__resultsItem' key={item.id}>
-                                            <div className="search__resultsImage">
-                                                <img src={item.imageUrl} alt="" />
-                                            </div>
-
-                                            <div className="search__resultsContent">
-                                                <h4 className="search__resultsTitle">
-                                                    {item.title}
-                                                </h4>
-                                            </div>
-                                        </li>
-                            })}
-                        </ul>
-                    ) : 'Ничего не найдено'
-                )}
-            </div> : null}
+          {searchResults !== null &&
+            (searchResults.length > 0 ? (
+              <ul className='search__resultsList'>
+                {searchResults.slice(0, 5).map((item) => (
+                  <SearchResultItem item={item} key={item._id} resetFunc={resetAfterSearch} />
+                ))}
+              </ul>
+            ) : (
+              'Ничего не найдено'
+            ))}
         </div>
-    )
-}
+      ) : null}
 
-export default Search
+      <AddToCartModal />
+    </div>
+  );
+};
+
+export default Search;

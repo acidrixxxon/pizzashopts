@@ -1,12 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Context1 } from '../../../../Context/Context';
+import { getCartActions } from '../../../../Context/actions/cartActions';
 import { IDrinkInCart, IDrinkNew } from '../../../../types';
 import NewProductIcon from '../../NewProductIcon/NewProductIcon';
-
-import './_DrinkComponent.scss';
-import { v4 as uuidv4 } from 'uuid';
-import { getCartActions } from '../../../../Context/actions/cartActions';
+import './../../../../scss/_productView.scss';
 
 interface ComponentProps {
   item: IDrinkNew;
@@ -36,35 +36,43 @@ const DrinkComponent: React.FC<ComponentProps> = ({ item }) => {
   };
 
   return (
-    <div id='drink'>
-      <div className='drink__image'>
-        <img src={item.imageUrl} alt={item.title} />
+    <div className='product-component drink-component'>
+      <Link to={`/product/${item._id}`} className='product-component__link'>
+        <img src={item.imageUrl} alt={item.title} className='product-component__image' />
 
         {item.newProduct === true && <NewProductIcon />}
+      </Link>
+
+      <div className='product-component__details'>
+        <Link to={`/product/${item._id}`} className='product-component__title'>
+          {item.title}
+        </Link>
       </div>
 
-      <h4 className='drink__title'>{item.title}</h4>
-
-      <div className='drink__variants'>
-        {item.variants.map((variant, index) => {
-          return (
-            <button
-              key={index}
-              onClick={() => setActiveSize(index)}
-              className={activeSize === index ? 'drink__variantBtn active' : 'drink__variantBtn'}>
-              {variant.size}
-            </button>
-          );
-        })}
+      <div className='product-component__variants'>
+        <div className='product-component__list'>
+          {item.variants.map((variant, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => setActiveSize(index)}
+                className={
+                  activeSize === index ? 'product-component__button product-component__button_active' : 'product-component__button'
+                }>
+                {variant.size}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      <div className='drink__footer'>
-        <div className='drink__price'>
-          <span className='drink__priceNumber'>{item.variants[activeSize].price} </span>
-          <span className='drink__priceText'>грн</span>
+      <div className='product-component__footer'>
+        <div className='product-component__price'>
+          <span className='price__number'>{item.variants[activeSize].price} </span>
+          <span className='price__text'>грн</span>
         </div>
 
-        <button className='drink__addToCart' onClick={() => addToCartHandler(item)}>
+        <button className='product-component__toCartButton' onClick={() => addToCartHandler(item)}>
           В кошик
         </button>
       </div>

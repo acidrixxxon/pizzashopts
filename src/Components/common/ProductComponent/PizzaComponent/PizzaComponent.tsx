@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 
-import { IPizzaInCart } from '../../../../types';
-import './_PizzaComponent.scss';
 import { Context1 } from '../../../../Context/Context';
-import { IPizza } from '../../../../types/ProductTypes';
 import { getCartActions } from '../../../../Context/actions/cartActions';
+import { getProductDto } from '../../../../Dto/CartDto';
+import { IPizzaInCart } from '../../../../types';
+import { IPizzaMain } from '../../../../types/ProductTypes';
+import NewProductIcon from '../../NewProductIcon/NewProductIcon';
+import './../../../../scss/_productView.scss';
 
 interface ComponentProps {
-  pizza: IPizza;
+  pizza: IPizzaMain;
 }
 
 const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
@@ -29,37 +30,31 @@ const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
   const { dispatch, state } = React.useContext(Context1);
   const { addToCart } = getCartActions(dispatch, state);
 
-  const addToCartHandler = (item: IPizza): void => {
-    const productObj: IPizzaInCart = {
-      _id: item.variants[activeSize].variants[activeType]._id,
-      uniqueId: uuidv4(),
-      imageUrl: item.imageUrl,
-      fullimageUrl: item.fullimageUrl,
-      class: item.class,
-      title: item.title,
-      fulltitle: item.variants[activeSize].variants[activeType].fulltitle,
-      price: item.variants[activeSize].variants[activeType].price,
-      ingridients: item.ingridients,
-      qty: 1,
-      isSell: item.variants[activeSize].variants[activeType].isSell,
-    };
+  const addToCartHandler = (item: IPizzaMain): void => {
+    const productObj = getProductDto(item, activeSize, activeType);
 
-    addToCart(productObj);
-    resetAllButtons();
+    if (productObj) {
+      addToCart(productObj);
+      resetAllButtons();
+    } else {
+      throw new Error('Не вдалось додати продукт до кошика!');
+    }
   };
 
   return (
-    <div className='pizza-wrapper'>
-      <Link to={`/product/${pizza._id}`} className='pizza-image'>
-        <img src={pizza.imageUrl} alt='pizza-image1' />
+    <div className='product-component'>
+      <Link to={`/product/${pizza._id}`} className='product-component__link'>
+        <img src={pizza.imageUrl} alt='pizza-image1' className='product-component__image' />
+
+        {pizza.aNewOne === true && <NewProductIcon />}
       </Link>
 
-      <div className='pizza-description'>
-        <Link className='pizza-title' to={`/product/${pizza._id}`}>
+      <div className='product-component__details'>
+        <Link className='product-component__title' to={`/product/${pizza._id}`}>
           {pizza.title}
         </Link>
 
-        <p className='pizza-toppings'>
+        <p className='product-component__ingridients'>
           {pizza.ingridients.map(({ ingridientId, qty }, index) => {
             return (
               <span key={ingridientId._id}>
@@ -72,28 +67,32 @@ const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
         </p>
       </div>
 
-      <div className='pizza-variants'>
-        <div className='pizza-variantsList pizza-sizes'>
+      <div className='product-component__variants pizza-component__variants'>
+        <div className='product-component__list'>
           {pizza.variants.map((item, index) => {
             return (
               <button
                 key={index}
                 onClick={() => changePizzaSize(index)}
-                className={activeSize === index ? 'pizza-variantsButton active' : 'pizza-variantsButton'}>
+                className={
+                  activeSize === index ? 'product-component__button product-component__button_active' : 'product-component__button'
+                }>
                 {item.title}
               </button>
             );
           })}
         </div>
 
-        <div className='pizza-variantsList'>
+        <div className='product-component__list'>
           {pizza.variants[activeSize].variants.map((item, index) => {
             return (
               <button
                 key={index}
-                disabled={!item.isSell}
+                disabled={!item.inSell}
                 onClick={() => setActiveType(index)}
-                className={activeType === index ? 'pizza-variantsButton active' : 'pizza-variantsButton'}>
+                className={
+                  activeType === index ? 'product-component__button product-component__button_active' : 'product-component__button'
+                }>
                 {item.title}
               </button>
             );
@@ -101,12 +100,12 @@ const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
         </div>
       </div>
 
-      <div className='pizza-footer'>
-        <div className='pizza-price'>
-          <span className='pizza-priceNumber'>{pizza.variants[activeSize].variants[activeType].price}</span>
-          <span className='pizza-priceText'>грн</span>
+      <div className='product-component__footer'>
+        <div className='product-component__price'>
+          <span className='price__number'>{pizza.variants[activeSize].variants[activeType].price}</span>
+          <span className='price__text'>грн</span>
         </div>
-        <button className='pizza-addToCart' onClick={() => addToCartHandler(pizza)}>
+        <button className='product-component__toCartButton' onClick={() => addToCartHandler(pizza)}>
           В кошик
         </button>
       </div>

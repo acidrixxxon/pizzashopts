@@ -1,12 +1,15 @@
 import React from 'react';
+
 import { IErrors, IPaymentVariants } from '../../types';
-import { SET_CUSTOMER_DATA, SET_FIELD_ERROR, SET_ORDER_TYPE, SET_PAYMENT_TYPE } from '../constans';
+import { IUserFromServer } from '../../types/UserTypes';
+import { INIT_CUSTOMER_DATA, SET_CUSTOMER_DATA, SET_FIELD_ERROR, SET_ORDER_TYPE, SET_PAYMENT_TYPE } from '../constans';
 
 interface IActions {
   setCustomerData: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   setFieldError: (errors: IErrors) => void;
   setPaymentType: (type: IPaymentVariants | null) => void;
   setOrderType: (type: number) => void;
+  setInitialCustomerData: (data: IUserFromServer) => void;
 }
 
 export const getCustomerDataActions = (dispatch: React.Dispatch<any>): IActions => {
@@ -26,10 +29,15 @@ export const getCustomerDataActions = (dispatch: React.Dispatch<any>): IActions 
     dispatch({ type: SET_FIELD_ERROR, payload: errors });
   };
 
+  const setInitialCustomerData = (data: IUserFromServer): void => {
+    dispatch({ type: INIT_CUSTOMER_DATA, payload: data });
+  };
+
   return {
     setFieldError,
     setCustomerData,
     setPaymentType,
     setOrderType,
+    setInitialCustomerData,
   };
 };

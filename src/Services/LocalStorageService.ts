@@ -1,4 +1,5 @@
 import { ICart } from '../Context/context_types';
+
 import { ICustomerData } from './../types';
 
 class LocalStorageService {

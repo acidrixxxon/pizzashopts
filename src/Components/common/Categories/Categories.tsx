@@ -1,7 +1,8 @@
 import React from 'react';
-import { getSortActions } from '../../../Context/actions';
 
+import { getSortActions } from '../../../Context/actions';
 import { Context1 } from '../../../Context/Context';
+
 import './_Categories.scss';
 
 interface ICategories {

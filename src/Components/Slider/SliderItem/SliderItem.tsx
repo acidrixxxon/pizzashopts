@@ -1,4 +1,5 @@
 import React from 'react'
+
 import './_SliderItem.scss'
 
 const SliderItem:React.FC<{item: string}> = ({ item }) => {

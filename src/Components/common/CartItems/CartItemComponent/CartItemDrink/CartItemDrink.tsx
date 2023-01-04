@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { getCartActions } from '../../../../../Context/actions';
 
+import { getCartActions } from '../../../../../Context/actions';
 import { Context1 } from '../../../../../Context/Context';
 import { IDrinkInCart } from '../../../../../types';
 

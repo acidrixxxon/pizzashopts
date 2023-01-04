@@ -1,8 +1,9 @@
 import React from 'react';
-import { getCartActions } from '../../../../Context/actions';
 
+import { getCartActions } from '../../../../Context/actions';
 import { Context1 } from '../../../../Context/Context';
 import { IDrinkInCart } from '../../../../types';
+
 import './_DrinkView.scss';
 
 interface ComponentProps {

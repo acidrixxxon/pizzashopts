@@ -1,9 +1,14 @@
 import { ICustomerData } from '../../types';
-import { SET_CUSTOMER_DATA, SET_FIELD_ERROR, SET_ORDER_TYPE, SET_PAYMENT_TYPE } from '../constans';
+import { INIT_CUSTOMER_DATA, SET_CUSTOMER_DATA, SET_FIELD_ERROR, SET_ORDER_TYPE, SET_PAYMENT_TYPE } from '../constans';
 import { IAction } from '../context_types';
 
 export const customerDataReducer = (state: ICustomerData, action: IAction) => {
   switch (action.type) {
+    case INIT_CUSTOMER_DATA:
+      return {
+        ...state,
+        ...action.payload,
+      };
     case SET_CUSTOMER_DATA:
       return {
         ...state,

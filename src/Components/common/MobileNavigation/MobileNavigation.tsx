@@ -2,13 +2,14 @@ import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FiMenu } from 'react-icons/fi';
 
-import MobileLogotype from '../Icons/MobileLogotype/MobileLogotype';
-import './_MobileNavigation.scss';
-import PizzaIcon from '../Icons/PizzaIcon';
-import DrinkIcon from '../Icons/DrinkIcon';
-import SideIcon from '../Icons/SideIcon';
-import { Context1 } from '../../../Context/Context';
 import { getSortActions } from '../../../Context/actions';
+import { Context1 } from '../../../Context/Context';
+import DrinkIcon from '../Icons/DrinkIcon';
+import MobileLogotype from '../Icons/MobileLogotype/MobileLogotype';
+import PizzaIcon from '../Icons/PizzaIcon';
+import SideIcon from '../Icons/SideIcon';
+
+import './_MobileNavigation.scss';
 
 const MobileNavigation = () => {
   const menuItems = [

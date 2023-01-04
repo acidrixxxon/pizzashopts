@@ -1,9 +1,10 @@
 import React from 'react';
-import { getSortActions } from '../../../Context/actions';
 
+import { getSortActions } from '../../../Context/actions';
 import { Context1 } from '../../../Context/Context';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { ISortVariant } from '../../../types';
+
 import './_Sort.scss';
 
 const Sort = () => {
