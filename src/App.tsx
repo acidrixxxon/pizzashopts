@@ -25,7 +25,7 @@ function App() {
     state,
     dispatch,
   } = React.useContext(Context1);
-  // console.log(state);
+  console.log(state);
   const { refreshTokenProccess } = getUserActions(dispatch);
 
   React.useLayoutEffect(() => {

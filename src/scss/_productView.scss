@@ -10,6 +10,12 @@
 
   background-color: #fff;
 
+  @media screen and (max-width: 600px) {
+    padding: 10px 10px 25px;
+
+    justify-self: safe center;
+  }
+
   &:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 
@@ -33,11 +39,20 @@
       border-radius: 15px;
 
       transition: all 0.2s ease-in;
+
+      @media screen and (max-width: 600px) {
+        min-height: auto;
+        max-height: 250px;
+      }
     }
   }
 
   .product-component__details {
     padding: 20px 10px 30px 15px;
+
+    @media screen and (max-width: 600px) {
+      padding: 10px 10px 15px 15px;
+    }
 
     .product-component__title {
       font-size: 15px;
@@ -49,6 +64,10 @@
       min-height: 40px;
 
       display: inline-block;
+
+      @media screen and (max-width: 600px) {
+        font-size: 18px;
+      }
     }
 
     .product-component__ingridients {
@@ -59,6 +78,11 @@
       font-size: 12px;
       line-height: 146%;
       color: #4f4f4f;
+
+      @media screen and (max-width: 600px) {
+        margin-top: 10px;
+        font-size: 13px;
+      }
     }
   }
 
@@ -146,7 +170,7 @@
       cursor: pointer;
 
       @media screen and (max-width: 600px) {
-        width: 190px;
+        width: 160px;
       }
     }
   }

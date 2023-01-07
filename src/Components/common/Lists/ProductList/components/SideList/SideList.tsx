@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Context1 } from '../../../../Context/Context';
-import { sidesCategory } from '../../../../mockdata';
-import ProductService from '../../../../Services/ProductService';
-import { ISide, ISideCategory1, ISidesCategories } from '../../../../types';
-import ItemsList from '../../ItemsList/ItemsList';
-import SideComponent from '../../ProductComponent/SideComponent/SideComponent';
-import Skeleton from '../../Skeleton/Skeleton';
+import { Context1 } from '../../../../../../Context/Context';
+import ProductService from '../../../../../../Services/ProductService';
+import { sidesCategory } from '../../../../../../mockdata';
+import { ISide, ISideCategory1, ISidesCategories } from '../../../../../../types';
+import ItemsList from '../../../../ItemsList/ItemsList';
+import SideComponent from '../../../../ProductComponent/SideComponent/SideComponent';
+import Skeleton from '../../../../Skeleton/Skeleton';
 
 const SideList: React.FC = () => {
   const [loading, setLoading] = React.useState<boolean>(true);

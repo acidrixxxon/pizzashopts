@@ -1,140 +1,145 @@
-
 #authModal {
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  .authModal__button {
     display: flex;
     align-items: center;
+  }
 
-    cursor: pointer;
-
-    .authModal__button {
-        display: flex;
-        align-items: center;
-    }
-
-    svg {
-        margin-right: 5px;
-    }
+  svg {
+    margin-right: 5px;
+  }
 }
 
-
 .authModal__overlay {
-    position: fixed;
-    top:0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999999;
 
-    background-color: rgba(0,0,0,.7);
+  background-color: rgba(0, 0, 0, 0.7);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    .authModal__content {
-        min-height: 300px;
-        width: 400px;
+  .authModal__content {
+    min-height: 300px;
+    width: 400px;
 
-        margin: 0 auto;
+    margin: 0 auto;
 
-        background-color: #fff;
+    background-color: #fff;
 
-        border-radius: 16px;
+    border-radius: 16px;
 
-        position: relative;
+    position: relative;
 
+    @media screen and (max-width: 600px) {
+      min-height: auto;
+    }
+
+    @media screen and (max-width: 470px) {
+      width: calc(100% - 40px);
+    }
+
+    .authModal__closeBtn {
+      position: absolute;
+      top: -20px;
+      right: -23px;
+
+      background-color: transparent;
+
+      border: none;
+      outline: none;
+
+      opacity: 0.7;
+
+      cursor: pointer;
+
+      transform: scale(0.9);
+      transition: 0.2s transform linear;
+
+      @media screen and (max-width: 470px) {
+        right: -15px;
+        top: -30px;
+      }
+
+      &-icon {
+        fill: #fff;
+        height: 20px;
+        width: 20px;
+      }
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    .authModal__header {
+      display: flex;
+
+      border-radius: 16px 16px 0 0;
+
+      .authModal__variant {
+        width: 100%;
+        height: 70px;
+
+        background-color: rgb(243, 243, 247);
+
+        border: none;
+        outline: none;
+
+        border-bottom: 4px solid transparent;
+
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(106, 106, 118);
+
+        cursor: pointer;
+
+        transition: 0.15s all linear;
 
         @media screen and (max-width: 470px) {
-            width: calc(100% - 40px);
+          height: 65px;
+
+          font-size: 18px;
         }
 
-        .authModal__closeBtn {
-            position: absolute;
-            top: -20px;
-            right: -23px;
-
-            background-color: transparent;
-
-            border: none;
-            outline: none;
-
-            opacity: .7;
-
-            cursor: pointer;
-
-            transform: scale(.9);
-            transition: .2s transform linear;
-
-            @media screen and (max-width: 470px) {
-                right: -15px;
-                top: -30px;
-            }
-
-            &-icon {
-                fill: #fff;
-                height: 20px;
-                width: 20px;    
-            }
-
-            &:hover {
-                opacity: 1;
-                transform: scale(1.1);
-            }
+        &:first-child {
+          border-top-left-radius: 16px;
         }
 
-        .authModal__header {
-            display: flex;
-
-            border-radius: 16px 16px 0 0;
-
-            .authModal__variant {
-                width: 100%;
-                height: 80px;
-
-                background-color: rgb(243, 243, 247);
-
-                border: none;
-                outline: none;
-
-                border-bottom: 4px solid transparent;
-
-                font-size: 20px;
-                font-weight: bold;
-                color: rgb(106, 106, 118);
-
-                cursor: pointer;
-
-                transition: .15s all linear;
-
-                @media screen and (max-width: 470px) {
-                    height: 65px;
-
-                    font-size: 18px;
-                }
-
-                &:first-child {
-                    border-top-left-radius: 16px;
-                }
-
-                &:last-child {
-                    border-top-right-radius: 16px;
-                }
-
-                &.active {
-                    border-bottom: 4px solid rgb(227, 24, 54);
-
-                    color: rgb(11, 11, 11);
-
-                    background-color: rgb(255, 255, 255);
-                }
-            }
+        &:last-child {
+          border-top-right-radius: 16px;
         }
 
-        .authModal__main {
-            padding: 40px 30px 25px;
+        &.active {
+          border-bottom: 4px solid rgb(227, 24, 54);
 
-            @media screen and (max-width: 470px) {
-                padding: 15px 15px 25px;
-            }
+          color: rgb(11, 11, 11);
+
+          background-color: rgb(255, 255, 255);
         }
+      }
     }
+
+    .authModal__main {
+      padding: 40px 30px 25px;
+
+      @media screen and (max-width: 600px) {
+        padding: 25px 20px 30px;
+      }
+
+      @media screen and (max-width: 470px) {
+        padding: 15px 15px 25px;
+      }
+    }
+  }
 }

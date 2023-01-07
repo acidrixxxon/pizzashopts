@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
 import { Context1 } from '../../Context/Context';

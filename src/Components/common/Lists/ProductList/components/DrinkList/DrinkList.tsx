@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Context1 } from '../../../../Context/Context';
-import ProductService from '../../../../Services/ProductService';
-import { IDrinkCategory1, IDrinkCategoryResponse, IDrinkNew, IDrinkProductsResponse } from '../../../../types';
-import ItemsList from '../../ItemsList/ItemsList';
-import DrinkComponent from '../../ProductComponent/DrinkComponent/DrinkComponent';
-import Skeleton from '../../Skeleton/Skeleton';
+import { Context1 } from '../../../../../../Context/Context';
+import ProductService from '../../../../../../Services/ProductService';
+import { IDrinkCategory1, IDrinkCategoryResponse, IDrinkNew, IDrinkProductsResponse } from '../../../../../../types';
+import ItemsList from '../../../../ItemsList/ItemsList';
+import DrinkComponent from '../../../../ProductComponent/DrinkComponent/DrinkComponent';
+import Skeleton from '../../../../Skeleton/Skeleton';
 
 const DrinkList = () => {
   const [loading, setLoading] = React.useState<boolean>(true);

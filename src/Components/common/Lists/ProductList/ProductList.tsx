@@ -1,20 +1,23 @@
-import React from 'react'
+import React from 'react';
 
-import { Context1 } from '../../../../Context/Context'
-import DrinkList from '../DrinkList/DrinkList'
-import PizzaList from '../PizzaList/PizzaList'
-import SideList from '../SideList/SideList'
+import { Context1 } from '../../../../Context/Context';
+import DrinkList from './components/DrinkList/DrinkList';
+import PizzaList from './components/PizzaList/PizzaList';
+import SideList from './components/SideList/SideList';
 
 const ProductList: React.FC = () => {
-    const { state: { sort: { category }}} = React.useContext(Context1)
+  const lists = [
+    { categoryId: 0, component: <PizzaList /> },
+    { categoryId: 1, component: <SideList /> },
+    { categoryId: 2, component: <DrinkList /> },
+  ];
+  const {
+    state: {
+      sort: { category },
+    },
+  } = React.useContext(Context1);
 
-        return (
-            <>
-                {category === 0 && <PizzaList />}
-                {category === 1 && <SideList />}
-                {category === 2 && <DrinkList />}
-            </>
-        )
-}
+  return <>{lists.map((item) => (category === item.categoryId ? item.component : null))}</>;
+};
 
-export default ProductList
+export default ProductList;

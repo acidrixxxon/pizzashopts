@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { getSortActions } from '../../../Context/actions';
 import { Context1 } from '../../../Context/Context';
-
+import { getSortActions } from '../../../Context/actions';
 import './_Categories.scss';
 
 interface ICategories {
@@ -48,4 +47,4 @@ const Categories: React.FC = () => {
   );
 };
 
-export default Categories;
+export default React.memo(Categories);
