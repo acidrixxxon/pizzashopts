@@ -61,6 +61,7 @@ const AddToCartModal: FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              id='modal'
               className='addToCartModal__overlay'
               onClick={hideVisibility}>
               <motion.div className='addToCartModal__content' onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>

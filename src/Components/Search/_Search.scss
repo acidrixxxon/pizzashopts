@@ -138,8 +138,8 @@
         cursor: pointer;
       }
 
-      .search__resultsItem {
-        display: flex;
+      .search__resultsItem,
+      .search__resultsItem-mobile {
         padding: 5px;
 
         transition: 0.2s all ease-in-out;
@@ -210,6 +210,57 @@
               opacity: 1;
             }
           }
+        }
+      }
+
+      .search__resultsItem {
+        display: flex;
+
+        @media screen and (max-width: 600px) {
+          display: none;
+        }
+      }
+
+      .search__resultsItem-mobile {
+        display: none;
+
+        transition: 0.3s all ease-in;
+
+        padding: 5px;
+
+        border-radius: 5px;
+        &:active {
+          background-color: #4f4f4f;
+
+          .search__results-content {
+            .search__resultsContent {
+              .search__resultsTitle {
+                color: #fff;
+              }
+            }
+          }
+        }
+
+        .search__results-content {
+          display: flex;
+          text-decoration: none;
+
+          .search__resultsImage {
+            margin-right: 5px;
+          }
+
+          .search__resultsContent {
+            .search__resultsTitle {
+              font-size: 15px;
+              font-weight: 500;
+              text-decoration: none;
+              color: #333;
+            }
+          }
+        }
+
+        @media screen and (max-width: 600px) {
+          display: flex;
         }
       }
     }

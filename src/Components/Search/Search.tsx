@@ -1,11 +1,10 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { debounce } from 'lodash';
 import React from 'react';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 
-import { Context1 } from '../../Context/Context';
 import SearchService from '../../Services/SearchService';
 import useOutsideClick from '../../hooks/useOutsideClick';
-import { IDrink, ISide } from '../../types';
 import { IDrinkMain, IPizzaMain, ISideMain } from '../../types/ProductTypes';
 import Spinner from '../common/Icons/Spinner/Spinner';
 import AddToCartModal from '../common/Modals/AddToCartModal/AddToCartModal';
@@ -16,16 +15,6 @@ const Search: React.FC = () => {
   const [searchQuery, setSearchQuery] = React.useState<string>('');
   const [searchResults, setSearchResults] = React.useState<(IDrinkMain | IPizzaMain | ISideMain)[] | null>(null);
   const [loading, setLoading] = React.useState(false);
-
-  const {
-    state: {
-      view: {
-        search: {
-          searchResultModal: { status, data },
-        },
-      },
-    },
-  } = React.useContext(Context1);
 
   const onInputChange = (value: string): void => {
     setSearchQuery(value);
@@ -78,16 +67,19 @@ const Search: React.FC = () => {
         <div className='search__results'>
           {loading && <Spinner />}
 
-          {searchResults !== null &&
-            (searchResults.length > 0 ? (
-              <ul className='search__resultsList'>
-                {searchResults.slice(0, 5).map((item) => (
-                  <SearchResultItem item={item} key={item._id} resetFunc={resetAfterSearch} />
-                ))}
-              </ul>
-            ) : (
-              'Ничего не найдено'
-            ))}
+          {searchResults !== null && (
+            <AnimatePresence>
+              {searchResults.length > 0 ? (
+                <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='search__resultsList'>
+                  {searchResults.slice(0, 5).map((item) => (
+                    <SearchResultItem item={item} key={item._id} resetFunc={resetAfterSearch} />
+                  ))}
+                </motion.ul>
+              ) : (
+                'Ничего не найдено'
+              )}
+            </AnimatePresence>
+          )}
         </div>
       ) : null}
 

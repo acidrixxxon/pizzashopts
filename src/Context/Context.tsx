@@ -37,7 +37,11 @@ interface ContextInterface {
 
 const Context1 = React.createContext<ContextInterface>({ state: initialState, dispatch: () => null });
 
-export const useContextSelector = () => React.useContext(Context1);
+export const useContextSelector = () => {
+  const { state } = React.useContext(Context1);
+
+  return state;
+};
 
 const StateProvider: React.FC<IProvider> = ({ children }) => {
   const [state, dispatch] = React.useReducer(rootReducer, initialState);

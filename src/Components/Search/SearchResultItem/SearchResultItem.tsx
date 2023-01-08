@@ -20,19 +20,33 @@ const SearchResultItem: React.FC<ComponentProps> = ({ item, resetFunc }) => {
     setSearchResultModalData({ ...item, defaultObj: item });
   };
   return (
-    <li className='search__resultsItem' key={item._id}>
-      <Link to={`/product/${item._id}`} className='search__resultsImage' onClick={resetFunc}>
-        <img src={item.imageUrl} alt={item.title} />
-      </Link>
+    <>
+      <li className='search__resultsItem' key={item._id}>
+        <Link to={`/product/${item._id}`} className='search__resultsImage' onClick={resetFunc}>
+          <img src={item.imageUrl} alt={item.title} />
+        </Link>
 
-      <div className='search__resultsContent'>
-        <h4 className='search__resultsTitle'>{item.title}</h4>
+        <div className='search__resultsContent'>
+          <h4 className='search__resultsTitle'>{item.title}</h4>
 
-        <button className='search__resultAddToCart' onClick={openSearchResultModal}>
-          В кошик
-        </button>
-      </div>
-    </li>
+          <button className='search__resultAddToCart' onClick={openSearchResultModal}>
+            В кошик
+          </button>
+        </div>
+      </li>
+
+      <li className='search__resultsItem-mobile' key={item._id}>
+        <Link to={`/product/${item._id}`} className='search__results-content' onClick={resetFunc}>
+          <div className='search__resultsImage'>
+            <img src={item.imageUrl} alt={item.title} />
+          </div>
+
+          <div className='search__resultsContent'>
+            <h4 className='search__resultsTitle'>{item.title}</h4>
+          </div>
+        </Link>
+      </li>
+    </>
   );
 };
 
