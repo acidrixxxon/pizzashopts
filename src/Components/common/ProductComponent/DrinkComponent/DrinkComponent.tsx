@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Context1 } from '../../../../Context/Context';
 import { getCartActions } from '../../../../Context/actions/cartActions';
 import { IDrinkInCart, IDrinkNew } from '../../../../types';
+import AddToCartBtn from '../../UI/Buttons/AddToCartBtn/AddToCartBtn';
 import NewProductIcon from '../../UI/Icons/NewProductIcon/NewProductIcon';
 import './../../../../scss/_productView.scss';
 
@@ -72,9 +73,7 @@ const DrinkComponent: React.FC<ComponentProps> = ({ item }) => {
           <span className='price__text'>грн</span>
         </div>
 
-        <button className='product-component__toCartButton' onClick={() => addToCartHandler(item)}>
-          В кошик
-        </button>
+        <AddToCartBtn withRipple onClick={() => addToCartHandler(item)} />
       </div>
     </div>
   );

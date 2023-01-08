@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Context1 } from '../../../../Context/Context';
 import { getCartActions } from '../../../../Context/actions/cartActions';
 import { ISide, ISideInCart } from '../../../../types';
+import AddToCartBtn from '../../UI/Buttons/AddToCartBtn/AddToCartBtn';
 import './../../../../scss/_productView.scss';
 
 interface ComponentProps {
@@ -69,9 +70,7 @@ const SideComponent: React.FC<ComponentProps> = ({ item }) => {
           <span className='price__text'>грн</span>
         </div>
 
-        <button className='product-component__toCartButton' onClick={() => addToCartHandler(item)}>
-          В кошик
-        </button>
+        <AddToCartBtn withRipple onClick={() => addToCartHandler(item)} />
       </div>
     </div>
   );

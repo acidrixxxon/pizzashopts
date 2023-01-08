@@ -111,7 +111,7 @@ const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
           <span className='price__text'>грн</span>
         </div>
 
-        <AddToCartBtn withRipple onClick={(e) => addToCartHandler(pizza)} />
+        <AddToCartBtn withRipple onClick={() => addToCartHandler(pizza)} />
       </div>
     </div>
   );

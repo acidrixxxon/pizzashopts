@@ -57,7 +57,12 @@ const AddToCartModal: FC = () => {
       <AnimatePresence>
         {status === 'visible' && data && (
           <ReactPortal wrapperId='root'>
-            <motion.div className='addToCartModal__overlay' onClick={hideVisibility}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='addToCartModal__overlay'
+              onClick={hideVisibility}>
               <motion.div className='addToCartModal__content' onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
                 <div className='addToCartModal__image-container'>
                   <img src={data.imageUrl} alt={data.title} className='addToCartModal__image' />
@@ -77,9 +82,7 @@ const AddToCartModal: FC = () => {
                         : data.variants[activeSize.size].price}{' '}
                       грн
                     </span>
-                    {/* <button className='addToCartModal__button' onClick={addToCartHandler}>
-                      В кошик
-                    </button> */}
+
                     <AddToCartBtn onClick={addToCartHandler} withRipple />
                   </div>
                 </div>
