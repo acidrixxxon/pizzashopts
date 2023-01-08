@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { Context1 } from '../../../../Context/Context';
 import { getCartActions } from '../../../../Context/actions/cartActions';
 import { getProductDto } from '../../../../Dto/CartDto';
-import { IPizzaInCart } from '../../../../types';
+import { useRippleButtonEffect } from '../../../../hooks/useRippleButtonEffect';
 import { IPizzaMain } from '../../../../types/ProductTypes';
-import NewProductIcon from '../../NewProductIcon/NewProductIcon';
+import AddToCartBtn from '../../UI/Buttons/AddToCartBtn/AddToCartBtn';
+import NewProductIcon from '../../UI/Icons/NewProductIcon/NewProductIcon';
 import './../../../../scss/_productView.scss';
 
 interface ComponentProps {
@@ -16,6 +17,10 @@ interface ComponentProps {
 const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
   const [activeSize, setActiveSize] = React.useState<number>(0);
   const [activeType, setActiveType] = React.useState<number>(0);
+
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+
+  useRippleButtonEffect(buttonRef);
 
   const changePizzaSize = (size: number): void => {
     setActiveSize(size);
@@ -105,9 +110,8 @@ const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
           <span className='price__number'>{pizza.variants[activeSize].variants[activeType].price}</span>
           <span className='price__text'>грн</span>
         </div>
-        <button className='product-component__toCartButton' onClick={() => addToCartHandler(pizza)}>
-          В кошик
-        </button>
+
+        <AddToCartBtn withRipple onClick={(e) => addToCartHandler(pizza)} />
       </div>
     </div>
   );

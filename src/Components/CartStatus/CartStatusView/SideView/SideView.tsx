@@ -1,9 +1,9 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 
-import { getCartActions } from '../../../../Context/actions';
 import { Context1 } from '../../../../Context/Context';
+import { getCartActions } from '../../../../Context/actions';
 import { ISideInCart } from '../../../../types';
-
 import './_SideView.scss';
 
 interface ComponentProps {
@@ -31,7 +31,7 @@ const SideView: React.FC<ComponentProps> = ({ item }) => {
   };
 
   return (
-    <li className='sideView'>
+    <motion.li exit={{ opacity: 0, visibility: 'hidden' }} className='sideView'>
       <div className='cartStatus__header'>
         <h4 className='cartStatus__title'>
           {item.title} ({item.size})
@@ -55,7 +55,7 @@ const SideView: React.FC<ComponentProps> = ({ item }) => {
 
         <span className='cartStatus__price'>{item.price * item.qty}грн</span>
       </div>
-    </li>
+    </motion.li>
   );
 };
 

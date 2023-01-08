@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Context1 } from '../../../../Context/Context';
 import { getCartActions } from '../../../../Context/actions/cartActions';
 import { IDrinkInCart, IDrinkNew } from '../../../../types';
-import NewProductIcon from '../../NewProductIcon/NewProductIcon';
+import NewProductIcon from '../../UI/Icons/NewProductIcon/NewProductIcon';
 import './../../../../scss/_productView.scss';
 
 interface ComponentProps {

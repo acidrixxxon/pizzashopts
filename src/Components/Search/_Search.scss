@@ -88,7 +88,7 @@
 
     border: 1px solid #e0e0e0;
 
-    padding: 10px 5px;
+    padding: 10px 5px 20px;
 
     border-radius: 5px;
 
@@ -109,20 +109,19 @@
     }
 
     @media screen and (max-width: 600px) {
-      width: calc(100vw - 40px);
+      width: auto;
       min-width: auto;
 
       position: fixed;
       top: 65px;
       left: 20px;
+      right: 20px;
     }
 
-    @media screen and (max-width: 500px) {
-      width: calc(100vw - 40px);
-
-      left: 0;
-
-      margin: 0 20px;
+    @media screen and (max-width: 450px) {
+      top: 65px;
+      left: 5px;
+      right: 5px;
     }
 
     .search__resultsList {

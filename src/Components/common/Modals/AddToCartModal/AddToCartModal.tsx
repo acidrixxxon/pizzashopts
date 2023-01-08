@@ -6,6 +6,7 @@ import { getCartActions, getViewActions } from '../../../../Context/actions';
 import { getProductDto } from '../../../../Dto/CartDto';
 import { IProductActiveSize } from '../../../../types/ProductTypes';
 import ReactPortal from '../../ReactPortal/ReactPortal';
+import AddToCartBtn from '../../UI/Buttons/AddToCartBtn/AddToCartBtn';
 import Ingridients from './Ingridients/Ingridients';
 import Size from './Size/Size';
 import './_AddToCartModal.scss';
@@ -67,7 +68,7 @@ const AddToCartModal: FC = () => {
 
                   <Size activeSize={activeSize} setActiveSize={setActiveSize} />
 
-                  {data.class === 0 && data.ingridients && <Ingridients ingridients={data.ingridients} />}
+                  {data.class === 0 && data.ingridients && <Ingridients />}
 
                   <div className='addToCartModal__footer'>
                     <span className='addToCartModal__price'>
@@ -76,9 +77,10 @@ const AddToCartModal: FC = () => {
                         : data.variants[activeSize.size].price}{' '}
                       грн
                     </span>
-                    <button className='addToCartModal__button' onClick={addToCartHandler}>
+                    {/* <button className='addToCartModal__button' onClick={addToCartHandler}>
                       В кошик
-                    </button>
+                    </button> */}
+                    <AddToCartBtn onClick={addToCartHandler} withRipple />
                   </div>
                 </div>
               </motion.div>

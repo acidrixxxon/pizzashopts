@@ -1,0 +1,17 @@
+.toCartBtn {
+  background-color: #bf142e;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  height: 45px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    background-color: #bf142e;
+  }
+}

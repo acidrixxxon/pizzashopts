@@ -13,7 +13,14 @@
   @media screen and (max-width: 600px) {
     padding: 10px 10px 25px;
 
+    width: 85%;
+
     justify-self: safe center;
+
+    border: 3px solid #e0e0e0;
+    border-radius: 20px;
+
+    margin-bottom: 20px;
   }
 
   &:hover {
@@ -169,6 +176,9 @@
 
       cursor: pointer;
 
+      overflow: hidden;
+      position: relative;
+
       @media screen and (max-width: 600px) {
         width: 160px;
       }
@@ -176,6 +186,20 @@
   }
 
   &.drink-component {
+    .product-component__link {
+      .product-component__image {
+        @media screen and (max-width: 600px) {
+          min-height: auto;
+          max-height: 250px;
+
+          width: 50%;
+
+          display: block;
+
+          margin: 0 auto;
+        }
+      }
+    }
     .product-component__details {
       .product-component__title {
         min-height: auto;

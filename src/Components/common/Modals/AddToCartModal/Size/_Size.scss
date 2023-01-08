@@ -9,6 +9,10 @@
 
     margin-bottom: 10px;
 
+    @media screen and (max-width: 600px) {
+      margin-bottom: 5px;
+    }
+
     .size__button {
       flex-grow: 1;
 
@@ -27,6 +31,13 @@
 
       cursor: pointer;
 
+      transition: 0.3s all linear;
+
+      @media screen and (max-width: 600px) {
+        height: 25px;
+        font-size: 13px;
+      }
+
       &.active__button {
         color: #fff;
 
@@ -41,10 +52,16 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
 
+      @media screen and (max-width: 600px) {
+        gap: 5px;
+      }
+
       .size__button {
         margin-bottom: 5px;
 
         background-color: rgb(243, 243, 247);
+
+        transition: 0.3s all linear;
 
         &.active__button {
           color: #fff;

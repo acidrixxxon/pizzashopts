@@ -281,8 +281,12 @@
     }
   }
 
-  &.mobile {
+  &.cartstatus__mobile {
     display: none;
+
+    &.cartstatus__hidden {
+      display: none !important;
+    }
 
     @media screen and (max-width: 600px) {
       display: flex;

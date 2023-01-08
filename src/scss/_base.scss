@@ -266,3 +266,53 @@ button {
     transform: scale(1);
   }
 }
+
+.ripple__container {
+  position: relative;
+  overflow: hidden;
+
+  --effect-name: ripple;
+  --effect-duration: 500ms;
+  --effect-top: 0px;
+  --effect-left: 0px;
+  --effect-height: 100px;
+  --effect-width: 100px;
+  --effect-color: white;
+
+  &::before {
+    content: '';
+    position: absolute;
+    opacity: 0.7;
+
+    top: var(--effect-top);
+    left: var(--effect-left);
+    height: var(--effect-height);
+    width: var(--effect-width);
+    border-radius: 50%;
+    transform: scale(0);
+    background: var(--effect-color);
+
+    @media screen and (max-width: 800px) {
+      opacity: 0;
+    }
+  }
+
+  &.ripple__effect::before {
+    border-radius: 50%;
+    animation: ripple var(--effect-duration) linear forwards;
+
+    @media screen and (max-width: 800px) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
