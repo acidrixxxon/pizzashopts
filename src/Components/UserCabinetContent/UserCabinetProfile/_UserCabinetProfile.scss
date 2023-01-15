@@ -4,19 +4,34 @@
   align-items: center;
   justify-content: center;
 
+  @media screen and (max-width: 800px) {
+    padding: 0 20px;
+  }
+
   .userCabinet__title {
     font-size: 18px;
 
     margin-bottom: 40px;
+
+    @media screen and (max-width: 600px) {
+      margin-bottom: 15px;
+    }
   }
 
   .userCabinet__form {
+    @media screen and (max-width: 500px) {
+      width: 100%;
+    }
+
     .userCabinet__group {
       margin-bottom: 15px;
 
       display: flex;
       align-items: center;
       justify-content: flex-end;
+
+      @media screen and (max-width: 500px) {
+      }
 
       .userCabinet__input {
         border: 1px solid #c7c7c7;
@@ -28,10 +43,20 @@
         outline: none;
 
         min-width: 300px;
+
+        @media screen and (max-width: 500px) {
+          min-width: auto;
+          flex-grow: 1;
+        }
       }
 
       .userCabinet__label {
         margin-right: 10px;
+
+        @media screen and (max-width: 500px) {
+          min-width: 80px;
+          text-align: right;
+        }
       }
     }
 

@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 
 import { Context1 } from '../../../../Context/Context';
 import { getCartActions, getViewActions } from '../../../../Context/actions';
-import { getProductDto } from '../../../../Dto/CartDto';
+import { getProductDto } from '../../../../Utils/CartDto';
 import { IProductActiveSize } from '../../../../types/ProductTypes';
 import ReactPortal from '../../ReactPortal/ReactPortal';
 import AddToCartBtn from '../../UI/Buttons/AddToCartBtn/AddToCartBtn';

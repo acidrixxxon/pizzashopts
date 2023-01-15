@@ -63,25 +63,24 @@ const Search: React.FC = () => {
         {searchQuery !== '' && <AiOutlineClose className='search__clearIcon' onClick={resetAfterSearch} />}
       </div>
 
-      {searchResults !== null || loading === true ? (
-        <div className='search__results'>
-          {loading && <Spinner />}
+      <AnimatePresence>
+        {searchResults !== null || loading === true ? (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ visibility: 'hidden' }} className='search__results'>
+            {loading && <Spinner />}
 
-          {searchResults !== null && (
-            <AnimatePresence>
-              {searchResults.length > 0 ? (
-                <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='search__resultsList'>
+            {searchResults !== null &&
+              (searchResults.length > 0 ? (
+                <ul className='search__resultsList'>
                   {searchResults.slice(0, 5).map((item) => (
                     <SearchResultItem item={item} key={item._id} resetFunc={resetAfterSearch} />
                   ))}
-                </motion.ul>
+                </ul>
               ) : (
                 'Ничего не найдено'
-              )}
-            </AnimatePresence>
-          )}
-        </div>
-      ) : null}
+              ))}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <AddToCartModal />
     </div>

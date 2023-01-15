@@ -1,11 +1,9 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { Rings } from 'react-loader-spinner';
-import { toast } from 'react-toastify';
 
-import { Context1 } from '../../../../Context/Context';
-import { getUserActions } from '../../../../Context/actions/userActions';
 import { validateLoginUserForm } from '../../../../Utils/Validation';
+import { useContextActions } from '../../../../hooks/useContextActions';
 import { ILoginErrors } from '../../../../types/ErrorTypes';
 import { ILoginUser } from '../../../../types/UserTypes';
 import Error from '../../Error/Error';
@@ -16,11 +14,11 @@ const LoginForm: React.FC = () => {
   const [errors, setErrors] = React.useState<ILoginErrors>({ email: null, password: null });
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  const { dispatch } = React.useContext(Context1);
+  const {
+    userActions: { loginUserProccess },
+  } = useContextActions();
 
-  const { loginUserProccess } = getUserActions(dispatch);
-
-  const loginHandler = (e: React.FormEvent<HTMLFormElement>): void => {
+  const loginHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
     setLoading(true);
@@ -32,8 +30,6 @@ const LoginForm: React.FC = () => {
     } else {
       setErrors(errors);
     }
-
-    setLoading(false);
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +39,6 @@ const LoginForm: React.FC = () => {
 
   return (
     <motion.form
-      onSubmit={loginHandler}
       initial={{ opacity: 0, transform: 'scale(.8)' }}
       animate={{ opacity: 1, transform: 'scale(1)' }}
       exit={{ opacity: 0, transform: 'scale(.8)' }}
@@ -69,6 +64,7 @@ const LoginForm: React.FC = () => {
       </div>
 
       <button
+        onClick={loginHandler}
         type='submit'
         disabled={data.email == '' && data.password == ''}
         className={data.email !== '' && data.password !== '' && !loading ? 'loginForm__loginBtn' : 'loginForm__loginBtn inactiveBtn'}>

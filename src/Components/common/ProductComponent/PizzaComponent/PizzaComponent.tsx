@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Context1 } from '../../../../Context/Context';
 import { getCartActions } from '../../../../Context/actions/cartActions';
-import { getProductDto } from '../../../../Dto/CartDto';
+import { getProductDto } from '../../../../Utils/CartDto';
 import { useRippleButtonEffect } from '../../../../hooks/useRippleButtonEffect';
 import { IPizzaMain } from '../../../../types/ProductTypes';
 import AddToCartBtn from '../../UI/Buttons/AddToCartBtn/AddToCartBtn';

@@ -43,7 +43,8 @@ export type IAction =
   | { type: 'SET_SEARCH_RESULT_MODAL_DATA'; payload: IDrinkMain | IPizzaMain | ISideMain | null }
   | { type: 'SET_SEARCH_RESULT_MODAL_VISIBILITY'; payload: 'hidden' | 'visible' }
   | { type: 'SEARCH_RESULT_ADD_INGRIDIENT'; payload: IPizzaMain }
-  | { type: 'SEARCH_RESULT_REMOVE_INGRIDIENT'; payload: IPizzaMain };
+  | { type: 'SEARCH_RESULT_REMOVE_INGRIDIENT'; payload: IPizzaMain }
+  | { type: 'TOGGLE_MOBILE_NAV_VISIBILITY'; payload: string };
 
 //Context actions types
 
@@ -73,6 +74,11 @@ export interface IProvider {
 }
 
 export interface IView {
+  nav: {
+    mobileNav: {
+      status: string;
+    };
+  };
   authModal: {
     status: string;
   };

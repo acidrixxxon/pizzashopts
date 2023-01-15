@@ -23,6 +23,20 @@
       color: #999;
       font-size: 1em;
 
+      @media screen and (max-width: 700px) {
+        grid-template-columns: 1fr 1fr 0.5fr 0.7fr 1.5fr;
+      }
+
+      @media screen and (max-width: 500px) {
+        grid-template-columns: 1fr 1fr 0.5fr 0.7fr 0.8fr;
+      }
+
+      .phone {
+        @media screen and (max-width: 700px) {
+          display: none;
+        }
+      }
+
       .status {
         text-align: center;
       }

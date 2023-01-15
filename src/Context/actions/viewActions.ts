@@ -7,6 +7,7 @@ import {
   SET_REFRESH_TOKEN_LOADING,
   SET_SEARCH_RESULT_MODAL_DATA,
   SET_SEARCH_RESULT_MODAL_VISIBILITY,
+  TOGGLE_MOBILE_NAV_VISIBILITY,
 } from '../constans';
 import { IView } from '../context_types';
 
@@ -17,6 +18,7 @@ interface IActions {
   setSearchResultModalVisibility: (status: 'hidden' | 'visible') => void;
   searchResultAddIngridient: (ingridient: IPizzaIngridientFull) => void;
   searchResultRemoveIngridient: (ingridient: IPizzaIngridientShort) => void;
+  toggleMobileNavVisibility: (status: string) => void;
 }
 
 export const getViewActions = (dispatch: React.Dispatch<any>, state?: IView): IActions => {
@@ -102,6 +104,10 @@ export const getViewActions = (dispatch: React.Dispatch<any>, state?: IView): IA
     }
   };
 
+  const toggleMobileNavVisibility = (status: string): void => {
+    dispatch({ type: TOGGLE_MOBILE_NAV_VISIBILITY, payload: status });
+  };
+
   return {
     setAuthModalStatus,
     setRefreshTokenLoader,
@@ -109,5 +115,6 @@ export const getViewActions = (dispatch: React.Dispatch<any>, state?: IView): IA
     setSearchResultModalVisibility,
     searchResultAddIngridient,
     searchResultRemoveIngridient,
+    toggleMobileNavVisibility,
   };
 };

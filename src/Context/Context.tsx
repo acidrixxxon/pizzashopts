@@ -13,6 +13,11 @@ const initialState: IInitialState = {
   customerData: localStorage.getItem('customer') ? JSON.parse(localStorage.getItem('customer') || '{}') : initialCustomerData,
   productDetails: initialProductDetails,
   view: {
+    nav: {
+      mobileNav: {
+        status: 'hidden',
+      },
+    },
     authModal: {
       status: 'inactive',
     },

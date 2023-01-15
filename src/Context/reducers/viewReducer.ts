@@ -5,6 +5,7 @@ import {
   SET_REFRESH_TOKEN_LOADING,
   SET_SEARCH_RESULT_MODAL_DATA,
   SET_SEARCH_RESULT_MODAL_VISIBILITY,
+  TOGGLE_MOBILE_NAV_VISIBILITY,
 } from '../constans';
 import { IAction, IView } from '../context_types';
 
@@ -66,6 +67,17 @@ export const viewReducer = (state: IView, action: IAction) => {
           searchResultModal: {
             ...state.search.searchResultModal,
             data: action.payload,
+          },
+        },
+      };
+    case TOGGLE_MOBILE_NAV_VISIBILITY:
+      return {
+        ...state,
+        nav: {
+          ...state.nav,
+          mobileNav: {
+            ...state.nav.mobileNav,
+            status: action.payload,
           },
         },
       };

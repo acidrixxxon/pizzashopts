@@ -1,0 +1,28 @@
+#mobileNav__userMenu {
+  width: 100%;
+  .userMenu__list {
+    display: flex;
+    flex-direction: column;
+
+    .userMenu__link {
+      color: #fff;
+      text-decoration: none;
+
+      border: 0.5px solid #fff;
+
+      padding: 7px 15px;
+
+      margin-bottom: 15px;
+
+      border-radius: 15px;
+
+      cursor: pointer;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .userMenu__item {
+      }
+    }
+  }
+}

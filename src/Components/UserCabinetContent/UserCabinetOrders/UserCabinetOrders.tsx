@@ -1,41 +1,42 @@
 import React from 'react';
 
-import { Context1 } from '../../../Context/Context';
+import { useContextSelector } from '../../../Context/Context';
 import OrderService from '../../../Services/OrderService';
 import { IOrderFromServer } from '../../../types/OrderTypes';
 import Spinner from '../../common/Icons/Spinner/Spinner';
-
 import UserCabinetOrderItem from './UserCabinetOrderItem/UserCabinetOrderItem';
-
 import './_UserCabinetOrders.scss';
 
 const UserCabinetOrders: React.FC = () => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [userOrders, setOrders] = React.useState<IOrderFromServer[] | null>(null);
-  const [limit, setLimit] = React.useState(3);
 
-  const {
-    state: { user },
-  } = React.useContext(Context1);
+  const { user } = useContextSelector();
 
   React.useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const data = await OrderService.getUserOrders(user?.tokens?.accessToken);
-      if (data.success === true) {
-        setOrders(data.orders);
+
+      if (user && user.tokens && user.tokens.accessToken) {
+        const data = await OrderService.getUserOrders(user?.tokens?.accessToken);
+        if (data.success === true) {
+          setOrders(data.orders);
+          setLoading(false);
+        }
+      } else {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [user?.tokens]);
 
   return (
     <div id='UserCabinet__Orders'>
       {loading && <Spinner className='userCabinet__spinner' />}
+      {!loading && userOrders === null && <span>Ви ще не робили замовлень</span>}
 
-      {userOrders !== null && userOrders.length > 0 ? (
+      {userOrders !== null && userOrders.length > 0 && (
         <>
           <div className='userCabinet__table'>
             <div className='userCabinet__thead'>
@@ -54,8 +55,6 @@ const UserCabinetOrders: React.FC = () => {
             </div>
           </div>
         </>
-      ) : (
-        <span>Ви ще не робили замовлень</span>
       )}
     </div>
   );

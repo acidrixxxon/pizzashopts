@@ -1,12 +1,16 @@
-
-
-
 #UserCabinet__navigation {
   max-width: 350px;
 
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    max-width: none;
+  }
+
   .userCabinet__list {
-
-
+    @media screen and (max-width: 800px) {
+      display: flex;
+      justify-content: center;
+    }
     .userCabinet__item {
       max-width: 250px;
       height: 46px;
@@ -16,13 +20,17 @@
       padding: 0 10px;
       cursor: pointer;
       margin-bottom: 10px;
-      transition: .2s all ease-in-out;
+      transition: 0.2s all ease-in-out;
 
       &.active {
-        background-color: #5932EA;
+        background-color: #5932ea;
         color: #fff;
+      }
+
+      @media screen and (max-width: 800px) {
+        justify-content: center;
+        flex-grow: 1;
       }
     }
   }
-
 }

@@ -1,21 +1,20 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 
-import { getCartActions, getCustomerDataActions } from '../../../../Context/actions';
 import { Context1 } from '../../../../Context/Context';
-import { newOrderDto } from '../../../../Dto/CartDto';
+import { getCartActions, getCustomerDataActions } from '../../../../Context/actions';
 import LocalStorageService from '../../../../Services/LocalStorageService';
 import OrderService from '../../../../Services/OrderService';
-import { INewOrderResponse, INewOrderResponseWithError } from '../../../../types/OrderTypes';
-import { initialCustomerDataErrors } from '../../../../Utils/initialStore';
+import { newOrderDto } from '../../../../Utils/CartDto';
 import { validateFields } from '../../../../Utils/Validation';
+import { initialCustomerDataErrors } from '../../../../Utils/initialStore';
+import { INewOrderResponse, INewOrderResponseWithError } from '../../../../types/OrderTypes';
 import DeliveryIcon from '../../Icons/DeliveryIcon';
 import DineInIcon from '../../Icons/DineinIcon';
 import ClientDataForm from '../ClientDataForm/ClientDataForm';
 import DeliveryOrderForm from '../DeliveryOrderForm/DeliveryOrderForm';
 import DineinOrderForm from '../DineinOrderForm/DineinOrderForm';
-
 import './_OrderForm.scss';
 
 const OrderForm: React.FC = () => {
