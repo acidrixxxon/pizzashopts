@@ -229,14 +229,13 @@
         padding: 5px;
 
         border-radius: 5px;
+
         &:active {
           background-color: #4f4f4f;
 
-          .search__results-content {
-            .search__resultsContent {
-              .search__resultsTitle {
-                color: #fff;
-              }
+          .search__resultsContent {
+            .search__resultsTitle {
+              color: #fff;
             }
           }
         }

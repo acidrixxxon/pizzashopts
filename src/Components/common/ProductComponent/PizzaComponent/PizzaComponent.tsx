@@ -37,7 +37,7 @@ const PizzaComponent: React.FC<ComponentProps> = ({ pizza }) => {
 
   const addToCartHandler = (item: IPizzaMain): void => {
     const productObj = getProductDto(item, activeSize, activeType);
-
+    console.log(productObj);
     if (productObj) {
       addToCart(productObj);
       resetAllButtons();

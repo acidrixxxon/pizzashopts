@@ -8,6 +8,11 @@ export interface SearchQueryReponseError {
 export interface SearchQueryReponseSuccess {
   success: true;
   message: string;
+  pagination: {
+    limit: number;
+    page: number;
+    pagesCount: number;
+  };
   result: (IDrinkMain | IPizzaMain | ISideMain)[];
 }
 
