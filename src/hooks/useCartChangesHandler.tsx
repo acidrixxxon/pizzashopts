@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Context1 } from '../Context/Context';
+import { useContextSelector } from '../Context/Context';
 import LocalStorageService from '../Services/LocalStorageService';
 
 export function useCartChangesHandler() {
-  const {
-    state: { cart },
-  } = React.useContext(Context1);
+  const { cart } = useContextSelector();
 
   React.useEffect(() => {
     LocalStorageService.saveCartUpdate(cart);

@@ -1,10 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { debounce } from 'lodash';
+import { cloneWith, debounce } from 'lodash';
 import React from 'react';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 
 import SearchService from '../../Services/SearchService';
-import useOutsideClick from '../../hooks/useOutsideClick';
 import { IPagination } from '../../types/OtherTypes';
 import { IDrinkMain, IPizzaMain, ISideMain } from '../../types/ProductTypes';
 import Spinner from '../common/Icons/Spinner/Spinner';
@@ -20,32 +19,13 @@ const Search: React.FC = () => {
   const [pagination, setPagination] = React.useState<IPagination>({
     limit: 3,
     pagesCount: null,
-    page: null,
+    page: 1,
   });
-
-  console.log(pagination);
 
   const onInputChange = (value: string): void => {
     setSearchQuery(value);
     debounceFetchFunction(value);
   };
-
-  // const debounceFetchFunction = React.useCallback(
-  //   debounce(async (value: string) => {
-  //     setSearchResults(null);
-  //     setLoading(true);
-  //     const data = await SearchService.searchQuery(value);
-
-  //     if (data.success === true && data.result) {
-  //       setSearchResults(data.result);
-  //       setPagination({ limit: data.pagination.limit, pagesCount: data.pagination.pagesCount, page: data.pagination.page });
-  //     } else {
-  //       setSearchResults([]);
-  //     }
-  //     setLoading(false);
-  //   }, 250),
-  //   [],
-  // );
 
   const debounceFetchFunction = React.useCallback(
     debounce(async (value: string) => fetchData(value), 250),
@@ -66,7 +46,7 @@ const Search: React.FC = () => {
     setSearchResults(null);
     setLoading(true);
 
-    const data = await SearchService.searchQuery(value, page);
+    const data = await SearchService.searchQuery(value, page, pagination.limit);
 
     if (data.success === true && data.result) {
       setSearchResults(data.result);
@@ -86,7 +66,24 @@ const Search: React.FC = () => {
     setLoading(false);
   };
 
-  useOutsideClick(searchEl, resetAfterSearch);
+  React.useEffect(() => {
+    const clickHandler = (e: any) => {
+      console.log(e.target);
+      const el = searchEl.current;
+      if (!el || e.target.id === 'modal') return;
+      if (!el.contains(e.target)) {
+        if (!e.target.classList.contains('pagination__item')) {
+          resetAfterSearch();
+        }
+      }
+    };
+
+    document.addEventListener('click', clickHandler);
+
+    return () => {
+      document.removeEventListener('click', clickHandler);
+    };
+  }, []);
 
   return (
     <div id='search' ref={searchEl}>
@@ -115,11 +112,11 @@ const Search: React.FC = () => {
                   {searchResults.slice(0, 5).map((item) => (
                     <SearchResultItem item={item} key={item._id} resetFunc={resetAfterSearch} />
                   ))}
-                  <Pagination data={pagination} onChange={onPageChange} />
                 </ul>
               ) : (
                 'Ничего не найдено'
               ))}
+            {searchResults !== null && searchResults.length > 0 && <Pagination data={pagination} onChange={onPageChange} />}
           </motion.div>
         ) : null}
       </AnimatePresence>

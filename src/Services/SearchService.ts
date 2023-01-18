@@ -1,4 +1,5 @@
 import { BACKEND_URL } from '../Utils/vars';
+import { IPagination } from '../types/OtherTypes';
 import { SearchQueryResponse } from '../types/Response/SearchServiceResponseType';
 
 class SearchService {

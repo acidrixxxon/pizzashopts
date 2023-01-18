@@ -1,12 +1,12 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { getViewActions } from '../Context/actions';
-import { Context1 } from '../Context/Context';
+import { useContextActions } from '../hooks';
 
 export function useActivateAccount() {
-  const { dispatch } = React.useContext(Context1);
-  const { setAuthModalStatus } = getViewActions(dispatch);
+  const {
+    viewActions: { setAuthModalStatus },
+  } = useContextActions();
 
   const { search } = useLocation();
   const navigate = useNavigate();

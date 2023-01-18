@@ -52,6 +52,8 @@ const AddToCartModal: FC = () => {
     setActiveSize({ size: 0, crust: 0 });
   };
 
+  if (!data) return null;
+
   return (
     <>
       <AnimatePresence>

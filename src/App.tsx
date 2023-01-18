@@ -5,41 +5,31 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Header from './Components/Header/Header';
 import Router from './Components/Router';
-import { Context1 } from './Context/Context';
-import { getUserActions } from './Context/actions/userActions';
-import { useActivateAccount } from './hooks/useActivateAccount';
-import { useCartChangesHandler } from './hooks/useCartChangesHandler';
-import { useScrollTop } from './hooks/useScrollTop';
-import { useSetCustomerData } from './hooks/useSetCustomerData';
-import useSetSocket from './hooks/useSetSocket';
+import { useContextActions, useContextSelector } from './hooks';
+import { useInitApp } from './hooks/useInitApp';
 import './scss/_base.scss';
 
 function App() {
+  const appEl = React.useRef<HTMLDivElement>(null);
+  // console.log(state);
   const {
-    state: {
-      view: {
-        authModal,
-        search: { searchResultModal },
-      },
+    userActions: { refreshTokenProccess },
+  } = useContextActions();
+
+  const {
+    view: {
+      authModal,
+      search: { searchResultModal },
     },
-    state,
-    dispatch,
-  } = React.useContext(Context1);
-  console.log(state);
-  const { refreshTokenProccess } = getUserActions(dispatch);
+  } = useContextSelector();
 
   React.useLayoutEffect(() => {
     refreshTokenProccess();
   }, []);
 
-  const appEl = React.useRef<HTMLDivElement>(null);
-  const appClassNames = classNames('App', { 'no-scroll': authModal.status === 'active' || searchResultModal.status === 'visible' });
+  useInitApp();
 
-  useActivateAccount();
-  useCartChangesHandler();
-  useSetCustomerData();
-  useSetSocket();
-  useScrollTop(appEl);
+  const appClassNames = classNames('App', { 'no-scroll': authModal.status === 'active' || searchResultModal.status === 'visible' });
 
   return (
     <div className={appClassNames} ref={appEl}>

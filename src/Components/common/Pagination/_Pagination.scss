@@ -2,6 +2,10 @@
   display: flex;
   justify-content: center;
 
+  @media screen and (max-width: 600px) {
+    margin-top: 20px;
+  }
+
   .pagination__item {
     border: 1px solid #333;
     border-radius: 5px;
@@ -20,6 +24,59 @@
     cursor: pointer;
 
     transition: 0.4s all linear;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+
+    &.pagination__mobile {
+      display: block;
+
+      height: auto;
+      width: auto;
+
+      padding: 5px 10px;
+
+      display: flex;
+      align-items: center;
+
+      min-width: 95px;
+
+      transition: 0.5s all linear;
+
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      @media screen and (min-width: 600px) {
+        display: none;
+      }
+
+      &.pagination__mobile-disabled {
+        border: 1px solid #919eab !important;
+
+        background-color: #fff;
+        color: lightgray;
+
+        border: none;
+
+        cursor: default;
+      }
+
+      &.pagination__mobile-prev {
+        margin-right: 10px;
+        svg {
+          margin-right: 10px;
+        }
+      }
+
+      &.pagination__mobile-next {
+        svg {
+          margin-left: 10px;
+        }
+      }
+    }
 
     &.active,
     &:hover {
